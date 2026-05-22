@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻饮食</title>
+  <script>
+    // 入口页面，已登录跳首页，未登录跳登录页
+    if (localStorage.getItem('token')) {
+      window.location.href = 'pages/home.html';
+    } else {
+      window.location.href = 'pages/login.html';
+    }
+  </script>
+</head>
+<body>
+  <noscript>
+    <p>正在跳转到轻饮食首页... <a href="pages/home.html">点击这里</a> 如果没有自动跳转。</p>
+  </noscript>
+</body>
+</html>

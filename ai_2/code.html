@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#3f4a3c",
+                    "surface-container-low": "#f3f3f3",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#94f990",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f0f1f1",
+                    "on-surface": "#1a1c1c",
+                    "tertiary-container": "#929e94",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#78dc77",
+                    "tertiary-fixed": "#d9e6da",
+                    "surface-container-high": "#e8e8e8",
+                    "secondary": "#8b5000",
+                    "on-secondary-fixed": "#2c1600",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "outline": "#6f7a6b",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#006e1c",
+                    "primary-container": "#4caf50",
+                    "on-primary-fixed": "#002204",
+                    "surface-container": "#eeeeee",
+                    "background": "#f9f9f9",
+                    "surface-bright": "#f9f9f9",
+                    "on-secondary-fixed-variant": "#693c00",
+                    "surface-dim": "#dadada",
+                    "surface-container-highest": "#e2e2e2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#3e4a41",
+                    "on-background": "#1a1c1c",
+                    "primary": "#006e1c",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2f3131",
+                    "tertiary": "#556158",
+                    "on-tertiary-fixed": "#131e17",
+                    "outline-variant": "#becab9",
+                    "on-tertiary-container": "#2a352d",
+                    "secondary-container": "#ff9800",
+                    "on-secondary-container": "#653900",
+                    "tertiary-fixed-dim": "#bdcabe",
+                    "surface-variant": "#e2e2e2",
+                    "surface": "#f9f9f9",
+                    "secondary-fixed": "#ffdcbe",
+                    "secondary-fixed-dim": "#ffb870",
+                    "inverse-primary": "#78dc77",
+                    "on-primary-fixed-variant": "#005313",
+                    "on-primary-container": "#003c0b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-base": "1rem",
+                    "container-margin": "1.25rem",
+                    "stack-md": "1rem",
+                    "card-padding": "1rem",
+                    "stack-sm": "0.5rem",
+                    "stack-lg": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-progress-active {
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #006e1c;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 110, 28, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin py-3 bg-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high ring-2 ring-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMSpG1K_3k1C7Vd3pdMGNz8y9gSqpNXt76y6hMZVaZs6iI8h_C1Howv773lRfP367sRZQCTLJVVseOwLjK8h9k0jT-v0pKpbxqVtMovtM84qAlczlZqcC1mcfrohACl4R6yd1e-IieNVfqJJSs8UyGzTPHnK4sOgYaqBIhR8XacuKqukixDErkDEx3UlQ2lP9lzge63KhdXyl9rtVaPHBRA7emeVghuzNpNKAxKDjA5pfxRmMu0LQTTgiTzB4VnT62kTJK4F__mT_v">
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AI 私人定制</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</header>
+<!-- Content Canvas -->
+<main class="pt-20 px-container-margin">
+<!-- Progress Indicator -->
+<div class="mb-stack-lg">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-md text-label-md text-primary font-bold">Step 1/2: Body Data</span>
+<span class="font-label-md text-label-md text-on-surface-variant">50%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="step-progress-active h-full bg-primary w-1/2"></div>
+</div>
+</div>
+<!-- Main Form Card -->
+<div class="bg-surface-container-lowest rounded-xl p-card-padding shadow-[0px_4px_20px_rgba(76,175,80,0.1)] space-y-stack-lg">
+<!-- Gender Selection -->
+<section>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-stack-sm">性别</label>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary bg-primary-container/10 text-primary transition-all" id="gender-male" onclick="selectGender('male')">
+<span class="material-symbols-outlined">male</span>
+<span class="font-label-md text-label-md">男</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-outline-variant text-on-surface-variant transition-all" id="gender-female" onclick="selectGender('female')">
+<span class="material-symbols-outlined">female</span>
+<span class="font-label-md text-label-md">女</span>
+</button>
+</div>
+</section>
+<!-- Age Slider -->
+<section>
+<div class="flex justify-between items-center mb-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant">年龄</label>
+<span class="font-headline-sm text-headline-sm text-primary" id="age-display">25</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" id="age-slider" max="100" min="12" oninput="updateAge(this.value)" type="range" value="25">
+</section>
+<!-- Height and Weight Grid -->
+<div class="grid grid-cols-2 gap-4">
+<section>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-stack-sm">身高 (cm)</label>
+<input class="w-full px-4 py-3 bg-surface-container rounded-xl border-1 border-transparent focus:border-primary focus:ring-0 transition-colors font-body-md text-body-md" placeholder="175" type="number">
+</section>
+<section>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-stack-sm">体重 (kg)</label>
+<input class="w-full px-4 py-3 bg-surface-container rounded-xl border-1 border-transparent focus:border-primary focus:ring-0 transition-colors font-body-md text-body-md" placeholder="70.5" type="number">
+</section>
+</div>
+<!-- Body Fat -->
+<section>
+<div class="flex justify-between items-center mb-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant">体脂率 (可选)</label>
+<button class="text-primary-container text-xs flex items-center">
+<span class="material-symbols-outlined text-sm mr-1">help</span>
+                        如何测算？
+                    </button>
+</div>
+<div class="relative">
+<input class="w-full px-4 py-3 bg-surface-container rounded-xl border-1 border-transparent focus:border-primary focus:ring-0 transition-colors font-body-md text-body-md pr-12" placeholder="18" type="number">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">%</span>
+</div>
+</section>
+<!-- Visual Aid Card -->
+<div class="relative overflow-hidden rounded-xl aspect-video w-full group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A bright and airy lifestyle photograph featuring a diverse group of healthy individuals smiling in a modern sun-drenched wellness studio. The composition uses high-key soft lighting with vibrant green plant accents, reflecting the brand's vitality theme. Soft shadows and a clean cream-colored background enhance the professional health-conscious aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbYeMYP3ZgKnuOFI4JQvbh4fB2F5-TlpIv8382t7Jjy8whIYN1k7clAFK2rGW_bnmHlLCKioqswA6E3Et0isvz2IvoRAoaoQ-WixcWJZGG9wuQ-eiaXuDbZfeGS6agRR5b2rre2D8XarFQEGtxiPWtYQgW6sjucnnKEjgdNO6RdaOA_iJFt3agGnd75LK3Yd1Mnr_xiaJz_i0lKaHRphBF2ovBpiMu2Jsv-pMyKGYjH52blh4B4YZWsKnsXY96kTb2HyAuim7GD0oS">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex flex-col justify-end p-4">
+<p class="text-white font-label-md leading-tight">准确的身体数据能帮助 AI <br>为您生成更科学的饮食方案</p>
+</div>
+</div>
+</div>
+<!-- Next Button -->
+<div class="mt-stack-lg pb-6">
+<button class="w-full py-4 bg-primary-container text-on-primary font-headline-sm rounded-xl shadow-lg hover:scale-[0.98] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span>下一步</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center mt-4 text-on-surface-variant font-label-md">您可以在个人设置中随时修改这些数据</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-6 pt-2 bg-surface-container-lowest shadow-[0px_-4px_20px_rgba(76,175,80,0.1)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">发现</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">记录</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">社区</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">我的</span>
+</a>
+</nav>
+<script>
+        function selectGender(gender) {
+            const maleBtn = document.getElementById('gender-male');
+            const femaleBtn = document.getElementById('gender-female');
+            
+            if (gender === 'male') {
+                maleBtn.classList.remove('border-outline-variant', 'text-on-surface-variant');
+                maleBtn.classList.add('border-primary', 'bg-primary-container/10', 'text-primary');
+                femaleBtn.classList.add('border-outline-variant', 'text-on-surface-variant');
+                femaleBtn.classList.remove('border-primary', 'bg-primary-container/10', 'text-primary');
+            } else {
+                femaleBtn.classList.remove('border-outline-variant', 'text-on-surface-variant');
+                femaleBtn.classList.add('border-primary', 'bg-primary-container/10', 'text-primary');
+                maleBtn.classList.add('border-outline-variant', 'text-on-surface-variant');
+                maleBtn.classList.remove('border-primary', 'bg-primary-container/10', 'text-primary');
+            }
+        }
+
+        function updateAge(val) {
+            document.getElementById('age-display').textContent = val;
+        }
+
+        // Simple button active state animation
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => el.classList.add('scale-95'));
+            el.addEventListener('mouseup', () => el.classList.remove('scale-95'));
+            el.addEventListener('mouseleave', () => el.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

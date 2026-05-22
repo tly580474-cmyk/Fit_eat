@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻食刻 - AI 定制方案</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#006e1c',
+            'primary-container': '#4caf50',
+            secondary: '#8b5000',
+            surface: '#f9f9f9',
+          },
+          borderRadius: { 'huge': '1.5rem' }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .active-day-tab {
+      background-color: #006e1c;
+      color: white;
+      box-shadow: 0px 4px 12px rgba(0, 110, 28, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 pb-24 lg:pb-8">
+
+  <!-- 顶部导航栏 -->
+  <header class="top-app-bar">
+    <div class="flex justify-between items-center px-4 md:px-6 h-16 w-full max-w-7xl mx-auto">
+      <div class="flex items-center gap-3">
+        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors" onclick="history.back()">
+          <span class="material-symbols-outlined text-green-700">arrow_back</span>
+        </button>
+        <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-700 text-xl">restaurant</span>
+        </div>
+        <h1 class="font-bold text-xl text-green-700 tracking-tight">轻食刻</h1>
+        <nav class="hidden md:flex items-center gap-1 ml-6">
+          <a href="home.html" class="desktop-nav-link active">首页</a>
+          <a href="discover.html" class="desktop-nav-link">发现</a>
+          <a href="record.html" class="desktop-nav-link">记录</a>
+          <a href="discover.html" class="desktop-nav-link">社区</a>
+          <a href="profile.html" class="desktop-nav-link">我的</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+          <span class="material-symbols-outlined text-green-700">notifications</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容 -->
+  <main class="pt-20 px-4 md:px-6 max-w-7xl mx-auto">
+
+    <!-- 桌面端: 侧边栏 + 主内容 -->
+    <div class="desktop-grid-12">
+
+      <!-- 左侧边栏 (桌面端 4 栏) -->
+      <div class="desktop-sidebar">
+        <!-- AI 专属方案卡片 -->
+        <div class="bg-primary/5 border border-primary/10 rounded-3xl p-6 card-shadow">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-primary filled">auto_awesome</span>
+            <h3 class="font-bold text-primary">AI 专属方案</h3>
+          </div>
+
+          <!-- BMI 显示 -->
+          <div class="text-center mb-4">
+            <p class="text-4xl font-extrabold text-primary">21.4</p>
+            <p class="text-sm text-gray-500 mt-1">BMI 指数</p>
+          </div>
+
+          <!-- 目标体重 -->
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-gray-500">目标体重</span>
+              <span class="font-bold text-gray-800">55.0 kg</span>
+            </div>
+            <div class="bg-gray-200 rounded-full h-2">
+              <div class="bg-primary rounded-full h-2" style="width: 65%"></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-1">距离目标还差 3.5 kg</p>
+          </div>
+
+          <!-- 每日热量 -->
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-gray-500">每日热量</span>
+              <span class="font-bold text-gray-800">1,650 kcal</span>
+            </div>
+            <div class="bg-gray-200 rounded-full h-2">
+              <div class="bg-secondary rounded-full h-2" style="width: 45%"></div>
+            </div>
+          </div>
+
+          <!-- 宏量配比 -->
+          <div class="grid grid-cols-3 gap-3 text-center mb-4">
+            <div class="bg-white rounded-xl p-3 border border-gray-100">
+              <div class="w-10 h-10 mx-auto mb-1 rounded-full border-2 border-green-500 flex items-center justify-center">
+                <span class="text-xs font-bold text-green-700">50%</span>
+              </div>
+              <p class="text-xs text-gray-500">蛋白质</p>
+            </div>
+            <div class="bg-white rounded-xl p-3 border border-gray-100">
+              <div class="w-10 h-10 mx-auto mb-1 rounded-full border-2 border-orange-500 flex items-center justify-center">
+                <span class="text-xs font-bold text-orange-600">30%</span>
+              </div>
+              <p class="text-xs text-gray-500">碳水</p>
+            </div>
+            <div class="bg-white rounded-xl p-3 border border-gray-100">
+              <div class="w-10 h-10 mx-auto mb-1 rounded-full border-2 border-yellow-700 flex items-center justify-center">
+                <span class="text-xs font-bold text-yellow-700">20%</span>
+              </div>
+              <p class="text-xs text-gray-500">脂肪</p>
+            </div>
+          </div>
+
+          <button class="w-full py-3 border border-primary text-primary rounded-xl font-medium text-sm hover:bg-primary/5 transition-colors">
+            调整计划偏好
+          </button>
+        </div>
+
+        <!-- 激励卡片 -->
+        <div class="relative overflow-hidden rounded-3xl h-48 cursor-pointer group">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9PDBQBLR6-2C4UIOl__uL1F2S6GnfVahPmM-xAe9UVFAe_ah0hAftfNoNSKFsooDFk6R6TeJuAURa2olJ_seVQlt9bJyWphazxhT8x6oO7Yz1Gl2bQmNy6D2OkoCwqDQYtazMCHwLNDPBfN9ZLJei2zarT_UB49eXAXtU8ECiTn_dbUh0uAz0HsfaVNA6TiCP2a6MTlcHZK2pflqrpcQJrAlx-d4R0fWww2MBN-O_dFEJRApMRa8h3m7ZQaKPt3xA8xejCCO9JPwf"
+               alt="激励" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-5">
+            <h4 class="text-white font-bold text-lg mb-2">解锁健康食谱库</h4>
+            <p class="text-white/70 text-sm">500+ 精选轻食食谱等你探索</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧主内容 (桌面端 8 栏) -->
+      <div class="desktop-main">
+
+        <!-- 移动端 AI 方案摘要 -->
+        <section class="lg:hidden relative overflow-hidden rounded-2xl bg-green-600 text-white p-6 shadow-lg mb-6">
+          <div class="relative z-10">
+            <h2 class="text-xl font-bold mb-2">AI 为您定制的减脂计划</h2>
+            <p class="text-sm opacity-90 leading-relaxed">
+              基于您 <span class="font-bold underline">22.5</span> 的 BMI 指数及减脂目标，我们建议每日摄入量控制在 <span class="font-bold underline">1500kcal</span>。
+            </p>
+            <div class="mt-4 flex gap-3">
+              <div class="bg-white/20 rounded-lg px-3 py-2 text-center flex-1 backdrop-blur-sm">
+                <p class="text-[10px] uppercase tracking-wider opacity-70">蛋白质</p>
+                <p class="font-bold">95g</p>
+              </div>
+              <div class="bg-white/20 rounded-lg px-3 py-2 text-center flex-1 backdrop-blur-sm">
+                <p class="text-[10px] uppercase tracking-wider opacity-70">碳水</p>
+                <p class="font-bold">140g</p>
+              </div>
+              <div class="bg-white/20 rounded-lg px-3 py-2 text-center flex-1 backdrop-blur-sm">
+                <p class="text-[10px] uppercase tracking-wider opacity-70">脂肪</p>
+                <p class="font-bold">45g</p>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        </section>
+
+        <!-- 桌面端: 页面标题 -->
+        <div class="hidden lg:flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">AI 专属方案</h2>
+            <p class="text-sm text-gray-500 mt-1">基于您的身体数据，AI 为您量身定制的每周饮食计划</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1 text-green-600">
+              <span class="material-symbols-outlined text-sm filled">trending_up</span>
+              <span class="text-sm font-bold">进度 65%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 进度指示器 (移动端) -->
+        <div class="mb-6 lg:hidden">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-sm font-bold text-green-700">Step 2/2: 定制方案</span>
+            <span class="text-sm text-gray-500">100%</span>
+          </div>
+          <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-green-600 rounded-full transition-all duration-600" style="width: 100%"></div>
+          </div>
+        </div>
+
+        <!-- 横向日历 (桌面端 7 栏网格) -->
+        <section class="mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-gray-800">本周日历</h3>
+            <div class="flex gap-2">
+              <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors">
+                <span class="material-symbols-outlined text-gray-500">chevron_left</span>
+              </button>
+              <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors">
+                <span class="material-symbols-outlined text-gray-500">chevron_right</span>
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-cols-7 gap-2 md:gap-3" id="week-calendar">
+            <!-- 动态加载 -->
+          </div>
+        </section>
+
+        <!-- 今日食谱建议 -->
+        <section class="mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-gray-800 flex items-center gap-2">
+              <span class="material-symbols-outlined text-green-600">restaurant_menu</span>
+              今日饮食推荐
+            </h3>
+            <button class="text-green-600 text-sm font-medium hover:underline">查看全部</button>
+          </div>
+
+          <!-- 桌面端: 2 栏 bento 布局 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="meal-plan-container">
+            <!-- 动态加载 -->
+          </div>
+        </section>
+
+        <!-- 应用计划按钮 -->
+        <div class="pb-6">
+          <button class="w-full py-4 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-200 hover:bg-green-700 active:scale-95 transition-transform flex items-center justify-center gap-2" onclick="applyPlan()">
+            <span class="material-symbols-outlined">check_circle</span>
+            应用此计划到我的日程
+          </button>
+          <p class="text-center mt-4 text-gray-500 text-xs">应用后，您的每日打卡将同步此食谱</p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 底部导航栏 -->
+  <nav class="bottom-nav mobile-only">
+    <div class="flex justify-around items-center">
+      <a href="home.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl bg-green-100 text-green-800">
+        <span class="material-symbols-outlined filled">home</span>
+        <span class="text-[10px] font-medium mt-0.5">首页</span>
+      </a>
+      <a href="discover.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">explore</span>
+        <span class="text-[10px] font-medium mt-0.5">发现</span>
+      </a>
+      <a href="record.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">analytics</span>
+        <span class="text-[10px] font-medium mt-0.5">记录</span>
+      </a>
+      <a href="discover.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">group</span>
+        <span class="text-[10px] font-medium mt-0.5">社区</span>
+      </a>
+      <a href="profile.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">person</span>
+        <span class="text-[10px] font-medium mt-0.5">我的</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <span class="material-symbols-outlined text-green-400 filled">check_circle</span>
+    <span id="toast-message">操作成功</span>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/components.js"></script>
+  <script>
+    const mealPlan = [
+      {
+        name: '蓝莓坚果酸奶碗', calories: 320, protein: 18, type: 'breakfast',
+        tags: ['高蛋白', '免煮'],
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCBryIQ5tZE6o2ofnuhWPvxu4hm-dZ3a_HCwxoyk40yKzizC7m6z_bby013e8905S1nW8gkIb4G4iN800sM1L2FtY1QqPwdaGd9u5a1y8MBp0gFFawuRyxjK6gFQ8NuaFBixNSDxpkH81e2NUOd5DFiCpEyDGpMh5EcK663YjBr0kw9vOey4MofsioB9TVKIKUV0B4WqWVwwoLGOBZMB7r_ttlGoq6jaCQIM2ma5GXC5GE4ShomIn8uKCk9tGYbOsqtOMSx_9Y5-zmd'
+      },
+      {
+        name: '香煎鸡胸肉暖沙拉', calories: 450, protein: 35, type: 'lunch',
+        tags: ['低GI', '优质脂'],
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBL22umvGsNCB29_UWSHOsvz3kAZT1Er0GAiWiKDgMOnPloyGMkPtgtdE6KjW_dOyCsGRTj4keyazSBCis4YOmau38boWMntEEUjBQkd_4B9g49WUTQPbbkPdQELD2EGEsW-aalvMmLoffgQThhIDjWxOdvhSQNwNSf2A0abZD-y3YT8ccaLtsx7JxgcOksZes8xJxTTSM4Q9UWIxn_MTLEykY4hF0X34MWPFmdjr76BYHhl78mG1WtgflGY7_dP35J2THL8BUE8gs7'
+      },
+      {
+        name: '混合坚果与苹果片', calories: 180, protein: 5, type: 'snack',
+        tags: ['高纤维'],
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjGXnKNraI9Y9odxH3H01c68BCw52UaGtQd__F72qBuinX5EAa1VyfojRVx3cMRigCirJ8S2z-7RxKFbqPvtrLrxUqsr2OMRwMyEMcM-N248HY4yoMbAH3uVXQLqv-9j332Vfb3woCcnvil8bSiV4-HO9E2Q6d3kb6loNfw4op2dFJ-FEvjXg7Qu-B9yQp8UHiMBpmPqrwg3n_qHfW2qWi37MY1vSV_7TibDcPP1evXqZwZRp-YGdS0FKFzHP7Z5aJAB5SIxQmFnWc'
+      },
+      {
+        name: '柠檬香煎三文鱼配芦笋', calories: 380, protein: 28, type: 'dinner',
+        tags: ['Omega-3', '低碳水'],
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD6UlzqXdAvKEfShYuVrgLEmA6aSxCuuWjQzOYdQQri6Hcg90TMy189kWAeLts5cUqPN286U__KXEpJTBr-l0ttIOpnncwIAr9npIxcMEyyzViGuHu_H3uo-a5HGUVE7sPRhgUqmdTSxZm0NkT3lCvKgm8gc02QsAhkc1pOjrg2TASErtHl4Az-m7r0KJuCipjLcXX2iAZT0YPMIJMX64NCep390-lkWjfFpcDjuqTBK4TtMfMSs95O4ejoFkPKLVpNKs5RqKoa5qvG'
+      }
+    ];
+
+    const typeColors = {
+      breakfast: 'bg-green-100 text-green-700',
+      lunch: 'bg-orange-100 text-orange-700',
+      dinner: 'bg-blue-100 text-blue-700',
+      snack: 'bg-gray-100 text-gray-700'
+    };
+
+    const typeNames = {
+      breakfast: '早餐',
+      lunch: '午餐',
+      dinner: '晚餐',
+      snack: '加餐'
+    };
+
+    function initPage() {
+      renderWeekCalendar();
+      renderMealPlan();
+    }
+
+    function renderWeekCalendar() {
+      const container = document.getElementById('week-calendar');
+      const days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+      container.innerHTML = days.map((day, index) => `
+        <button class="${index === 2
+          ? 'active-day-tab'
+          : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+        } py-3 rounded-xl flex flex-col items-center justify-center transition-all"
+        onclick="selectDay(this, ${index})">
+          <span class="text-xs opacity-70">${day}</span>
+          <span class="text-lg font-bold">${String(index + 14).padStart(2, '0')}</span>
+        </button>
+      `).join('');
+    }
+
+    function selectDay(element, index) {
+      const tabs = element.parentElement.children;
+      for (let tab of tabs) {
+        tab.classList.remove('active-day-tab');
+        tab.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+      }
+      element.classList.add('active-day-tab');
+      element.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+
+      const container = document.getElementById('meal-plan-container');
+      container.style.opacity = '0.5';
+      setTimeout(() => { container.style.opacity = '1'; }, 200);
+    }
+
+    function renderMealPlan() {
+      const container = document.getElementById('meal-plan-container');
+      container.innerHTML = mealPlan.map((meal, index) => `
+        <div class="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover transition-all cursor-pointer ${index === 3 ? 'md:col-span-2' : ''}"
+             onclick="goToFoodDetail('${meal.name}')">
+          <div class="${index === 3 ? 'flex' : ''}">
+            <div class="${index === 3 ? 'w-1/2 h-48 md:h-56' : 'h-48'} overflow-hidden">
+              <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="${meal.image}" alt="${meal.name}"
+                   onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij48cmVjdCB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIGZpbGw9IiNlMmUyZTIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzZmN2E2YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuivrTwvdGV4dD48L3N2Zz4='">
+            </div>
+            <div class="p-4 flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="${typeColors[meal.type]} px-2 py-0.5 rounded-full text-[10px] font-bold">${typeNames[meal.type]}</span>
+              </div>
+              <h4 class="font-bold text-gray-800 mb-1">${meal.name}</h4>
+              <p class="text-sm text-gray-500 mb-3">${meal.calories} kcal · 蛋白质 ${meal.protein}g</p>
+              <div class="flex gap-2">
+                ${meal.tags.map(tag => `<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${tag}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function goToFoodDetail(name) {
+      Utils.showToast(`查看 ${name} 详情`);
+    }
+
+    function applyPlan() {
+      Utils.showToast('计划已应用到您的日程');
+      setTimeout(() => { window.location.href = 'home.html'; }, 1500);
+    }
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+
+</body>
+</html>

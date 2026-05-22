@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>轻食刻 - 食物详情</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#929e94",
+                        "secondary-container": "#ff9800",
+                        "on-tertiary-fixed-variant": "#3e4a41",
+                        "on-surface": "#1a1c1c",
+                        "secondary-fixed": "#ffdcbe",
+                        "primary-fixed": "#94f990",
+                        "outline-variant": "#becab9",
+                        "surface-container-low": "#f3f3f3",
+                        "on-surface-variant": "#3f4a3c",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#556158",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-container": "#003c0b",
+                        "primary-container": "#4caf50",
+                        "background": "#f9f9f9",
+                        "tertiary-fixed": "#d9e6da",
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed": "#002204",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#2a352d",
+                        "on-primary-fixed-variant": "#005313",
+                        "tertiary-fixed-dim": "#bdcabe",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-container": "#653900",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#006e1c",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-fixed-dim": "#ffb870",
+                        "secondary": "#8b5000",
+                        "on-tertiary-fixed": "#131e17",
+                        "on-secondary-fixed": "#2c1600",
+                        "primary": "#006e1c",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "on-background": "#1a1c1c",
+                        "surface-dim": "#dadada",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f0f1f1",
+                        "primary-fixed-dim": "#78dc77",
+                        "inverse-surface": "#2f3131",
+                        "surface-variant": "#e2e2e2",
+                        "surface": "#f9f9f9",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#78dc77",
+                        "outline": "#6f7a6b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "1rem",
+                        "gutter-base": "1rem",
+                        "container-margin": "1.25rem",
+                        "stack-sm": "0.5rem",
+                        "card-padding": "1rem",
+                        "stack-lg": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .active-tab-indicator {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top App Bar (Overlaid on Image) -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-container-margin py-4 transition-all duration-300" id="main-header">
+<button class="w-10 h-10 flex items-center justify-center bg-surface/40 backdrop-blur-xl rounded-full text-on-surface hover:bg-surface/60 transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center bg-surface/40 backdrop-blur-xl rounded-full text-on-surface hover:bg-surface/60 transition-colors" onclick="toggleFavorite(this)">
+<span class="material-symbols-outlined" id="fav-icon">favorite</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-surface/40 backdrop-blur-xl rounded-full text-on-surface hover:bg-surface/60 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</header>
+<main class="pb-32">
+<!-- Hero Image Section -->
+<section class="relative h-[397px] w-full overflow-hidden">
+<img alt="Avocado and Poached Egg Bowl" class="w-full h-full object-cover" data-alt="A top-down professional food photograph of a vibrant healthy breakfast bowl. It features a perfectly poached egg with a soft yolk, slices of ripe green avocado, and fresh microgreens on a bed of toasted sourdough. The scene is bathed in bright, natural morning light, creating a fresh and high-energy atmosphere. The color palette is dominated by lush greens, warm gold, and crisp whites, reflecting a clean and modern healthy lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWCoRWf35e_dNWXLpeZWhsKHgeY-zVv6EnjN3c0eM1AtF7MMoxOmUVW8-l1TrlyxiJ6kIgMGlnoXb9LhqJphxsIRFMS4y2mm49SGlUhx1-8ocpAS1TPq9eaZ0qG6LSDTjkSApI7sABbITnQf4PCA5W1IxMklQvdoLN--JgjkouYb2KztGNCOg3tTO-p-Rh0HdzAvCn9OaeY7zX1tDDm72_YgsTVvlOqlUeTq_U1_cxgLAMZo68BYBYbUfSM483xHtlIWveDQpdMco7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</section>
+<!-- Content Area -->
+<section class="relative -mt-12 px-container-margin">
+<div class="bg-surface-container-lowest rounded-t-[32px] p-6 shadow-sm">
+<!-- Title & Description -->
+<div class="mb-stack-lg">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full font-label-md text-label-md">高蛋白</span>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full font-label-md text-label-md">低GI</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">牛油果水波蛋活力碗</h1>
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                        这款活力碗完美平衡了优质脂肪、蛋白质和复合碳水，是开启元气满满一天的理想选择。
+                    </p>
+</div>
+<!-- Nutrition Grid -->
+<div class="grid grid-cols-4 gap-4 mb-stack-lg">
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col items-center">
+<span class="text-primary font-headline-sm text-headline-sm">345</span>
+<span class="text-on-surface-variant font-label-md text-label-md">千卡</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col items-center border-b-4 border-primary">
+<span class="text-on-surface font-headline-sm text-headline-sm">18g</span>
+<span class="text-on-surface-variant font-label-md text-label-md">蛋白质</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col items-center border-b-4 border-secondary-container">
+<span class="text-on-surface font-headline-sm text-headline-sm">24g</span>
+<span class="text-on-surface-variant font-label-md text-label-md">碳水</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col items-center border-b-4 border-tertiary">
+<span class="text-on-surface font-headline-sm text-headline-sm">12g</span>
+<span class="text-on-surface-variant font-label-md text-label-md">脂肪</span>
+</div>
+</div>
+<!-- Tabs Container -->
+<div class="sticky top-16 bg-surface-container-lowest z-40 mb-6">
+<div class="flex border-b border-outline-variant">
+<button class="flex-1 py-4 font-label-md text-label-md text-primary border-b-2 border-primary transition-all" id="tab-overview" onclick="switchTab('overview')">营养概览</button>
+<button class="flex-1 py-4 font-label-md text-label-md text-on-surface-variant border-b-2 border-transparent transition-all" id="tab-recipe" onclick="switchTab('recipe')">制作方法</button>
+</div>
+</div>
+<!-- Tab Content: Overview -->
+<div class="tab-content active space-y-6" id="content-overview">
+<div class="flex gap-4 items-start p-4 bg-primary-fixed/20 rounded-2xl">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">健康益处</h3>
+<p class="text-on-surface-variant font-body-md">牛油果富含单不饱和脂肪酸，有助于心脏健康和皮肤光泽。水波蛋提供完整的氨基酸谱，促进肌肉修复。</p>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">主要食材</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-surface-container rounded-lg font-body-md">熟透牛油果 (1/2个)</span>
+<span class="px-4 py-2 bg-surface-container rounded-lg font-body-md">新鲜鸡蛋 (1枚)</span>
+<span class="px-4 py-2 bg-surface-container rounded-lg font-body-md">全麦欧包 (1片)</span>
+<span class="px-4 py-2 bg-surface-container rounded-lg font-body-md">樱桃番茄 (5-6个)</span>
+<span class="px-4 py-2 bg-surface-container rounded-lg font-body-md">希腊酸奶 (20g)</span>
+</div>
+</div>
+</div>
+<!-- Tab Content: Recipe -->
+<div class="tab-content space-y-6" id="content-recipe">
+<div class="flex items-center gap-4 mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">schedule</span>
+<span class="text-on-surface-variant font-label-md text-label-md">15 分钟</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">skillet</span>
+<span class="text-on-surface-variant font-label-md text-label-md">简单</span>
+</div>
+</div>
+<div class="space-y-8">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">1</div>
+<div>
+<h5 class="font-headline-sm text-headline-sm mb-1">准备牛油果泥</h5>
+<p class="text-on-surface-variant font-body-md">将牛油果切开去核，取出果肉压碎。加入少许柠檬汁、海盐和黑胡椒，搅拌至质地顺滑。</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">2</div>
+<div>
+<h5 class="font-headline-sm text-headline-sm mb-1">制作水波蛋</h5>
+<p class="text-on-surface-variant font-body-md">锅中烧开水，加入一勺白醋。用勺子在水中搅出一个旋涡，缓缓倒入打好的鸡蛋，微火煮3分钟直到蛋白凝固。</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">3</div>
+<div>
+<h5 class="font-headline-sm text-headline-sm mb-1">组装装盘</h5>
+<p class="text-on-surface-variant font-body-md">在烤好的欧包上抹上厚厚一层牛油果泥，放上水波蛋，点缀切开的樱桃番茄，撒上奇亚籽即可。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 p-container-margin bg-surface/80 backdrop-blur-xl z-50">
+<div class="flex gap-4 max-w-2xl mx-auto">
+<button class="flex-1 bg-primary text-on-primary font-headline-sm text-headline-sm py-4 rounded-2xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_circle</span>
+                添加至今日饮食
+            </button>
+</div>
+</div>
+<script>
+        function switchTab(tab) {
+            // Update Tab Headers
+            const tabs = ['overview', 'recipe'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const content = document.getElementById(`content-${t}`);
+                if (t === tab) {
+                    btn.classList.add('text-primary', 'border-primary');
+                    btn.classList.remove('text-on-surface-variant', 'border-transparent');
+                    content.classList.add('active');
+                } else {
+                    btn.classList.remove('text-primary', 'border-primary');
+                    btn.classList.add('text-on-surface-variant', 'border-transparent');
+                    content.classList.remove('active');
+                }
+            });
+        }
+
+        function toggleFavorite(btn) {
+            const icon = btn.querySelector('#fav-icon');
+            const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+            if (isFilled) {
+                icon.style.fontVariationSettings = "'FILL' 0";
+                icon.classList.remove('text-error');
+            } else {
+                icon.style.fontVariationSettings = "'FILL' 1";
+                icon.classList.add('text-error');
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-surface/90', 'backdrop-blur-md', 'shadow-sm');
+                header.classList.remove('bg-transparent');
+            } else {
+                header.classList.remove('bg-surface/90', 'backdrop-blur-md', 'shadow-sm');
+                header.classList.add('bg-transparent');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>轻食刻 - 专家分享社区</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 1.5rem;
+        }
+        @media (max-width: 1024px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(249, 249, 249, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #becab9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6f7a6b;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#003c0b",
+                        "secondary": "#8b5000",
+                        "primary-container": "#4caf50",
+                        "surface-container-low": "#f3f3f3",
+                        "surface": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f0f1f1",
+                        "primary-fixed-dim": "#78dc77",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#78dc77",
+                        "outline-variant": "#becab9",
+                        "on-secondary-container": "#653900",
+                        "outline": "#6f7a6b",
+                        "primary": "#006e1c",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#bdcabe",
+                        "secondary-fixed": "#ffdcbe",
+                        "secondary-container": "#ff9800",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "on-background": "#1a1c1c",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#005313",
+                        "surface-dim": "#dadada",
+                        "on-tertiary-fixed-variant": "#3e4a41",
+                        "surface-tint": "#006e1c",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#556158",
+                        "tertiary-fixed": "#d9e6da",
+                        "on-surface-variant": "#3f4a3c",
+                        "on-primary-fixed": "#002204",
+                        "on-tertiary-fixed": "#131e17",
+                        "surface-bright": "#f9f9f9",
+                        "on-secondary-fixed": "#2c1600",
+                        "surface-container": "#eeeeee",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed": "#94f990",
+                        "on-tertiary-container": "#2a352d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "background": "#f9f9f9",
+                        "tertiary-container": "#929e94",
+                        "secondary-fixed-dim": "#ffb870"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface">
+<!-- TopAppBar Section -->
+<nav class="fixed top-0 w-full z-50 glass-header shadow-sm h-16 border-none">
+<div class="flex justify-between items-center px-5 h-full w-full max-w-7xl mx-auto">
+<!-- Brand Identity -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white overflow-hidden shadow-sm">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a smiling nutritionist with a friendly and clean aesthetic. High-key natural lighting illuminates the face against a soft, cream-colored minimalist background. The style is modern and polished, conveying health and vitality through a warm and approachable expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA89oMK1-HTKiSFE8WkAdFf1Z19mH0JAQLCq_OTyO58ko4oZFoZ1zCHu1S2R32BrTkK1Cmix60sGdlTmelecGtLcC0evwDkF0rKOAIrEE-w3DIrWTKM4bDZyr1YvqqlkFm-7wddgPe3fPcMwLi6QiVQ97c3zbjvHYx_55G72nVn8WJsHOKBc6fSssF8UL3jbbMR0SMcTLDSXGC52YuTRkOFiBOgtgj-eEACW6_oDs5ogWXjjEHe8Lmxcrm0YGjmxqZABhrbIpjpickt"/>
+</div>
+<h1 class="font-bold text-2xl text-primary tracking-tight">轻食刻</h1>
+</div>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity font-medium" href="#">首页</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity font-medium" href="#">发现</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity font-medium" href="#">记录</a>
+<a class="text-primary font-bold transition-opacity" href="#">社区</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity font-medium" href="#">我的</a>
+</div>
+<!-- Trailing Search -->
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant/50 transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary text-2xl">search</span>
+</button>
+<button class="hidden md:flex bg-primary text-white px-6 py-2 rounded-full font-bold shadow-md hover:opacity-90 transition-all active:scale-95">
+                    发布动态
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="pt-24 pb-20 px-5 max-w-7xl mx-auto min-h-screen">
+<!-- Category Filter Bar -->
+<section class="mb-10 overflow-x-auto no-scrollbar py-2">
+<div class="flex items-center gap-3">
+<button class="px-6 py-2 bg-primary text-white rounded-full font-bold whitespace-nowrap shadow-sm">全部动态</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium whitespace-nowrap hover:bg-surface-variant transition-colors">专家专栏</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium whitespace-nowrap hover:bg-surface-variant transition-colors">减脂食谱</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium whitespace-nowrap hover:bg-surface-variant transition-colors">增肌打卡</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium whitespace-nowrap hover:bg-surface-variant transition-colors">运动日志</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium whitespace-nowrap hover:bg-surface-variant transition-colors">好物分享</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium whitespace-nowrap hover:bg-surface-variant transition-colors">饮食红黑榜</button>
+</div>
+</section>
+<!-- Masonry Post Feed -->
+<div class="masonry-grid">
+<!-- Card 1 (Expert Column) -->
+<article class="masonry-item bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,110,28,0.06)] hover:shadow-[0px_8px_30px_rgba(0,110,28,0.12)] transition-shadow duration-300 group">
+<div class="relative overflow-hidden aspect-[4/5]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully plated overhead shot of a vibrant avocado toast with poached eggs, chili flakes, and fresh sprouts. The scene is set on a light marble tabletop with soft morning sunlight creating gentle shadows. The colors are fresh and high-contrast, emphasizing the deep green of the avocado and the bright yellow yolk, fitting the Fresh &amp; Vitality brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_bsfAPEA-dwCGPvaVP5NAjIBQ8ZN5f2ltXKwkB6do9d7Lmr6mlcf0aDCqrJOdpDknFQNrROxiK7MtuxblsrPCRiDeWyfTkPDBn54mOYeqovkTS3H-O3j6Bb-2Hip0YRZ_Vb37gJsoVnFWMJxA0zwMt-9yi1WUCS3p4qyYaBZHqlT8AGQCoKQfB-e8k7zSB2RCi5x2rgupx_EzyJZ6WVvtBwIOpGXF7z5YIDc5ZvjQwHkJ0DPktN3zJnzTnn_Omen67xpukjCJb7cM"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">专家分享</span>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg text-on-surface leading-snug mb-2">如何通过三餐科学提高基础代谢？</h3>
+<p class="text-on-surface-variant text-sm line-clamp-3 mb-4">许多人在减脂期会选择节食，这其实是代谢的杀手。今天和大家分享三个小技巧，教你如何吃出易瘦体质...</p>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant">
+<img alt="Expert Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_-MuinqXCOd4syhkjgOL0WKZs0Yv62k71nPvyI_JCKM6Q0LPL4nIWTDOtmejIbw3_2F_iKmUJIiKlOWTaVri47H8rxiXLp6JDvyXowPRXzK8euU_RE28dIp41JCOCmIGJ7HFS2sb2COHlsS7731FOL7fU8Xmx10SeCGaX2IMWDCbJpgY4MwKIbGks6BwvgMGmwrW_xmo9q0gnxjezHiBZ3eYE3eO1uCQg-5qH87hYwPFKgoWH3BAgW-l7FX-mzDnRwIOxzXoROUWp"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">林医生 · 营养学博士</p>
+<p class="text-[10px] text-outline">2小时前</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-variant/50">
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+<span class="text-xs font-medium">1.2k</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+<span class="text-xs font-medium">84</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2 (Recipe Share) -->
+<article class="masonry-item bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,110,28,0.06)] hover:shadow-[0px_8px_30px_rgba(0,110,28,0.12)] transition-shadow duration-300 group">
+<div class="relative overflow-hidden aspect-square">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A top-down view of a colorful salad bowl featuring quinoa, roasted sweet potatoes, kale, pomegranate seeds, and a creamy tahini dressing. The dish is presented in a minimalist ceramic bowl on a neutral light-grey background. Soft, diffused lighting highlights the varied textures of the ingredients, conveying a sense of healthy, balanced living and vibrant metabolic energy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcfJE7ViknfKgbrfs5fTkpx0YAxfzVk3dQuWEl7ZEYRbq4AVfKHTZSJGMKDS6UgKUZ_zxLKyPzloeAZ29P1kWO-3DoqmWxaXTJjJboGROUdaDa9bMO-7dK69Zqd4Bfbq0EhagrzpvJVUXgYQ46UiPmf5HkgXCZOiYXvNegRx1K9JW-up2eTZr5SbjKDUV14TB8pPqBIvGz3u4Xo03HP0uCeeETUEIfpVTAB379WtvhUVc_EgMpYT1WAK7K4upl9yw8zYdLobr0iCZH"/>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg text-on-surface leading-snug mb-2">低卡高蛋白！15分钟快手波奇饭</h3>
+<p class="text-on-surface-variant text-sm mb-4">今天由于开会太晚，做了一个超简单的三文鱼波奇饭，营养均衡且饱腹感极强，快收藏起来试试吧！</p>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant">
+<img alt="User Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQu4Z4lTOx22fjUwASUkyH2WrxEHLYqqwwQzCckXLlw2GWBZvmBZLOicjvCf51U5-JEz2e56ZcaYSjG5ZHZpv2XgQ_XAeuDWyf0Rh8DpSCJtXBNYuac5QNPswBDIbmKNK-Z3Xi0DbbhRmVWT-Hse_YF4jPe50TV2PNO0-Z52BTGuoSQjYRcQLJviOUcp1Gf9xuE8l0Qd6OG99JC4-zRivrtxxxboacz_p2RbanbB1Cs1cxyoixyqxmTxtndC9KfbHEJ9J_2aOoFwrr"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">元气少女小周</p>
+<p class="text-[10px] text-outline">5小时前</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-variant/50">
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-xs font-medium text-primary">352</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+<span class="text-xs font-medium">12</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3 (Workout Progress) -->
+<article class="masonry-item bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,110,28,0.06)] hover:shadow-[0px_8px_30px_rgba(0,110,28,0.12)] transition-shadow duration-300 group">
+<div class="relative overflow-hidden aspect-[3/4]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist fitness-themed photograph showing a pair of sleek running shoes and a modern smart watch resting on a light-colored wooden gym floor. The composition is clean with ample whitespace, captured in a bright and airy photographic style. The primary colors are neutral tones with a subtle pop of primary green from the watch screen, reflecting a lifestyle of focused wellness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKpb1D69zEB9V4GjE0LxLKFiNXWBAZNjhStrGVimxIJ7bMYUzwwl7QGrF73RDAmUCAkDJTZspiAfsjmfVw4mJ8VfaYxVOYMkO-3sMsiSHk1TtQc_1aTY3CQspw_HSwqBBeEI_2eHf0QzEpMrkBqflkCka0-EQWul8FW0Fbpkrt6SfVrcx57WBgaR7ZoaOXq0yiUWW_ACd-DyJzkeeuXihvJViRPSfEhJtoAjgVS4QwmlQCCjPdMRbuU7dF6LpK3u4ch9-SzuDAs52r"/>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg text-on-surface leading-snug mb-2">晨跑5公里打卡，开启元气一天！</h3>
+<p class="text-on-surface-variant text-sm mb-4">坚持晨跑的第21天，身体感觉轻盈了很多。大家也要记得动起来哦~</p>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant">
+<img alt="User Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4i2tY5_GVMeQDObAW1Jyg3MFFaUdMBgn9uMh_bvHtXjeXVnigT14egge4agCk2zzZu9iDEJO-s1gKkfEGBnTYsWhGi8YdkPCaStjpvmKkzehxgIE_eHwZa1JSuQte_tvkbImhrQQ7MkG6yEm92BY5vPqGFwOWwAcDilV9La09eYrh0ZZ7Ts6mvYLcLFmRoR0LSP5fcjlG_4bOmANVtqmyPRvOffuDpypvrUB7H1uXzCgOiy19br8Rid6JYoGq_NY0W_pCHXxDWT78"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">健身狂魔Leo</p>
+<p class="text-[10px] text-outline">昨天</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-variant/50">
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+<span class="text-xs font-medium">891</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+<span class="text-xs font-medium">45</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 4 (Expert Tip) -->
+<article class="masonry-item bg-primary-container/10 border border-primary-container/20 rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span class="text-primary font-bold text-sm">小贴士 · 专家建议</span>
+</div>
+<h3 class="font-bold text-xl text-on-primary-container mb-3 italic">"减脂不是数学题，更是心理学。"</h3>
+<p class="text-on-primary-container/80 text-sm leading-relaxed mb-6">
+                    不要因为一顿的大餐而感到愧疚。偶尔的放纵是为了更好的坚持。保持80%的健康饮食和20%的随心所欲，才是长久之计。
+                </p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img alt="Expert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMTZrm7N055VEaiQe7c-mkqQ8wV3bUfDUP7NlahJwmJQCRu3prtXcrwPXRRHskoTf0r9CQxg41VthGLDjGXwtErmBU-URvlDR_FI54x459yeqrfvVXHqyiAtPEl4I-wqJtZlr1o_AmuE0fke1Ne0YF70_JoF3pL2WD1ULlXhqKP5WOQscKov3fwJ8G5q0bsumutehMR9GYh6vdHMXpdvfBxtv72eV_TM1JJwuW2Cd_iok8ssIRHn4V6qLTeylPfGPk3nymEX2-bdME"/>
+</div>
+<div>
+<p class="font-bold text-on-primary-container text-sm">陈静老师</p>
+<p class="text-xs text-on-primary-container/60">资深心理咨询师</p>
+</div>
+</div>
+</article>
+<!-- Card 5 (Infographic Style) -->
+<article class="masonry-item bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,110,28,0.06)] hover:shadow-[0px_8px_30px_rgba(0,110,28,0.12)] transition-shadow duration-300 group">
+<div class="relative overflow-hidden aspect-[4/3] bg-secondary-container/10 flex items-center justify-center">
+<div class="text-center p-8">
+<span class="material-symbols-outlined text-secondary text-5xl mb-2" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<h4 class="font-bold text-lg text-on-secondary-container">夏季必喝的三款清润汤水</h4>
+<div class="mt-4 flex flex-wrap justify-center gap-2">
+<span class="bg-white/80 px-2 py-1 rounded-md text-[10px] text-secondary font-bold">#消暑</span>
+<span class="bg-white/80 px-2 py-1 rounded-md text-[10px] text-secondary font-bold">#滋润</span>
+<span class="bg-white/80 px-2 py-1 rounded-md text-[10px] text-secondary font-bold">#好气色</span>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg text-on-surface leading-snug mb-2">夏日美颜计划：不仅是补水那么简单</h3>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant">
+<img alt="User Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyLMLyZg1eood87mPPsvv_EHyswZima0bBViSoAcoV3rxZrVIORgxCgId5HMj57GKC2VfSx_23g9LTALmU-Ci1jyOm_o4ux9a5sZHvfOZNiWO3h1NcZaRkJy4tssC_PATTSdbAPdodx-37ugN_T_YY_15xi4GjwirzekcWTM8GhOHVt54Xh4YPa9iFdBcsYQ6927qZ2PGWkMf-JzZDXzawKPLoUoAYSud31SgtlzccXGIF5W3DYY9kt18ZPtbl65EFKZjGWbebgB7v"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Grace 养生堂</p>
+<p class="text-[10px] text-outline">8小时前</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-variant/50">
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+<span class="text-xs font-medium">1.5k</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+<span class="text-xs font-medium">102</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 6 (Ingredient Focus) -->
+<article class="masonry-item bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,110,28,0.06)] hover:shadow-[0px_8px_30px_rgba(0,110,28,0.12)] transition-shadow duration-300 group">
+<div class="relative overflow-hidden aspect-[4/5]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up of fresh, raw organic ingredients including kale, radishes, and lemon slices laid out in an artistic, deconstructed style. The lighting is crisp and natural, emphasizing the organic textures and vibrant greens and purples. This clean, modern food photography aesthetic perfectly aligns with the Fresh &amp; Vitality theme, promoting a sense of health and natural beauty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLIhQQexH6Yn51pMucN3k8jRdFJW2GIQXJURdz_BQO_bL3NDirS_My5bci5QFkceTfzcI2E-tV7mbEFdTbsH0bkFI1LGP5gCca1u_kP3C9G5qBOxJ2qLGqlPtmofiH52nLAb1Nz0fJfDMHqZ9tsuu3Psb1Bxv3AnbSLgeVbvH1EyWwUnzxL5KHpbPpBV8zlLgRNCUzdk__pXXyv6_U3Drl3HmlsB2mwkK4YLJq5Jmnyr9Pmfc9KnODgiZqdUvmPABoE_AhLKfAVg7S"/>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-lg text-on-surface leading-snug mb-2">这些“超级食物”你真的吃对了吗？</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-4">奇亚籽、羽衣甘蓝、蓝莓...并不是吃得越多越好，关键在于搭配。</p>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant">
+<img alt="Expert Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvq0sdtnNhtFjfKxywG6fwbLfl1f8Gb1asa-rqdJ9F69iILwRgwAQPabF45P3FwDzqNwXSRAlQYJsujijY4HVBcM9NMPpprBpKY7ljCodcEVO6o8hCqDArscs6de9Km4INRtowOl5FFZdpxOxY45FJGVKka5Ge5GCsfTHwjVcQsJ2AKx8QARjnMcfZkCRi8bRAevW3EVP2ASEeBKfRitAUPX9Q8y7p9dYVlofGz9MvSxMZTV9z2JW-3R7ZMSY0QFwufrglJ1ePHyVy"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">营养师-小婉</p>
+<p class="text-[10px] text-outline">10小时前</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-variant/50">
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+<span class="text-xs font-medium">420</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+<span class="text-xs font-medium">18</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Load More Section -->
+<div class="flex justify-center mt-12 mb-8">
+<button class="px-10 py-3 bg-surface-container-high text-primary font-bold rounded-full hover:bg-primary hover:text-white transition-all duration-300 flex items-center gap-2 group">
+                加载更多动态
+                <span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">expand_more</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Hidden on Web) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-4 pt-2 bg-surface shadow-[0px_-4px_20px_rgba(0,110,28,0.1)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium mt-1">首页</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-medium mt-1">发现</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-medium mt-1">记录</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-[10px] font-bold mt-1">社区</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium mt-1">我的</span>
+</div>
+</nav>
+<!-- FAB for Desktop (Contextual) -->
+<button class="hidden md:flex fixed bottom-10 right-10 w-16 h-16 bg-primary text-white rounded-full shadow-lg items-center justify-center hover:scale-110 active:scale-95 transition-all z-40 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-300">add</span>
+<div class="absolute right-20 bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-md">
+            分享我的轻食生活
+        </div>
+</button>
+<script>
+        // Micro-interaction for Like buttons
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if (icon.innerText === 'favorite') {
+                icon.parentElement.addEventListener('click', function() {
+                    const isFilled = this.querySelector('.material-symbols-outlined').style.fontVariationSettings.includes("'FILL' 1");
+                    const countSpan = this.querySelector('span:last-child');
+                    let count = parseFloat(countSpan.innerText.replace('k', '')) * (countSpan.innerText.includes('k') ? 1000 : 1);
+
+                    if (isFilled) {
+                        this.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
+                        this.querySelector('.material-symbols-outlined').classList.remove('text-primary');
+                        countSpan.classList.remove('text-primary');
+                        count--;
+                    } else {
+                        this.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
+                        this.querySelector('.material-symbols-outlined').classList.add('text-primary');
+                        countSpan.classList.add('text-primary');
+                        count++;
+                    }
+                    
+                    countSpan.innerText = count >= 1000 ? (count / 1000).toFixed(1) + 'k' : count;
+                });
+            }
+        });
+
+        // Sticky Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('nav');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+                header.classList.remove('shadow-sm');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.add('shadow-sm');
+            }
+        });
+    </script>
+</body></html>

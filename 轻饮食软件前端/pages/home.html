@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻食刻 - 首页</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#006e1c',
+            'primary-container': '#4caf50',
+            secondary: '#8b5000',
+            surface: '#f9f9f9',
+            'surface-container-high': '#e2e2e2',
+            'on-primary': '#ffffff',
+          },
+          borderRadius: {
+            'huge': '1.5rem',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/common.css">
+</head>
+<body class="bg-gray-50 pb-24 lg:pb-8">
+
+  <!-- 顶部导航栏 -->
+  <header class="top-app-bar">
+    <div class="flex justify-between items-center px-4 md:px-6 h-16 w-full max-w-7xl mx-auto">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-700 text-xl">restaurant</span>
+        </div>
+        <h1 class="font-bold text-xl text-green-700 tracking-tight">轻食刻</h1>
+        <nav class="hidden md:flex items-center gap-1 ml-6">
+          <a href="home.html" class="desktop-nav-link active">首页</a>
+          <a href="discover.html" class="desktop-nav-link">发现</a>
+          <a href="record.html" class="desktop-nav-link">记录</a>
+          <a href="discover.html" class="desktop-nav-link">社区</a>
+          <a href="profile.html" class="desktop-nav-link">我的</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+          <span class="material-symbols-outlined text-green-700">search</span>
+        </button>
+        <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative">
+          <span class="material-symbols-outlined text-green-700">notifications</span>
+          <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容 -->
+  <main class="pt-20 px-4 md:px-6 max-w-7xl mx-auto">
+
+    <!-- 桌面端: 侧边栏 + 主内容 双栏布局 -->
+    <div class="desktop-grid-12">
+
+      <!-- 左侧边栏 (桌面端 4 栏) -->
+      <div class="desktop-sidebar">
+        <!-- 卡路里总结卡片 -->
+        <section class="animate-fade-in">
+          <div class="bg-primary-container rounded-3xl p-6 text-white card-shadow">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold">今日热量</h3>
+              <span class="material-symbols-outlined text-white/80">local_fire_department</span>
+            </div>
+            <div class="mb-4">
+              <p class="text-4xl font-extrabold" id="remaining-cal-sidebar">1,240</p>
+              <p class="text-sm text-white/80 mt-1">剩余千卡</p>
+            </div>
+            <div class="bg-white/20 rounded-full h-2 mb-4">
+              <div class="bg-white rounded-full h-2 transition-all duration-700" id="cal-progress-sidebar" style="width: 65%"></div>
+            </div>
+            <div class="flex justify-between text-sm">
+              <div>
+                <p class="text-white/80">已摄入</p>
+                <p class="font-bold" id="consumed-cal-sidebar">560</p>
+              </div>
+              <div class="text-right">
+                <p class="text-white/80">目标</p>
+                <p class="font-bold" id="target-cal-sidebar">1,800</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 宏量营养素卡片 -->
+        <section class="space-y-3">
+          <div class="bg-white rounded-2xl p-4 border-l-4 border-green-600 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-gray-600">蛋白质</span>
+              <span class="text-sm font-bold text-green-700" id="protein-val-sidebar">42g / 120g</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill bg-green-600" id="protein-bar-sidebar" style="width: 35%"></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border-l-4 border-orange-500 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-gray-600">碳水化合物</span>
+              <span class="text-sm font-bold text-orange-600" id="carbs-val-sidebar">85g / 225g</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill bg-orange-500" id="carbs-bar-sidebar" style="width: 38%"></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border-l-4 border-yellow-700 card-shadow">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-gray-600">脂肪</span>
+              <span class="text-sm font-bold text-yellow-700" id="fat-val-sidebar">18g / 60g</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill bg-yellow-700" id="fat-bar-sidebar" style="width: 30%"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 健康提示 -->
+        <div class="bg-orange-50 rounded-2xl p-4 card-shadow">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-orange-500 text-xl mt-0.5">lightbulb</span>
+            <div>
+              <p class="text-sm font-medium text-orange-800 mb-1">营养小贴士</p>
+              <p class="text-xs text-orange-600">午餐建议增加优质蛋白摄入，如鸡胸肉、鱼肉或豆腐，有助于维持饱腹感和肌肉修复。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧主内容 (桌面端 8 栏) -->
+      <div class="desktop-main">
+
+        <!-- 移动端卡路里环形图 -->
+        <section class="mb-6 lg:hidden animate-fade-in">
+          <div class="flex flex-col items-center bg-white rounded-3xl p-6 shadow-sm">
+            <div id="calorie-ring" class="mb-4"></div>
+            <div class="flex gap-4 mt-4">
+              <div class="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-xl">
+                <span class="material-symbols-outlined text-green-600 text-lg">restaurant</span>
+                <span class="text-green-700 text-sm font-medium">摄入 <span id="consumed-cal">0</span></span>
+              </div>
+              <div class="flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-xl">
+                <span class="material-symbols-outlined text-orange-600 text-lg">local_fire_department</span>
+                <span class="text-orange-700 text-sm font-medium">消耗 <span id="burned-cal">0</span></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 移动端宏量营养素 -->
+        <section class="mb-6 lg:hidden">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">营养摄入</h2>
+          <div class="space-y-4">
+            <div id="macro-protein"></div>
+            <div id="macro-carbs"></div>
+            <div id="macro-fat"></div>
+          </div>
+        </section>
+
+        <!-- 每日餐单推荐 -->
+        <section class="mb-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold text-gray-800">今日食谱推荐</h2>
+            <button class="text-green-600 text-sm font-medium hover:underline">查看全部</button>
+          </div>
+          <div id="meals-container" class="horizontal-scroll pb-2">
+            <!-- 动态加载 -->
+          </div>
+        </section>
+
+        <!-- 饮食记录 -->
+        <section class="mb-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold text-gray-800">今日饮食记录</h2>
+            <button onclick="showAddRecordModal()" class="flex items-center gap-1 text-green-600 bg-green-50 px-3 py-1.5 rounded-full hover:bg-green-100 transition-colors">
+              <span class="material-symbols-outlined text-lg">add_circle</span>
+              <span class="text-sm font-medium">添加记录</span>
+            </button>
+          </div>
+          <div id="records-container" class="space-y-4">
+            <!-- 动态加载 -->
+          </div>
+        </section>
+
+        <!-- 推荐文章 -->
+        <section class="mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">健康推荐</h2>
+          <div class="relative overflow-hidden rounded-2xl h-48 cursor-pointer group">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9PDBQBLR6-2C4UIOl__uL1F2S6GnfVahPmM-xAe9UVFAe_ah0hAftfNoNSKFsooDFk6R6TeJuAURa2olJ_seVQlt9bJyWphazxhT8x6oO7Yz1Gl2bQmNy6D2OkoCwqDQYtazMCHwLNDPBfN9ZLJei2zarT_UB49eXAXtU8ECiTn_dbUh0uAz0HsfaVNA6TiCP2a6MTlcHZK2pflqrpcQJrAlx-d4R0fWww2MBN-O_dFEJRApMRa8h3m7ZQaKPt3xA8xejCCO9JPwf"
+                 alt="推荐" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                 onerror="this.parentElement.style.display='none'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-5">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-full">建议</span>
+                <span class="text-white/80 text-xs">阅读时间 3分钟</span>
+              </div>
+              <h4 class="text-white font-bold text-lg">高蛋白午餐指南：如何在忙碌工作中吃得更好</h4>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FAB 按钮 -->
+  <button class="fab bg-green-600 text-white" onclick="showAddRecordModal()">
+    <span class="material-symbols-outlined text-3xl">add</span>
+  </button>
+
+  <!-- 底部导航栏 -->
+  <nav class="bottom-nav mobile-only">
+    <div class="flex justify-around items-center">
+      <a href="home.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl bg-green-100 text-green-800">
+        <span class="material-symbols-outlined filled">home</span>
+        <span class="text-[10px] font-medium mt-0.5">首页</span>
+      </a>
+      <a href="discover.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">explore</span>
+        <span class="text-[10px] font-medium mt-0.5">发现</span>
+      </a>
+      <a href="record.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">analytics</span>
+        <span class="text-[10px] font-medium mt-0.5">记录</span>
+      </a>
+      <a href="discover.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">group</span>
+        <span class="text-[10px] font-medium mt-0.5">社区</span>
+      </a>
+      <a href="profile.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+        <span class="material-symbols-outlined">person</span>
+        <span class="text-[10px] font-medium mt-0.5">我的</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <span class="material-symbols-outlined text-green-400 filled">check_circle</span>
+    <span id="toast-message">操作成功</span>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/components.js"></script>
+  <script>
+    let pageData = { calories: null, meals: [], macros: null, records: [] };
+
+    async function initPage() {
+      try {
+        const [calories, meals, macros, records, user] = await Promise.all([
+          API.diet.getTodayCalories(),
+          API.diet.getTodayMeals(),
+          API.diet.getMacros(),
+          API.diet.getRecords(),
+          API.user.getProfile()
+        ]);
+
+        pageData = { calories, meals, macros, records };
+
+        renderCalorieRing(calories);
+        renderSidebarCalories(calories, macros);
+        renderMeals(meals);
+        renderMacros(macros);
+        renderRecords(records);
+      } catch (error) {
+        console.error('加载数据失败:', error);
+      }
+    }
+
+    function renderSidebarCalories(data, macros) {
+      const remaining = data.remaining || (data.target - data.consumed);
+      const progress = ((data.consumed + data.burned) / data.target) * 100;
+
+      document.getElementById('remaining-cal-sidebar').textContent = remaining.toLocaleString();
+      document.getElementById('consumed-cal-sidebar').textContent = data.consumed.toLocaleString();
+      document.getElementById('target-cal-sidebar').textContent = data.target.toLocaleString();
+      document.getElementById('cal-progress-sidebar').style.width = Math.min(progress, 100) + '%';
+
+      if (macros) {
+        const pPct = Math.round((macros.protein.current / macros.protein.target) * 100);
+        const cPct = Math.round((macros.carbs.current / macros.carbs.target) * 100);
+        const fPct = Math.round((macros.fat.current / macros.fat.target) * 100);
+
+        document.getElementById('protein-val-sidebar').textContent = `${macros.protein.current}g / ${macros.protein.target}g`;
+        document.getElementById('carbs-val-sidebar').textContent = `${macros.carbs.current}g / ${macros.carbs.target}g`;
+        document.getElementById('fat-val-sidebar').textContent = `${macros.fat.current}g / ${macros.fat.target}g`;
+
+        document.getElementById('protein-bar-sidebar').style.width = pPct + '%';
+        document.getElementById('carbs-bar-sidebar').style.width = cPct + '%';
+        document.getElementById('fat-bar-sidebar').style.width = fPct + '%';
+      }
+    }
+
+    function renderCalorieRing(data) {
+      const ringEl = document.getElementById('calorie-ring');
+      if (!ringEl) return;
+      const progress = ((data.consumed + data.burned) / data.target) * 100;
+      ringEl.innerHTML = Components.RingProgress.render({
+        size: 220, strokeWidth: 14, progress, color: '#006e1c',
+        label: data.remaining, sublabel: `目标 ${data.target} kcal`
+      });
+      const consumedEl = document.getElementById('consumed-cal');
+      const burnedEl = document.getElementById('burned-cal');
+      if (consumedEl) consumedEl.textContent = data.consumed;
+      if (burnedEl) burnedEl.textContent = data.burned;
+    }
+
+    function renderMeals(meals) {
+      const container = document.getElementById('meals-container');
+      container.innerHTML = meals.map(meal => Components.MealCard.render({
+        image: meal.image, name: meal.name, calories: meal.calories,
+        protein: meal.protein, type: meal.type, tags: meal.tags,
+        onClick: `goToFoodDetail(${meal.id})`
+      })).join('');
+    }
+
+    function renderMacros(macros) {
+      const ids = [
+        { id: 'macro-protein', label: '蛋白质 (Protein)', data: macros.protein, color: '#006e1c' },
+        { id: 'macro-carbs', label: '碳水化合物 (Carbs)', data: macros.carbs, color: '#ff9800' },
+        { id: 'macro-fat', label: '脂肪 (Fat)', data: macros.fat, color: '#8b5000' }
+      ];
+      ids.forEach(({ id, label, data, color }) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.innerHTML = Components.NutritionCard.render({
+            label, value: data.current, target: data.target, unit: 'g', color
+          });
+        }
+      });
+    }
+
+    function renderRecords(records) {
+      const container = document.getElementById('records-container');
+      if (records.length === 0) {
+        container.innerHTML = Components.renderEmptyState({
+          icon: 'restaurant', message: '今天还没有记录，快去添加吧！'
+        });
+        return;
+      }
+      container.innerHTML = records.map(record => `
+        <div class="bg-white rounded-2xl p-4 flex gap-4 border border-gray-100 shadow-sm transition-transform active:scale-[0.98]">
+          <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+            <img src="${record.image}" alt="${record.name}" class="w-full h-full object-cover"
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiNlMmUyZTIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzZmN2E2YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuivrTwvdGV4dD48L3N2Zz4='">
+          </div>
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start">
+                <p class="font-medium text-gray-800 line-clamp-1">${record.name}</p>
+                <span class="text-xs text-gray-500">${record.meal}</span>
+              </div>
+              <p class="text-sm text-gray-500 mt-1 line-clamp-1">${record.description}</p>
+            </div>
+            <div class="flex items-center gap-3 mt-2">
+              <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full font-medium">${record.calories} kcal</span>
+              <span class="text-xs text-gray-500">${record.time.split(' ')[1]}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function goToFoodDetail(id) {
+      window.location.href = `food-detail.html?id=${id}`;
+    }
+
+    function showAddRecordModal() {
+      AddRecordModal.open();
+    }
+
+    function loadPageData() {
+      initPage();
+    }
+
+    if (!localStorage.getItem('token')) {
+      window.location.href = 'login.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+
+</body>
+</html>

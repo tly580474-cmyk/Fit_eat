@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>轻食刻 - 每日记录</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#003c0b",
+                        "secondary": "#8b5000",
+                        "primary-container": "#4caf50",
+                        "surface-container-low": "#f3f3f3",
+                        "surface": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f0f1f1",
+                        "primary-fixed-dim": "#78dc77",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#78dc77",
+                        "outline-variant": "#becab9",
+                        "on-secondary-container": "#653900",
+                        "outline": "#6f7a6b",
+                        "primary": "#006e1c",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#bdcabe",
+                        "secondary-fixed": "#ffdcbe",
+                        "secondary-container": "#ff9800",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "on-background": "#1a1c1c",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#005313",
+                        "surface-dim": "#dadada",
+                        "on-tertiary-fixed-variant": "#3e4a41",
+                        "surface-tint": "#006e1c",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#556158",
+                        "tertiary-fixed": "#d9e6da",
+                        "on-surface-variant": "#3f4a3c",
+                        "on-primary-fixed": "#002204",
+                        "on-tertiary-fixed": "#131e17",
+                        "surface-bright": "#f9f9f9",
+                        "on-secondary-fixed": "#2c1600",
+                        "surface-container": "#eeeeee",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed": "#94f990",
+                        "on-tertiary-container": "#2a352d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "background": "#f9f9f9",
+                        "tertiary-container": "#929e94",
+                        "secondary-fixed-dim": "#ffb870"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "PingFang SC", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "PingFang SC", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', 'PingFang SC', sans-serif; background-color: #f9f9f9; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline text-2xl font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity">轻食刻</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-primary font-bold transition-all active:scale-95" href="#">首页</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity" href="#">发现</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity" href="#">社区</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity active:scale-95">search</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAka1XwpKN5dFO-EkSMtjbUv1wcntVM1mY09AyV30HHO9eA-CbgdlzFWjl4yvzABLwYpCSgWpnfn7DmiT-iX-zQFfe_k-ZWyC54ELRPeBqIMmXjFzmhJgI7a4lyCdhT-RZbDsckLolTcs_FcdEbNTJMa-QH3yKIpAS-ZN7danUK4wXuVm5WbzpjfhEAlWhGnSODUb2zI50Ow4GBUGwXvlDnCu3oxQ6jh5e32PR3-PYB9wFk6dFuB6RqERiEhL5BhFnK0_2192zzWXkA"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-5 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Sidebar: Calorie Summary & Macros -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<!-- Calorie Main Card -->
+<div class="bg-primary-container text-on-primary-container rounded-3xl p-8 shadow-[0px_8px_30px_rgba(76,175,80,0.2)] relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
+<h2 class="text-lg font-semibold opacity-90 mb-2">剩余热量</h2>
+<div class="flex items-baseline gap-2 mb-6">
+<span class="text-5xl font-bold">1,240</span>
+<span class="text-xl font-medium opacity-80">kcal</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-sm font-medium">
+<span>每日目标</span>
+<span>1800 kcal</span>
+</div>
+<div class="h-3 bg-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-white w-[31%] rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+</div>
+<p class="text-sm opacity-80">今日已摄入 560 kcal，消耗 210 kcal</p>
+</div>
+</div>
+<!-- Macronutrients Grid -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Protein -->
+<div class="bg-white rounded-2xl p-5 border border-surface-container-high shadow-sm">
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-6 bg-primary rounded-full"></span>
+<span class="font-bold">蛋白质</span>
+</div>
+<span class="text-sm font-medium text-on-surface-variant">42g / 120g</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[35%] rounded-full"></div>
+</div>
+</div>
+<!-- Carbs -->
+<div class="bg-white rounded-2xl p-5 border border-surface-container-high shadow-sm">
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-6 bg-secondary-container rounded-full"></span>
+<span class="font-bold">碳水</span>
+</div>
+<span class="text-sm font-medium text-on-surface-variant">85g / 225g</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[38%] rounded-full"></div>
+</div>
+</div>
+<!-- Fats -->
+<div class="bg-white rounded-2xl p-5 border border-surface-container-high shadow-sm">
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-6 bg-tertiary-container rounded-full"></span>
+<span class="font-bold">脂肪</span>
+</div>
+<span class="text-sm font-medium text-on-surface-variant">18g / 60g</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[30%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Health Advice -->
+<div class="bg-secondary-fixed/30 rounded-2xl p-6 border border-secondary-fixed">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">tips_and_updates</span>
+<div>
+<h3 class="font-bold text-on-secondary-fixed-variant mb-1">小建议</h3>
+<p class="text-sm text-on-secondary-fixed-variant leading-relaxed">你今天的蛋白质摄入偏低，晚餐建议增加鸡胸肉或豆腐类食品。</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content: Daily Menu & Timeline -->
+<section class="lg:col-span-8 flex flex-col gap-8">
+<!-- Daily Menu Horizontal Scroll -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-bold">今日食谱推荐</h2>
+<button class="text-primary text-sm font-medium flex items-center hover:underline">
+                            查看全部 <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-4 no-scrollbar -mx-1 px-1">
+<!-- Breakfast Card -->
+<div class="min-w-[240px] bg-white rounded-2xl overflow-hidden border border-surface-container-high shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="h-32 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A vibrant breakfast bowl with creamy yogurt, topped with fresh juicy blueberries, sliced strawberries, and golden crunchy granola. The scene is bathed in bright morning sunlight with a high-key, fresh and vitality aesthetic, emphasizing clean eating and health." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtX9qaqz1iKgFzQSIXDuakgNTjKGP-m6vpJUUL0SvgseWCKNTRNvbx4WV6unFvtKvdp5LjCZ250QLVp1TA-cO_LUfmUkEC4Y6OSqjivhNMoGdDBOkeflaifM5GdYqLNS0sFdCLJuWXS9nFHbPSueQ4bXDB1C9LGbxGQ1ZapNnmx2UoDI9Tudf4ZAI7C0762sGa9n6jBoFLaAEcdVwr0jfFlafnH0B3_EXdKql3g6tHZhAyJV7oJQNDd67JfhHHICbsxXOyodefBCqd"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold text-primary uppercase">早餐</div>
+</div>
+<div class="p-4">
+<h4 class="font-bold mb-1">莓果燕麦酸奶</h4>
+<p class="text-xs text-on-surface-variant">320 kcal · 15分钟</p>
+</div>
+</div>
+<!-- Lunch Card -->
+<div class="min-w-[240px] bg-white rounded-2xl overflow-hidden border border-surface-container-high shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="h-32 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A gourmet balanced lunch bowl featuring grilled chicken breast strips, fresh avocado slices, roasted sweet potato wedges, and crisp green kale leaves. The dish is presented on a minimalist ceramic plate in a bright, modern interior setting, reflecting a clean and healthy lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARSFxzZVuTIsHZmZ_37uABu01Keleb7e25ydo4FqvXWK-TFzw4sNx9SKBASRrQcPOxkrNglsgSuLLX3gNrwRGrqcI3vFb8lztd4g-kkF4McFBcD4KPJf2xYC11mc1EasBrIbHmVEIOVndYk_LkG6XobgbMPpX1M-K5vd2-5YpM0Bkywcx_CLrDxwbEzyB0r4o6dOEXk8SHSH3J-zJmv7ztt2A23nu6j049iSRTjcUrSGXHXosyAN1DeE1gvGnU35CsU-7aZTSizdbv"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold text-primary uppercase">午餐</div>
+</div>
+<div class="p-4">
+<h4 class="font-bold mb-1">煎鸡胸能量碗</h4>
+<p class="text-xs text-on-surface-variant">450 kcal · 25分钟</p>
+</div>
+</div>
+<!-- Snack Card -->
+<div class="min-w-[240px] bg-white rounded-2xl overflow-hidden border border-surface-container-high shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="h-32 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A refreshing green salad with mixed leafy greens, cherry tomatoes, and light vinaigrette dressing. The composition is clean and minimalist, captured with bright natural lighting to evoke a feeling of vitality and morning freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7ivJHo2ONd0Yyltu5EU50C7jhcaLDu14ZZPk0NYMYFeXacrsUr7p-JW0wp4Ni_zyiyUJXGCyuQ0KbQT5rdXr3DPB5B23HE2mtFkB9OZnYXpLWBcPikA-Ynh9TreZKK-u5QvY7bBtN8a4kNzFPrJVIaGAB0f5nejuJDrTB09-EmfU4fcC_2FM-rkdm-bZt_ne4mkX6BWCmHM9FiPb7MI2biJa8BlY27axZ28gdyxPvSJFMHWGDVSYm3Btg7buR0wUiJ1H3CRWe4OUx"/>
+<div class="absolute top-2 left-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold text-primary uppercase">加餐</div>
+</div>
+<div class="p-4">
+<h4 class="font-bold mb-1">田园沙拉</h4>
+<p class="text-xs text-on-surface-variant">120 kcal · 5分钟</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Dietary Record Timeline -->
+<div>
+<h2 class="text-xl font-bold mb-6">今日饮食记录</h2>
+<div class="relative pl-8 space-y-8 before:content-[''] before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-surface-container-highest">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center border-4 border-background ring-4 ring-primary/10">
+<span class="material-symbols-outlined text-white text-[12px]" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<div class="bg-white rounded-3xl overflow-hidden border border-surface-container-high shadow-sm flex flex-col md:flex-row gap-6 p-1">
+<div class="md:w-1/3 aspect-[4/3] rounded-2xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of a nutritious morning meal consisting of avocado toast on artisan sourdough, topped with a perfectly poached egg and red pepper flakes. The image is bright and warm with a focus on fresh ingredients, high-quality textures, and a vibrant healthy lifestyle vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XV06dsLMUSlQHlfkwuew01sGUR7mE9Juik4HzgZ0OifUloOeV4fs8s2lTOIwoy_HslGxRYXUY2mEHNTo7XL6Vlh2Qm4Lt-NX6xUZIMLmxZXgKOHDnnsqPCf1ffHGFUR1npIK_872X-5nSx9BanA8-pv01VkU5bu7U3Ea6rW_gejLkPb0KMDHox-wbm1mLmb0fo0Ktmy_3B1x6rbIc-9Xl_QoKaInl4_TfXZGAAd8YCpxJk07RxC8U5wyBb33x0kxOGcMAYVSYhUn"/>
+</div>
+<div class="md:w-2/3 p-4 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-primary px-2 py-1 bg-primary/10 rounded-lg">早餐 · 08:30</span>
+<button class="material-symbols-outlined text-outline-variant hover:text-error transition-colors">more_horiz</button>
+</div>
+<h3 class="text-lg font-bold mb-2">牛油果水波蛋吐司</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed line-clamp-2">全麦吐司底，搭配半个新鲜牛油果和一个有机水波蛋，撒上少量黑胡椒和海盐，口感极其丰富。</p>
+</div>
+<div class="flex gap-4 mt-4">
+<div class="bg-surface-container px-3 py-1 rounded-full text-xs font-medium">320 kcal</div>
+<div class="bg-surface-container px-3 py-1 rounded-full text-xs font-medium">12g 蛋白质</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center border-4 border-background ring-4 ring-primary/10">
+<span class="material-symbols-outlined text-white text-[12px]" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+</div>
+<div class="bg-white rounded-3xl overflow-hidden border border-surface-container-high shadow-sm flex flex-col md:flex-row gap-6 p-1">
+<div class="md:w-1/3 aspect-[4/3] rounded-2xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist overhead view of a fresh iced caffe latte in a tall glass, with milk swirling into the dark espresso. The table is a clean white surface in a bright, airy environment, creating a sense of calm and focused energy for a wellness-centered morning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDim8R8-jJFjsmu6oBxPQn7mi5-aoENyfleMN8Bl1KnwwCTLObZ8hgBp8obAtILi068d6qF6XH_8zV9ClT7vdUUxOQ9QeFHsZdUrkSdnIIVTmalW-foEVbV_FL19G638AUbr_Q4_8WHkud7XfxL2FpbMVDZuxl5869Gdl9j6htsGl_XQkgheTzyLImpPMpwmMitnDDypkNH7TNzglxnr3TzAcHn9K86VnRgZ4X4BVQ2CWE_nbNPhz949-l8wMrbKGNyyXf0-8RTXfXD"/>
+</div>
+<div class="md:w-2/3 p-4 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-primary px-2 py-1 bg-primary/10 rounded-lg">加餐 · 10:15</span>
+<button class="material-symbols-outlined text-outline-variant hover:text-error transition-colors">more_horiz</button>
+</div>
+<h3 class="text-lg font-bold mb-2">燕麦奶冰拿铁 (无糖)</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed line-clamp-2">零糖燕麦奶，深度烘焙意式浓缩，清爽不甜腻，开启高效工作模式。</p>
+</div>
+<div class="flex gap-4 mt-4">
+<div class="bg-surface-container px-3 py-1 rounded-full text-xs font-medium">115 kcal</div>
+<div class="bg-surface-container px-3 py-1 rounded-full text-xs font-medium">3g 蛋白质</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 (Planned) -->
+<div class="relative opacity-60">
+<div class="absolute -left-8 top-1 w-6 h-6 rounded-full bg-outline-variant flex items-center justify-center border-4 border-background">
+<span class="material-symbols-outlined text-white text-[12px]">schedule</span>
+</div>
+<div class="bg-surface-container-low rounded-3xl p-8 border border-dashed border-outline-variant flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-4xl text-outline mb-2">add_circle</span>
+<h3 class="font-bold">记录你的午餐</h3>
+<p class="text-xs text-on-surface-variant mt-1">坚持记录，离健康更近一步</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-[0px_10px_25px_rgba(0,110,28,0.4)] flex items-center justify-center active:scale-90 transition-all z-40 hover:bg-primary-container">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Bottom Navigation (Mobile Only) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-4 pt-2 bg-surface dark:bg-surface-container shadow-[0px_-4px_20px_rgba(0,110,28,0.1)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-2xl px-4 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[10px] font-medium">首页</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-medium">发现</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-medium">记录</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-medium">社区</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">我的</span>
+</div>
+</footer>
+<script>
+        // Simple scroll interaction for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+
+        // Add micro-interaction to timeline cards
+        document.querySelectorAll('.bg-white.rounded-3xl').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('translate-x-1');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('translate-x-1');
+            });
+        });
+    </script>
+</body></html>

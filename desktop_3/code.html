@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>轻食刻 | Nutrition Radar Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#003c0b",
+                        "secondary": "#8b5000",
+                        "primary-container": "#4caf50",
+                        "surface-container-low": "#f3f3f3",
+                        "surface": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f0f1f1",
+                        "primary-fixed-dim": "#78dc77",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#78dc77",
+                        "outline-variant": "#becab9",
+                        "on-secondary-container": "#653900",
+                        "outline": "#6f7a6b",
+                        "primary": "#006e1c",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#bdcabe",
+                        "secondary-fixed": "#ffdcbe",
+                        "secondary-container": "#ff9800",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "on-background": "#1a1c1c",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#005313",
+                        "surface-dim": "#dadada",
+                        "on-tertiary-fixed-variant": "#3e4a41",
+                        "surface-tint": "#006e1c",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#556158",
+                        "tertiary-fixed": "#d9e6da",
+                        "on-surface-variant": "#3f4a3c",
+                        "on-primary-fixed": "#002204",
+                        "on-tertiary-fixed": "#131e17",
+                        "surface-bright": "#f9f9f9",
+                        "on-secondary-fixed": "#2c1600",
+                        "surface-container": "#eeeeee",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed": "#94f990",
+                        "on-tertiary-container": "#2a352d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "background": "#f9f9f9",
+                        "tertiary-container": "#929e94",
+                        "secondary-fixed-dim": "#ffb870"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans", "PingFang SC", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "PingFang SC", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', 'PingFang SC', sans-serif; }
+        .radar-grid { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" data-alt="A professional and friendly male avatar with a modern haircut and glasses, wearing a light green polo shirt. The background is a clean, soft mint green, maintaining the fresh and vitality brand aesthetic with high-key lighting and a minimalist vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoUiRquUhU5kzYLGcxpS4scsMCoI4whTC4AupYDsymRgmLDytkxiSIgHiAqWop_PFFXv0HnbZD4lujpCSPwzmImDqr9deGeMx_qfhNa25WuRk2mk0Ldp_JwzG3Al8OJPaKwQSzwkn5r-YZjt4dy7qY43lP_uMQhN3H7NNEubtNJgaiVz8E9JuRDeTIqwmTNtyrcSYEOq3hW-OxCMogRiDef6KwWYRICsnXUGOPqUYMJw6EkGgiBxjO72U4JEB6RovUayPeCZk-aiq_"/>
+</div>
+<h1 class="font-headline text-2xl font-bold text-primary">轻食刻</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity" href="#">首页</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity" href="#">发现</a>
+<a class="text-primary font-bold transition-opacity" href="#">记录</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity" href="#">社区</a>
+<a class="text-on-surface-variant hover:opacity-80 transition-opacity" href="#">我的</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-variant/50 rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-5 max-w-7xl mx-auto">
+<!-- Header & Date Switcher -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h2 class="text-3xl font-bold font-headline mb-1">饮食雷达分析</h2>
+<p class="text-on-surface-variant">基于您本周的饮食记录，生成深度健康评估</p>
+</div>
+<div class="flex bg-surface-container rounded-2xl p-1 shadow-inner">
+<button class="px-6 py-2 rounded-xl text-sm font-medium transition-all bg-surface shadow-sm text-primary">本周</button>
+<button class="px-6 py-2 rounded-xl text-sm font-medium text-on-surface-variant hover:text-on-surface">上周</button>
+<button class="px-6 py-2 rounded-xl text-sm font-medium text-on-surface-variant hover:text-on-surface">本月</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Radar Analysis (Asymmetric Large Card) -->
+<div class="md:col-span-4 glass-card p-6 rounded-3xl flex flex-col items-center justify-center shadow-[0px_4px_20px_rgba(0,110,28,0.08)]">
+<h3 class="w-full text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">radar</span>
+                    营养维度
+                </h3>
+<div class="relative w-full aspect-square flex items-center justify-center">
+<!-- Custom SVG Radar Chart -->
+<svg class="w-full h-full drop-shadow-lg" viewbox="0 0 200 200">
+<!-- Grid Lines -->
+<polygon class="text-outline-variant/30" fill="none" points="100,20 170,60 170,140 100,180 30,140 30,60" stroke="currentColor" stroke-width="1"></polygon>
+<polygon class="text-outline-variant/30" fill="none" points="100,50 145,75 145,125 100,150 55,125 55,75" stroke="currentColor" stroke-width="1"></polygon>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-width="1" x1="100" x2="100" y1="20" y2="180"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-width="1" x1="30" x2="170" y1="60" y2="140"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-width="1" x1="30" x2="170" y1="140" y2="60"></line>
+<!-- Data Polygon -->
+<polygon fill="rgba(76, 175, 80, 0.3)" points="100,40 160,70 155,130 100,165 45,125 60,65" stroke="#006e1c" stroke-linejoin="round" stroke-width="3"></polygon>
+<!-- Labels (Positions optimized for circular layout) -->
+<text class="text-[10px] font-bold fill-primary" text-anchor="middle" x="100" y="15">蛋白质</text>
+<text class="text-[10px] font-bold fill-on-surface-variant" text-anchor="start" x="185" y="60">维生素</text>
+<text class="text-[10px] font-bold fill-on-surface-variant" text-anchor="start" x="185" y="145">膳食纤维</text>
+<text class="text-[10px] font-bold fill-secondary" text-anchor="middle" x="100" y="195">脂肪</text>
+<text class="text-[10px] font-bold fill-on-surface-variant" text-anchor="end" x="15" y="145">矿物质</text>
+<text class="text-[10px] font-bold fill-on-surface-variant" text-anchor="end" x="15" y="60">碳水</text>
+</svg>
+</div>
+<div class="mt-6 flex justify-between w-full text-center">
+<div>
+<div class="text-2xl font-bold text-primary">88</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider">综合得分</div>
+</div>
+<div class="border-x border-outline-variant/30 px-6">
+<div class="text-2xl font-bold text-secondary">A-</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider">膳食等级</div>
+</div>
+<div>
+<div class="text-2xl font-bold text-primary">良好</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider">状态提示</div>
+</div>
+</div>
+</div>
+<!-- Weekly Intake Analysis (Line Chart) -->
+<div class="md:col-span-8 bg-surface-container-lowest p-6 rounded-3xl shadow-[0px_4px_20px_rgba(0,110,28,0.05)]">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                        周热量趋势
+                    </h3>
+<div class="flex items-center gap-4 text-xs">
+<div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary"></span> 摄入</div>
+<div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-secondary"></span> 消耗</div>
+</div>
+</div>
+<div class="h-64 relative mt-4 flex items-end justify-between px-2">
+<!-- Chart Background Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+<div class="border-b border-outline-variant/20 w-full h-0"></div>
+</div>
+<!-- Simplified Visual Chart Bars/Lines representation -->
+<div class="flex flex-col items-center gap-2 z-10 w-full h-full justify-end group">
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40" style="height: 70%"></div>
+<span class="text-xs text-on-surface-variant">Mon</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10 w-full h-full justify-end group">
+<div class="w-8 bg-primary/30 rounded-t-lg transition-all hover:bg-primary/50" style="height: 85%"></div>
+<span class="text-xs text-on-surface-variant">Tue</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10 w-full h-full justify-end group">
+<div class="w-8 bg-primary/25 rounded-t-lg transition-all hover:bg-primary/45" style="height: 75%"></div>
+<span class="text-xs text-on-surface-variant">Wed</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10 w-full h-full justify-end group">
+<div class="w-8 bg-primary rounded-t-lg" style="height: 95%"></div>
+<span class="text-xs font-bold text-primary">Thu</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10 w-full h-full justify-end group">
+<div class="w-8 bg-primary/40 rounded-t-lg transition-all hover:bg-primary/60" style="height: 60%"></div>
+<span class="text-xs text-on-surface-variant">Fri</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10 w-full h-full justify-end group">
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40" style="height: 40%"></div>
+<span class="text-xs text-on-surface-variant">Sat</span>
+</div>
+<div class="flex flex-col items-center gap-2 z-10 w-full h-full justify-end group">
+<div class="w-8 bg-primary/10 rounded-t-lg transition-all hover:bg-primary/30" style="height: 20%"></div>
+<span class="text-xs text-on-surface-variant">Sun</span>
+</div>
+</div>
+</div>
+<!-- Macros Progress (Wide Middle Row) -->
+<div class="md:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Macro Card 1 -->
+<div class="bg-surface-container-low p-5 rounded-3xl border border-white/50">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-sm font-medium text-on-surface-variant">蛋白质</p>
+<h4 class="text-2xl font-bold">64g <span class="text-xs text-outline font-normal">/ 80g</span></h4>
+</div>
+<div class="p-2 bg-primary-container/20 rounded-xl text-primary">
+<span class="material-symbols-outlined">egg_alt</span>
+</div>
+</div>
+<div class="w-full bg-surface-variant h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 80%"></div>
+</div>
+<p class="mt-2 text-xs text-primary font-medium">还需补充 16g</p>
+</div>
+<!-- Macro Card 2 -->
+<div class="bg-surface-container-low p-5 rounded-3xl border border-white/50">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-sm font-medium text-on-surface-variant">碳水化合物</p>
+<h4 class="text-2xl font-bold text-secondary">192g <span class="text-xs text-outline font-normal">/ 220g</span></h4>
+</div>
+<div class="p-2 bg-secondary-container/20 rounded-xl text-secondary">
+<span class="material-symbols-outlined">bakery_dining</span>
+</div>
+</div>
+<div class="w-full bg-surface-variant h-2.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 87%"></div>
+</div>
+<p class="mt-2 text-xs text-secondary font-medium">量摄入合理</p>
+</div>
+<!-- Macro Card 3 -->
+<div class="bg-surface-container-low p-5 rounded-3xl border border-white/50">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-sm font-medium text-on-surface-variant">脂肪</p>
+<h4 class="text-2xl font-bold">45g <span class="text-xs text-outline font-normal">/ 60g</span></h4>
+</div>
+<div class="p-2 bg-tertiary-container/20 rounded-xl text-tertiary">
+<span class="material-symbols-outlined">oil_barrel</span>
+</div>
+</div>
+<div class="w-full bg-surface-variant h-2.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 75%"></div>
+</div>
+<p class="mt-2 text-xs text-on-surface-variant font-medium">注意不饱和脂肪摄入</p>
+</div>
+<!-- Water Tracking Card -->
+<div class="bg-primary-container p-5 rounded-3xl text-on-primary-container relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-sm font-medium opacity-80">每日饮水</p>
+<h4 class="text-2xl font-bold mb-4">1800ml <span class="text-xs opacity-70 font-normal">/ 2000ml</span></h4>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-lg bg-white/30 flex items-center justify-center hover:bg-white/50 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+<span class="text-xs self-center font-bold">已饮用 9 杯</span>
+</div>
+</div>
+<!-- Abstract water wave visual -->
+<div class="absolute bottom-0 right-0 w-32 h-32 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-9xl absolute -bottom-4 -right-4">water_drop</span>
+</div>
+</div>
+</div>
+<!-- AI Recommendations Card (From SCREEN_14 Logic) -->
+<div class="md:col-span-12 glass-card p-8 rounded-[2rem] flex flex-col md:flex-row gap-8 items-center border-primary/10">
+<div class="w-full md:w-1/3 aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated vibrant salmon salad with fresh avocados, edamame, and mixed greens on a light ceramic plate. The lighting is soft and natural, emphasizing a clean and nutritious lifestyle. The setting is a minimalist, airy kitchen with subtle green accents that align with the brand's 'Fresh &amp; Vitality' identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6dZKbTf_KypuJjaNkiRtge7bGPwtn_ad4Q8NjzK7pGzjtFLCfZIakChGSwmM-Fl3a42JXrEFeFsiQPE1S_tPziI5QVuCZZhbynKsl-TRBKg_MkqSsZwDXRQybBRTP0LINm0oA7oqncL1xPGciX8-eXTJtaOHE68_ricH-sXszKs9li9-MfZxeGNarI4PKfTYstsMl9Jlzwum97qnZHFwJ5EjlHWDeLZpm6lNkA2FQorWG1EOYiREwacykkgbYz-6C0Nw-VIjCdMD3"/>
+</div>
+<div class="flex-1">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        AI 智能建议
+                    </div>
+<h3 class="text-2xl font-bold mb-4">优化您的蛋白质摄入结构</h3>
+<p class="text-on-surface-variant mb-6 leading-relaxed">
+                        您的数据显示，目前的蛋白质来源主要为植物性蛋白。为了更好地促进肌肉恢复，建议在午餐中加入适量的深海鱼类（如三文鱼）或瘦禽肉。此外，您的膳食纤维摄入已达标，继续保持！
+                    </p>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-3 bg-primary text-on-primary rounded-2xl font-bold hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+                            查看推荐食谱
+                        </button>
+<button class="px-6 py-3 bg-surface-container-high text-on-surface rounded-2xl font-bold hover:bg-surface-variant transition-all">
+                            更新目标
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation suppression check: Top-level destination "记录" is active, but as per Shell Border Ban and Platform pivot, we use a clean TopAppBar and BottomNavBar on mobile. In desktop context, we rely on TopAppBar. -->
+<!-- Mobile Bottom Navigation (Hidden on Desktop) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-container shadow-[0px_-4px_20px_rgba(0,110,28,0.1)] flex justify-around items-center px-2 pb-4 pt-2 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] mt-1">首页</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] mt-1">发现</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-[10px] mt-1 font-bold">记录</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] mt-1">社区</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] mt-1">我的</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('button, .group').forEach(el => {
+            el.addEventListener('click', () => {
+                // Haptic feedback simulation
+                if (window.navigator.vibrate) window.navigator.vibrate(5);
+            });
+        });
+
+        // Dynamic chart entrance animation simulation
+        window.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.group div');
+            bars.forEach((bar, index) => {
+                const targetHeight = bar.style.height;
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.transition = 'height 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    bar.style.height = targetHeight;
+                }, 100 + (index * 100));
+            });
+        });
+    </script>
+</body></html>

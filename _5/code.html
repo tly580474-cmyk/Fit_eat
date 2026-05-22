@@ -1,0 +1,276 @@
+<!DOCTYPE html><html lang="zh-CN" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3131",
+                    "secondary-fixed-dim": "#ffb870",
+                    "primary-fixed-dim": "#78dc77",
+                    "outline": "#6f7a6b",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#929e94",
+                    "primary-container": "#4caf50",
+                    "error": "#ba1a1a",
+                    "primary": "#006e1c",
+                    "on-surface-variant": "#3f4a3c",
+                    "tertiary-fixed-dim": "#bdcabe",
+                    "tertiary": "#556158",
+                    "outline-variant": "#becab9",
+                    "on-secondary-fixed": "#2c1600",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f1",
+                    "surface-container-high": "#e8e8e8",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f9f9f9",
+                    "secondary-fixed": "#ffdcbe",
+                    "inverse-primary": "#78dc77",
+                    "secondary-container": "#ff9800",
+                    "on-background": "#1a1c1c",
+                    "primary-fixed": "#94f990",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f9f9f9",
+                    "on-primary-fixed-variant": "#005313",
+                    "surface-container-low": "#f3f3f3",
+                    "secondary": "#8b5000",
+                    "on-tertiary-container": "#2a352d",
+                    "on-secondary-fixed-variant": "#693c00",
+                    "surface-dim": "#dadada",
+                    "surface-variant": "#e2e2e2",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-tertiary-fixed": "#131e17",
+                    "background": "#f9f9f9",
+                    "surface-tint": "#006e1c",
+                    "on-tertiary-fixed-variant": "#3e4a41",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeee",
+                    "on-primary-fixed": "#002204",
+                    "on-primary-container": "#003c0b",
+                    "on-surface": "#1a1c1c",
+                    "tertiary-fixed": "#d9e6da",
+                    "on-secondary-container": "#653900"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "0.5rem",
+                    "container-margin": "1.25rem",
+                    "stack-md": "1rem",
+                    "stack-lg": "1.5rem",
+                    "gutter-base": "1rem",
+                    "card-padding": "1rem"
+            },
+            "fontFamily": {
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Top App Bar -->
+<header class="bg-surface/80 backdrop-blur-md flex justify-between items-center px-container-margin py-3 w-full fixed top-0 z-40">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a cheerful young woman with a clean and healthy aesthetic, reflecting the 'Fresh &amp; Vitality' brand identity. She is positioned in a bright, sun-drenched minimalist interior with soft green plant accents in the background. The lighting is high-key and airy, emphasizing a natural, optimistic lifestyle. The overall mood is vibrant yet serene, aligning with the wellness and nutrition theme of the app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5OvkWBZL0jcI4jhkhxso0p8PbDe3AQfexvT-ERrOJ6mv5hNHsaOA-2v2JIU6jjD9wxFMhizkDAt95b-oVpag3uh9Qf8oW27diTJgCiZEyMrKzkJR0BsqbGyLYAbPfkESPQqz_YQnIwUN18rBj1C7eRV5F2TC5hCVAsFCx7675AedpRjLBpTYyphcXjBYuN5V-Ls-0sH88LfVfxo1RFkFxdL6DFOqY1OtogZZNtl3UFf26qh_l4Gqi-Wg8ZGqmk6F2EB8Br2ppvNlo">
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary">轻食刻</span>
+</div>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="pt-20 pb-32 px-container-margin max-w-md mx-auto">
+<!-- Profile Hero Section -->
+<section class="flex flex-col items-center mb-stack-lg text-center">
+<div class="relative mb-4">
+<div class="w-24 h-24 rounded-full border-4 border-primary-container p-1 overflow-hidden shadow-lg shadow-primary/10">
+<img class="w-full h-full object-cover rounded-full" data-alt="Detailed close-up profile picture of 王小青, a healthy young woman with a warm and approachable expression. She has natural hair and a soft smile, captured in a minimalist studio setting with high-key lighting. The color palette is dominated by soft creams and vibrant green leaf reflections, creating a 'Fresh &amp; Vitality' visual narrative that feels professional and uplifting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQp3ZojO5WrultUcX-ZOktta2vyzIeQ9KCBImsD74XXUsPz-ljBh6ENvvkutBu0hLKbGGTdrFhGYCMrFwWyNJAa4BWX5FBGpwPS-JIcJ6lq7ccW6-do9UhK03BGp1iSrSarCWgUZheqSrBLuRJUkSDR-4aIfAdfVbu2z-D61asG2Kmr6IJ8RIOubS47t1b7SWtk_ampnX7NU024jE-plsDuFB4D-b-o3QDQ7pugXYRFAbE2k2DYUiFh8xH3A9tdME3dkzVuIoosDvm">
+</div>
+<div class="absolute bottom-0 right-0 bg-secondary-container p-1 rounded-full border-2 border-surface">
+<span class="material-symbols-outlined text-[16px] text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">王小青</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px]">坚持健康生活，发现更好的自己</p>
+</section>
+<!-- Stats Grid -->
+<section class="grid grid-cols-3 gap-3 mb-stack-lg">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(76,175,80,0.05)] flex flex-col items-center">
+<span class="text-primary font-bold text-lg mb-1">21天</span>
+<span class="font-label-md text-label-md text-on-surface-variant">我的计划</span>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(76,175,80,0.05)] flex flex-col items-center">
+<span class="text-primary font-bold text-lg mb-1">128天</span>
+<span class="font-label-md text-label-md text-on-surface-variant">饮食记录</span>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(76,175,80,0.05)] flex flex-col items-center">
+<span class="text-primary font-bold text-lg mb-1">12个</span>
+<span class="font-label-md text-label-md text-on-surface-variant">我的成就</span>
+</div>
+</section>
+<!-- Premium Banner -->
+
+<!-- Menu List -->
+<section class="space-y-3">
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(76,175,80,0.05)]">
+<!-- Item 1 -->
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">我的收藏</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<!-- Item 2 -->
+<button class="w-full flex items-center justify-between p-4 border-t border-surface-variant/50 hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed-variant" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">我的饮食计划</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<!-- Item 3 -->
+<button class="w-full flex items-center justify-between p-4 border-t border-surface-variant/50 hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">身体数据中心</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<!-- Item 4 -->
+
+<!-- Item 5 -->
+<button class="w-full flex items-center justify-between p-4 border-t border-surface-variant/50 hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">账号与设置</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Achievement Preview Card -->
+<section class="mt-stack-lg">
+<div class="bg-surface-container-low rounded-2xl p-card-padding">
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-headline-sm text-headline-sm">勋章墙</h4>
+<span class="font-label-md text-label-md text-primary">全部</span>
+</div>
+<div class="flex gap-10 justify-center items-center pb-2">
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary-container text-3xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<span class="text-[10px] font-label-md text-on-surface-variant">环保食者</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-sm opacity-40 grayscale">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">local_fire_department</span>
+</div>
+<span class="text-[10px] font-label-md text-on-surface-variant">燃脂周卡</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-6 pt-2 bg-surface-container-lowest shadow-[0px_-4px_20px_rgba(76,175,80,0.1)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">发现</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">记录</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">社区</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-md text-label-md font-bold">我的</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for list items
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('touchstart', function() {
+                this.classList.add('scale-[0.99]');
+            });
+            button.addEventListener('touchend', function() {
+                this.classList.remove('scale-[0.99]');
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>轻食刻 - AI 定制身材数据</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4caf50;
+            border-radius: 10px;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #eeeeee;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #006e1c;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 10px rgba(0, 110, 28, 0.2);
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#003c0b",
+                        "secondary": "#8b5000",
+                        "primary-container": "#4caf50",
+                        "surface-container-low": "#f3f3f3",
+                        "surface": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f0f1f1",
+                        "primary-fixed-dim": "#78dc77",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#78dc77",
+                        "outline-variant": "#becab9",
+                        "on-secondary-container": "#653900",
+                        "outline": "#6f7a6b",
+                        "primary": "#006e1c",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#bdcabe",
+                        "secondary-fixed": "#ffdcbe",
+                        "secondary-container": "#ff9800",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "on-background": "#1a1c1c",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#005313",
+                        "surface-dim": "#dadada",
+                        "on-tertiary-fixed-variant": "#3e4a41",
+                        "surface-tint": "#006e1c",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#556158",
+                        "tertiary-fixed": "#d9e6da",
+                        "on-surface-variant": "#3f4a3c",
+                        "on-primary-fixed": "#002204",
+                        "on-tertiary-fixed": "#131e17",
+                        "surface-bright": "#f9f9f9",
+                        "on-secondary-fixed": "#2c1600",
+                        "surface-container": "#eeeeee",
+                        "on-surface": "#1a1c1c",
+                        "primary-fixed": "#94f990",
+                        "on-tertiary-container": "#2a352d",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "background": "#f9f9f9",
+                        "tertiary-container": "#929e94",
+                        "secondary-fixed-dim": "#ffb870"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "container-margin": "1.25rem",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-container-margin h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl font-bold">nutrition</span>
+<h1 class="font-headline text-headline-md font-bold text-primary dark:text-primary-fixed-dim">轻食刻</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8 text-on-surface-variant font-medium">
+<a class="hover:text-primary transition-colors" href="#">计划</a>
+<a class="hover:text-primary transition-colors" href="#">食谱</a>
+<a class="hover:text-primary transition-colors" href="#">社区</a>
+</nav>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:opacity-80 transition-opacity">search</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border-2 border-primary/20">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_x3HyjSlowRCYw5LwgMCL0OYYhDkaWGzGbdz9y5bnUCC6JjyU3xwU-RGQtSjwRZ0LDY8_8_DpP7W9NrSIPGDSHwDKrKa6Z9zTY0pkobgMVvtLiFzL4jjBRWKpusvQG6ByLPAvcUslcNR4eAW3Uzlt1HhekA2eFRz2mBbS7NcwJzIaZPgk1pL4LXtIPqfnlmgPm0htx-eACfFnjUETLQaY5qck5w-CYp07O-et8Ef8sCL3eUNEBeEg5MsK7Dlx5KOY26KCRCboJd8o"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Progress Indicator -->
+<div class="mt-24 w-full max-w-4xl px-container-margin">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-md font-bold text-primary">步骤 2/4: 身材数据</span>
+<span class="text-label-md text-on-surface-variant">还需 2 分钟完成定制</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-2/4 h-full bg-primary-container transition-all duration-700 ease-out"></div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<main class="w-full max-w-7xl px-container-margin py-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-20">
+<!-- Left Section: Illustrative Content -->
+<section class="md:col-span-5 hidden md:block">
+<div class="sticky top-32">
+<div class="rounded-xl overflow-hidden shadow-xl bg-white aspect-[4/5] relative group">
+<img alt="Body Data Illustration" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000" data-alt="A clean, high-end 3D medical illustration of a stylized human silhouette showing glowing points of metabolic focus on the core and limbs. The aesthetic is ultra-modern and clinical, using a soft cream background and vibrant primary green accents to represent vitality and health. Soft, ambient lighting creates a gentle depth, while minimalist data overlays like heart rate waves and hexagonal patterns float around the figure in a high-key, airy composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAICV6HyGHYto9qWhqnbLoxo3WfLcIRg-MjL9paoH2onOhmy2dSvlbE9dpFj3EFloJ_-eSFLxTm-i4J13GtCV-k1T_YdBTFYcsVN9lF0lDkqpbmWH0BOoX9oH1jI1IYz9sOQo1E0lVVCD6vgNSuTXq1eAq1UUyKIay7AHkGEvGXyjXs3m8N3-CA4SkNkMemjqlH7P5uu3WAooegDiZEWEjf8JCJyCV6Y6v3QIWOn9dEoAA2ZoA1FXHIjHMSEqFpbvZD5lLYD0HVAKQ9"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex flex-col justify-end p-8">
+<h2 class="text-white text-3xl font-bold mb-2">精准测量</h2>
+<p class="text-white/90 text-body-md">输入准确的数据，让 AI 为您生成最科学的营养建议与减脂方案。</p>
+</div>
+</div>
+<div class="mt-8 flex gap-4">
+<div class="flex-1 p-4 bg-primary-fixed/20 rounded-lg border border-primary/10">
+<p class="text-primary font-bold text-headline-sm">98%</p>
+<p class="text-on-surface-variant text-label-md">定制方案满意度</p>
+</div>
+<div class="flex-1 p-4 bg-secondary-fixed/20 rounded-lg border border-secondary/10">
+<p class="text-secondary font-bold text-headline-sm">AI</p>
+<p class="text-on-surface-variant text-label-md">驱动精准计算</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Section: Form -->
+<section class="md:col-span-7 w-full flex flex-col gap-8">
+<div class="glass-card rounded-xl p-8 shadow-[0px_4px_24px_rgba(0,110,28,0.08)]">
+<header class="mb-8">
+<h1 class="text-headline-lg font-bold text-on-surface mb-2">告诉我们您的现状</h1>
+<p class="text-on-surface-variant">我们将根据您的身体基础代谢率 (BMR) 设计食谱</p>
+</header>
+<form class="space-y-8" id="bodyDataForm">
+<!-- Gender Selection -->
+<div class="space-y-4">
+<label class="text-label-md font-bold text-on-surface block">您的性别</label>
+<div class="grid grid-cols-2 gap-4">
+<button class="gender-btn flex flex-col items-center justify-center p-6 rounded-lg border-2 border-surface-container transition-all hover:border-primary/30 active:scale-95 group bg-white" data-gender="male" type="button">
+<span class="material-symbols-outlined text-4xl mb-2 text-on-surface-variant group-[.active]:text-primary">male</span>
+<span class="font-medium">男 性</span>
+</button>
+<button class="gender-btn flex flex-col items-center justify-center p-6 rounded-lg border-2 border-surface-container transition-all hover:border-primary/30 active:scale-95 group bg-white" data-gender="female" type="button">
+<span class="material-symbols-outlined text-4xl mb-2 text-on-surface-variant group-[.active]:text-primary">female</span>
+<span class="font-medium">女 性</span>
+</button>
+</div>
+</div>
+<!-- Age & Height Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Age -->
+<div class="space-y-4">
+<label class="text-label-md font-bold text-on-surface flex justify-between">
+<span>您的年龄</span>
+<span class="text-primary font-bold" id="ageValue">25 岁</span>
+</label>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<input class="w-full" id="ageInput" max="100" min="10" type="range" value="25"/>
+<div class="flex justify-between mt-2 text-[10px] text-outline">
+<span>10</span>
+<span>40</span>
+<span>70</span>
+<span>100</span>
+</div>
+</div>
+</div>
+<!-- Height -->
+<div class="space-y-4">
+<label class="text-label-md font-bold text-on-surface flex justify-between">
+<span>您的身高 (cm)</span>
+<span class="text-primary font-bold" id="heightValue">175 cm</span>
+</label>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<input class="w-full" id="heightInput" max="230" min="120" type="range" value="175"/>
+<div class="flex justify-between mt-2 text-[10px] text-outline">
+<span>120</span>
+<span>175</span>
+<span>230</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Weight & Body Fat Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Weight -->
+<div class="space-y-4">
+<label class="text-label-md font-bold text-on-surface flex justify-between">
+<span>当前体重 (kg)</span>
+<span class="text-primary font-bold" id="weightValue">70.0 kg</span>
+</label>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<input class="w-full" id="weightInput" max="200" min="30" step="0.5" type="range" value="70"/>
+<div class="flex justify-between mt-2 text-[10px] text-outline">
+<span>30</span>
+<span>115</span>
+<span>200</span>
+</div>
+</div>
+</div>
+<!-- Body Fat -->
+<div class="space-y-4">
+<label class="text-label-md font-bold text-on-surface flex justify-between">
+<span>体脂率 (%) <small class="font-normal text-on-surface-variant">(可选)</small></span>
+<span class="text-primary font-bold" id="fatValue">18 %</span>
+</label>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<input class="w-full" id="fatInput" max="50" min="5" type="range" value="18"/>
+<div class="flex justify-between mt-2 text-[10px] text-outline">
+<span>5</span>
+<span>27</span>
+<span>50</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Additional Context Card -->
+<div class="p-4 bg-secondary-fixed/10 border border-secondary/10 rounded-lg flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary">lightbulb</span>
+<div>
+<p class="text-on-surface font-bold text-label-md">不知道体脂率？</p>
+<p class="text-on-surface-variant text-sm">您可以参照系统提供的示意图进行估算，或跳过此项，AI 将根据您的 BMI 进行推测。</p>
+</div>
+</div>
+<!-- CTA Buttons -->
+<div class="flex items-center gap-4 pt-4">
+<button class="px-8 py-4 rounded-xl border border-outline text-on-surface-variant font-bold hover:bg-surface-container-low transition-all active:scale-95" type="button">
+                            上一步
+                        </button>
+<button class="flex-1 bg-primary text-on-primary py-4 rounded-xl font-bold text-headline-sm shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+<span>开启 AI 定制方案</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Trust Badges -->
+<div class="flex justify-center gap-12 py-4">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="text-xs">数据隐私保护</span>
+</div>
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="text-xs">秒级生成结果</span>
+</div>
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-sm">science</span>
+<span class="text-xs">基于循证营养学</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only Interface) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-4 pt-2 bg-surface dark:bg-surface-container shadow-[0px_-4px_20px_rgba(0,110,28,0.1)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1">
+<span class="material-symbols-outlined">home</span>
+<span class="text-xs">首页</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-xs">发现</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-xs">记录</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1">
+<span class="material-symbols-outlined">group</span>
+<span class="text-xs">社区</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs">我的</span>
+</div>
+</nav>
+<script>
+        // Interactive form logic
+        const genderBtns = document.querySelectorAll('.gender-btn');
+        const inputs = {
+            age: { el: document.getElementById('ageInput'), val: document.getElementById('ageValue'), suffix: ' 岁' },
+            height: { el: document.getElementById('heightInput'), val: document.getElementById('heightValue'), suffix: ' cm' },
+            weight: { el: document.getElementById('weightInput'), val: document.getElementById('weightValue'), suffix: ' kg' },
+            fat: { el: document.getElementById('fatInput'), val: document.getElementById('fatValue'), suffix: ' %' }
+        };
+
+        genderBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                genderBtns.forEach(b => {
+                    b.classList.remove('active', 'border-primary', 'bg-primary/5');
+                    b.querySelector('span:first-child').style.fontVariationSettings = "'FILL' 0";
+                });
+                btn.classList.add('active', 'border-primary', 'bg-primary/5');
+                btn.querySelector('span:first-child').style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+
+        // Initialize first gender button
+        genderBtns[1].click();
+
+        Object.keys(inputs).forEach(key => {
+            const config = inputs[key];
+            config.el.addEventListener('input', (e) => {
+                config.val.textContent = e.target.value + config.suffix;
+            });
+        });
+
+        document.getElementById('bodyDataForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Animation for submission
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> 正在分析数据...';
+            setTimeout(() => {
+                alert('数据已提交！AI 正在为您生成专属营养计划。');
+                btn.innerHTML = '<span>开启 AI 定制方案</span><span class="material-symbols-outlined">arrow_forward</span>';
+            }, 1500);
+        });
+
+        // Hover animations for the 3D illustration
+        const card = document.querySelector('.group');
+        card.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = card.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
+            card.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+        });
+    </script>
+</body></html>

@@ -1,0 +1,169 @@
+/**
+ * 轻饮食 - API 接口
+ *
+ * 对接 Flask 后端，所有接口均为真实请求
+ */
+
+const API_BASE_URL = 'http://localhost:5000/api';
+
+// 工具函数
+async function request(url, options = {}) {
+  const token = localStorage.getItem('token');
+  const headers = { 'Content-Type': 'application/json', ...options.headers };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+
+  const res = await fetch(`${API_BASE_URL}${url}`, { ...options, headers, credentials: 'include' });
+  return res.json();
+}
+
+const API = {
+  /**
+   * 用户相关接口
+   */
+  user: {
+    getProfile: async () => {
+      return request('/user/profile');
+    },
+
+    updateProfile: async (data) => {
+      return request('/user/profile', { method: 'PUT', body: JSON.stringify(data) });
+    },
+
+    login: async (credentials) => {
+      const res = await request('/auth/login', { method: 'POST', body: JSON.stringify(credentials) });
+      if (res.success && res.token) {
+        localStorage.setItem('token', res.token);
+      }
+      return res;
+    },
+
+    register: async (data) => {
+      const res = await request('/auth/register', { method: 'POST', body: JSON.stringify(data) });
+      if (res.success && res.token) {
+        localStorage.setItem('token', res.token);
+      }
+      return res;
+    }
+  },
+
+  /**
+   * 饮食记录相关接口
+   */
+  diet: {
+    getTodayCalories: async () => {
+      return request('/diet/today-calories');
+    },
+
+    getTodayMeals: async () => {
+      return request('/diet/today-meals');
+    },
+
+    getRecords: async (date) => {
+      const params = date ? `?date=${date}` : '';
+      return request(`/diet/records${params}`);
+    },
+
+    addRecord: async (data) => {
+      return request('/diet/records', { method: 'POST', body: JSON.stringify(data) });
+    },
+
+    deleteRecord: async (id) => {
+      return request(`/diet/records/${id}`, { method: 'DELETE' });
+    },
+
+    getMacros: async () => {
+      return request('/diet/macros');
+    },
+
+    getWaterIntake: async () => {
+      return request('/diet/water');
+    },
+
+    updateWaterIntake: async (amount) => {
+      return request('/diet/water', { method: 'PUT', body: JSON.stringify({ amount }) });
+    },
+
+    getWeeklyCalories: async () => {
+      return request('/diet/weekly-calories');
+    },
+
+    getNutritionRadar: async () => {
+      return request('/diet/nutrition-radar');
+    }
+  },
+
+  /**
+   * 食物相关接口
+   */
+  food: {
+    getDetail: async (id) => {
+      return request(`/food/${id}`);
+    },
+
+    search: async (keyword) => {
+      return request(`/food/search?q=${encodeURIComponent(keyword)}`);
+    },
+
+    toggleFavorite: async (id) => {
+      return request(`/food/${id}/favorite`, { method: 'POST' });
+    }
+  },
+
+  /**
+   * AI 方案相关接口
+   */
+  ai: {
+    submitBodyData: async (data) => {
+      return request('/ai/body-data', { method: 'POST', body: JSON.stringify(data) });
+    },
+
+    getPlan: async () => {
+      return request('/ai/plan');
+    },
+
+    applyPlan: async () => {
+      return request('/ai/apply', { method: 'POST' });
+    }
+  },
+
+  /**
+   * 社区相关接口
+   */
+  community: {
+    getPosts: async (page = 1, category = 'all') => {
+      return request(`/community/posts?page=${page}&category=${category}`);
+    },
+
+    toggleLike: async (postId) => {
+      return request(`/community/posts/${postId}/like`, { method: 'POST' });
+    },
+
+    comment: async (postId, content) => {
+      return request(`/community/posts/${postId}/comment`, { method: 'POST', body: JSON.stringify({ content }) });
+    },
+
+    toggleFollow: async (userId) => {
+      return request(`/community/follow/${userId}`, { method: 'POST' });
+    },
+
+    createPost: async (data) => {
+      return request('/community/posts', { method: 'POST', body: JSON.stringify(data) });
+    }
+  },
+
+  /**
+   * 成就相关接口
+   */
+  achievement: {
+    getAll: async () => {
+      return request('/achievement/all');
+    },
+
+    getUnlocked: async () => {
+      return request('/achievement/unlocked');
+    }
+  }
+};
+
+// 导出 API 对象
+window.API = API;

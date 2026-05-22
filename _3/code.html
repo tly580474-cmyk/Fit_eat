@@ -1,0 +1,329 @@
+<!DOCTYPE html><html class="light" lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', "PingFang SC", "Microsoft YaHei", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .post-card-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 110, 28, 0.08);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#78dc77",
+                    "inverse-surface": "#2f3131",
+                    "surface-variant": "#e2e2e2",
+                    "surface-dim": "#dadada",
+                    "inverse-on-surface": "#f0f1f1",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#78dc77",
+                    "outline": "#6f7a6b",
+                    "surface": "#f9f9f9",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#006e1c",
+                    "tertiary-fixed-dim": "#bdcabe",
+                    "surface-container-high": "#e8e8e8",
+                    "on-secondary-container": "#653900",
+                    "on-secondary-fixed-variant": "#693c00",
+                    "primary": "#006e1c",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1a1c1c",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f9f9f9",
+                    "secondary-fixed-dim": "#ffb870",
+                    "secondary": "#8b5000",
+                    "on-tertiary-fixed": "#131e17",
+                    "on-secondary-fixed": "#2c1600",
+                    "primary-container": "#4caf50",
+                    "on-tertiary-container": "#2a352d",
+                    "on-primary-fixed-variant": "#005313",
+                    "background": "#f9f9f9",
+                    "surface-container": "#eeeeee",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#002204",
+                    "tertiary-fixed": "#d9e6da",
+                    "on-surface": "#1a1c1c",
+                    "outline-variant": "#becab9",
+                    "primary-fixed": "#94f990",
+                    "secondary-fixed": "#ffdcbe",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#929e94",
+                    "secondary-container": "#ff9800",
+                    "on-tertiary-fixed-variant": "#3e4a41",
+                    "tertiary": "#556158",
+                    "on-primary-container": "#003c0b",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-surface-variant": "#3f4a3c",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "1rem",
+                    "gutter-base": "1rem",
+                    "container-margin": "1.25rem",
+                    "stack-sm": "0.5rem",
+                    "card-padding": "1rem",
+                    "stack-lg": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md-mobile": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-24">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-container-margin h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A high-quality close-up portrait of a cheerful young woman with a healthy glow, representing a fitness enthusiast user profile. The lighting is soft and natural, emphasizing a fresh and vitality-filled aesthetic. The background is a clean, minimalist kitchen setting with soft pastel tones, maintaining the brand's optimistic and approachable personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3-qFT9K7m7KfakNxbvsX2HNK5ArJBygykxJl7ug2u74S0CQc8fK8hrS9oX2bmZsIM1RmD8HeeP6qH8SN1PM7mmr4RhJxXWy9k6iJqStAMuV-hjDAiNGOYcn6N5JSWDrG0E3m09AR12y0ycUPCpQHB00aYY7Wgm506du79GkhNWzFWwA06EJOef0pTCuRpKeACay8sripx-2TjHLtNxiK00J1tmizGrwp1GxaDcNfXt8istB5ALNgKnMf_JyZvPxj-oCUBTtBt9aP_">
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">轻食刻</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="search">search</span>
+</button>
+<button class="text-on-surface hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="notifications">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-container-margin max-w-2xl mx-auto space-y-stack-lg">
+<!-- Category Filter Chips -->
+<div class="flex gap-2 overflow-x-auto hide-scrollbar py-2">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md flex-shrink-0 transition-all active:scale-95">全部</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md flex-shrink-0 transition-all active:scale-95">减脂餐</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md flex-shrink-0 transition-all active:scale-95">运动补给</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md flex-shrink-0 transition-all active:scale-95">健康食谱</button>
+</div>
+<!-- Feed List -->
+<div class="space-y-stack-lg">
+<!-- Post 1 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden post-card-shadow transition-transform active:scale-[0.99]">
+<div class="p-card-padding flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" data-alt="A minimalist profile icon of a young athletic male with a friendly expression. The visual style is clean and modern, set against a soft cream background. The lighting is bright and airy, reflecting a health-conscious lifestyle and the fresh vitality of the brand's aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB78ZBAIJWToALSu8gMdBQF1oKOVt12XcLtFr5ye1NMvVmslOPBjSqoMY_raUR3YfeH8B9xBWrNJmNcYqYdb6JNrBeNwuCJrnhnr5KQPdIIwSNhbIzPP7QHjVM3X_aPObgjdWqmgj5mXQlff4HXjVRPNLWz8SSNYQtRJat-UXzj0A0Si1bJyDgJN8pJUvkZ2CxqFBqLqZ7dD8fOg-9Qbv5Y94cUp1G28O2hmmH1EjvpPuoiwgyK9fSFd8Tm45NqIL4lAZ2Suyy5jsCg">
+</div>
+<div>
+<p class="font-headline-sm text-[15px] font-bold text-on-surface">小王的一天</p>
+<p class="font-label-md text-[12px] text-on-surface-variant">2小时前 · 上海</p>
+</div>
+</div>
+<button class="text-primary font-label-md font-bold">+ 关注</button>
+</div>
+<div class="aspect-square w-full bg-surface-container relative">
+<img alt="Meal" class="w-full h-full object-cover" data-alt="A top-down professional food photograph of a vibrant Mediterranean salad bowl featuring fresh greens, colorful cherry tomatoes, sliced avocado, and grilled chicken breast. The lighting is bright, natural daylight that makes the ingredients pop with fresh, saturated colors. The composition is clean and minimalist, set on a light-colored wooden table with a soft cream-colored linen napkin, perfectly aligned with the fresh and vitality design narrative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR5vxypcfw9PyyJ_5w9RFcypQWOzgKKjuNmhfIwaQFMe797vlDLhUBNL-kQk8DKo7EHT_TQ4bR4-qHCMo9-zdsBmJuRbRh5Sff2ui0v6plgg46VLfRsUyvGRCvLgiwZg0QHexVOZxFfKlFgiBIisHvnhj0yKHmvyl9oouL-zNhFPK8y9PC6agoDiZehkDXTSXrUZT6KS-gS5pdcf-oXmTJR5_Cp_Q-E5XExLN0k0-JWEFoUvN381uZ47SXeXY7cc_JD7BZAItIz7lI">
+</div>
+<div class="p-card-padding space-y-stack-sm">
+<p class="font-body-md text-on-surface">打卡今日减脂餐，好吃不胖！今天尝试了牛油果鸡肉沙拉，清爽解腻，蛋白质拉满。🥗💪</p>
+<div class="flex items-center gap-4 pt-2">
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110">
+<span class="material-symbols-outlined text-[22px]" data-icon="favorite">favorite</span>
+<span class="font-label-md">1.2k</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110">
+<span class="material-symbols-outlined text-[22px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-label-md">86</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110 ml-auto">
+<span class="material-symbols-outlined text-[22px]" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Post 2 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden post-card-shadow transition-transform active:scale-[0.99]">
+<div class="p-card-padding flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" data-alt="A stylish profile portrait of a modern woman with a confident smile, wearing minimalist workout gear. The image has a soft focus background of a bright, sun-drenched fitness studio. The overall mood is vibrant, optimistic, and clean, consistent with the wellness-focused UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCThtx--ZV_d5-OYkl6SEu303M4ahrq2uwrDsaY0ooNL9U6hou8VgS2a1c12bY21Mjhylg00G2ME2ruu2oGCa7qWajLY3saGUpdDbKx16DlUgirTOc0lPpDCdSbmRo8ctk7HiXzt27eQkrWr0xXzjLirKN_NqKJK3Cs9WDuuk89ZJPBWzn7F4aE_1CLNhe7VVrG0RAX55IF1x61kIrva7rT7RZ0EpvJCo6_1-tW2Odk3FLOhqq8fF5SOVeRVMp6Br3M2GjoaJjT5BGF">
+</div>
+<div>
+<p class="font-headline-sm text-[15px] font-bold text-on-surface">莉莉的减脂日记</p>
+<p class="font-label-md text-[12px] text-on-surface-variant">4小时前 · 北京</p>
+</div>
+</div>
+<button class="text-primary font-label-md font-bold">+ 关注</button>
+</div>
+<div class="aspect-video w-full bg-surface-container relative">
+<img alt="Meal" class="w-full h-full object-cover" data-alt="A beautifully plated healthy breakfast featuring poached eggs on multi-grain sourdough toast, garnished with microgreens and a side of fresh berries. The scene is shot in a high-key, airy style with soft morning sunlight streaming across a minimalist marble countertop. The color palette is composed of natural greens, warm oranges, and crisp whites, evoking a sense of effortless health and luxury wellness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh0-wFN5SE53SnOghmGdJG-9P-BJh0NVI1tJRW_HE6XElFP76dwS7CVi6erdCKQWyAATZrh0sp0U2uFLAfCmUjXxkQDutW1nSXk_c6Dyh0mQSPkJcq40u99ufITpGwHb7lKkvs_uEA7tldjlSW3Fo-Ef42MRAsFsYSkpEuhr_o4Gi89l8Ev-GaGi1vmgFzil4J_DFHp4NcBLndJ6S91zLSgJQnk_G5xH6J0MWFQkKv2RSgJcRnf3GbcZppzLf0stZJd5ySqYmVSHgE">
+</div>
+<div class="p-card-padding space-y-stack-sm">
+<p class="font-body-md text-on-surface">早餐是开启元气满满一天的关键！全麦欧包配水波蛋，真的超满足。大家也要记得吃早餐哦～ ☀️ #健康生活 #早餐打卡</p>
+<div class="flex items-center gap-4 pt-2">
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110">
+<span class="material-symbols-outlined text-[22px]" data-icon="favorite">favorite</span>
+<span class="font-label-md">2.5k</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110">
+<span class="material-symbols-outlined text-[22px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-label-md">142</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110 ml-auto">
+<span class="material-symbols-outlined text-[22px]" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Post 3 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden post-card-shadow transition-transform active:scale-[0.99]">
+<div class="p-card-padding flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed-dim overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" data-alt="A minimalist and clean avatar of a young man with a serene expression, representing a user focused on mental and physical balance. The lighting is even and soft, set against a neutral, warm-toned background that fits perfectly with the soft tactile elements of the design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFhomX44CCwsmdcduiTmspXWd3RB-taJqsMLrbDY0RvlTTqnGlgcqf3GfY9cN7y0iIB90IH3pbNfV__kWDPkIvWT1e8dDIMPZK0p5_8jx9UUVePJVS9r-GRNoSQo_37_b9mHs2Z8ZV0-YVA9ckzpQW6y8MzviKXASSrl9yxBCL2_CVgMzmCvR1cr1keZ58CiYch-lwmfgD4mhTiLibA8EEm_vK-XFApk73ZoewuX10pHvGHjgylB2F1bTIB1SWaWAyC1SbOkGO--KA">
+</div>
+<div>
+<p class="font-headline-sm text-[15px] font-bold text-on-surface">健身达人阿强</p>
+<p class="font-label-md text-[12px] text-on-surface-variant">昨天 · 深圳</p>
+</div>
+</div>
+<button class="text-primary font-label-md font-bold">+ 关注</button>
+</div>
+<div class="aspect-square w-full bg-surface-container relative">
+<img alt="Meal" class="w-full h-full object-cover" data-alt="A vibrant and energetic image of a homemade protein smoothie bowl topped with sliced banana, granola, chia seeds, and fresh blueberries. The bowl is set against a bright, modern background with a splash of primary green color, reflecting the vitality and fresh narrative of the brand. The lighting is sharp and dynamic, highlighting the textures and rich colors of the fresh fruit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7m4HxVg4TCXryBtcYgKRN0FKEX5BnNBUp-gxU7j3e2Z98cIPvtA_2aodY-J3tBgmE1fEA74aaxd7epi30p-Z8dH_NuwQTvsC8tMc-3qFUbFY_O4_XNAWYAzCbYsgosz467aKJOYv-CIW--ToRbNuQNwRd3LA9tpQWhh-3NrUPeRvBQ0h0yNCEiMEEmq4F-JqPbzREM2pV9EI_998wBuIEyZKoMPPzE0vRPPRFvjbOb8pz1UnVDPEru2UCxHxIRaKz9xVP_Z62cmd5">
+</div>
+<div class="p-card-padding space-y-stack-sm">
+<p class="font-body-md text-on-surface">练后补给：莓果蛋白碗！酸酸甜甜，口感层次非常丰富。高蛋白低脂肪，健身必备。🍓🥥</p>
+<div class="flex items-center gap-4 pt-2">
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110">
+<span class="material-symbols-outlined text-[22px]" data-icon="favorite">favorite</span>
+<span class="font-label-md">956</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110">
+<span class="material-symbols-outlined text-[22px]" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-label-md">54</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary active:scale-110 ml-auto">
+<span class="material-symbols-outlined text-[22px]" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-all z-40">
+<span class="material-symbols-outlined text-3xl font-bold" data-icon="add">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-4 pt-2 bg-surface dark:bg-surface-container shadow-[0px_-4px_20px_rgba(0,110,28,0.1)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md-mobile">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-md text-label-md-mobile">发现</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md-mobile">记录</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-2xl px-4 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md-mobile">社区</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md-mobile">我的</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for heart icons
+        document.querySelectorAll('[data-icon="favorite"]').forEach(button => {
+            button.parentElement.addEventListener('click', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                const count = this.querySelector('.font-label-md');
+                const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                
+                if (isFilled) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                    this.classList.remove('text-primary');
+                    this.classList.add('text-on-surface-variant');
+                } else {
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                    this.classList.remove('text-on-surface-variant');
+                    this.classList.add('text-primary');
+                    
+                    // Simple animation
+                    this.classList.add('scale-125');
+                    setTimeout(() => this.classList.remove('scale-125'), 200);
+                }
+            });
+        });
+
+        // Add scroll behavior to header
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.querySelector('header');
+            
+            if (currentScroll <= 0) {
+                header.classList.remove('-translate-y-full');
+                return;
+            }
+            
+            if (currentScroll > lastScroll && currentScroll > 64) {
+                header.classList.add('-translate-y-full');
+            } else {
+                header.classList.remove('-translate-y-full');
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+</body></html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html><html class="light" lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#78dc77",
+                    "inverse-surface": "#2f3131",
+                    "surface-variant": "#e2e2e2",
+                    "surface-dim": "#dadada",
+                    "inverse-on-surface": "#f0f1f1",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#78dc77",
+                    "outline": "#6f7a6b",
+                    "surface": "#f9f9f9",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#006e1c",
+                    "tertiary-fixed-dim": "#bdcabe",
+                    "surface-container-high": "#e8e8e8",
+                    "on-secondary-container": "#653900",
+                    "on-secondary-fixed-variant": "#693c00",
+                    "primary": "#006e1c",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1a1c1c",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f9f9f9",
+                    "secondary-fixed-dim": "#ffb870",
+                    "secondary": "#8b5000",
+                    "on-tertiary-fixed": "#131e17",
+                    "on-secondary-fixed": "#2c1600",
+                    "primary-container": "#4caf50",
+                    "on-tertiary-container": "#2a352d",
+                    "on-primary-fixed-variant": "#005313",
+                    "background": "#f9f9f9",
+                    "surface-container": "#eeeeee",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#002204",
+                    "tertiary-fixed": "#d9e6da",
+                    "on-surface": "#1a1c1c",
+                    "outline-variant": "#becab9",
+                    "primary-fixed": "#94f990",
+                    "secondary-fixed": "#ffdcbe",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#929e94",
+                    "secondary-container": "#ff9800",
+                    "on-tertiary-fixed-variant": "#3e4a41",
+                    "tertiary": "#556158",
+                    "on-primary-container": "#003c0b",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-surface-variant": "#3f4a3c",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "1rem",
+                    "gutter-base": "1rem",
+                    "container-margin": "1.25rem",
+                    "stack-sm": "0.5rem",
+                    "card-padding": "1rem",
+                    "stack-lg": "1.5rem"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes ring-draw {
+            from { stroke-dashoffset: 440; }
+            to { stroke-dashoffset: 146; }
+        }
+        .animate-ring {
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            animation: ring-draw 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+    </style>
+<style>
+        body {
+          min-height: 100dvh;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen font-body-md pb-24">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-container-margin h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChWUO6HoNHFiaKCj2ge_5Upd9VvvSDq0K4cAQQk85Kodog8o4yxM3IlpPO1HmrUkUReOYweYxunIaZJn0egq5oTUl8-hq4uDD47nG0QtBtCokLbCyIvXNXSxhD33ZutON33FmrXcBzOj94ic9_pQx1JimQOgrbBUlJGkeqZ5SQ0W1eI5oN9QKe6ZQZqqDR_I4JmT_wPhaQwznQaxMSb6eOR0kP1F3CdOBiGR8BJpx4YCutJhEY7e1oFcpRRfX-atFKyNG0C2UIRSq0">
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary">轻食刻</span>
+</div>
+<button class="material-symbols-outlined text-primary text-2xl hover:opacity-80 transition-opacity active:scale-95">search</button>
+</div>
+</header>
+<main class="pt-20 px-container-margin max-w-7xl mx-auto">
+<!-- Calorie Hero Section -->
+<section class="mt-stack-lg mb-stack-lg flex flex-col items-center">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="128" cy="128" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary animate-ring" cx="128" cy="128" fill="transparent" r="70" stroke="currentColor" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-on-surface-variant font-label-md text-label-md">今日剩余</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary my-1">1200</span>
+<span class="text-on-surface-variant font-label-md text-label-md">目标 1800 kcal</span>
+</div>
+</div>
+<!-- Quick Stats Chips -->
+<div class="flex gap-3 mt-4">
+<div class="bg-primary-container/10 px-4 py-2 rounded-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">restaurant</span>
+<span class="text-primary font-label-md text-label-md">摄入 600</span>
+</div>
+<div class="bg-secondary-container/10 px-4 py-2 rounded-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">local_fire_department</span>
+<span class="text-secondary font-label-md text-label-md">消耗 240</span>
+</div>
+</div>
+</section>
+<!-- Daily Meal Plan Section -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-end mb-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">每日餐单</h2>
+<span class="text-primary font-label-md text-label-md cursor-pointer">查看全部</span>
+</div>
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-4 snap-x">
+<!-- Card 1: Breakfast -->
+<div class="min-w-[280px] snap-start group cursor-pointer">
+<div class="relative h-48 rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(0,110,28,0.1)] transition-transform active:scale-[0.98]">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcKCv1muMg63BHXxO325rtTptqhIyu5LWObL65uycIuoZow3N-OTq6lXIQmFf8AehCBl1F4D1MiUFUOC7CUnEsBWyR73OAMRl7MtslwSzApm6EBBHAOdBraIdiBYHdwkFB6otQSj0nbv_FexSnes0bvvSURhr21HzezwfWZIErv07XpxbeK-7jljlyktfPD5_xcjv0pxPK_5dw8WL0Jl_YltDzyrQq9Or12HCtRrJDzZYmsjWL8ILuiScnKsFm_f9CH-f80cwm-TfF">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<span class="bg-secondary px-2 py-0.5 rounded text-[10px] font-bold uppercase mb-1 inline-block">早餐</span>
+<h3 class="font-headline-sm text-headline-sm">牛油果水波蛋</h3>
+<div class="flex items-center gap-2 mt-1 opacity-90">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="text-sm">320 kcal</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Lunch -->
+<div class="min-w-[280px] snap-start group cursor-pointer">
+<div class="relative h-48 rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(0,110,28,0.1)] transition-transform active:scale-[0.98]">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHULw6L1GbT1T1bnbCu4zT34WiXlsgNZC8SlW153kEgcEA-3N7CPmO8DzDtKkHDUF1dmhBEAohkImTm0s3pf6csvOnUCLYu22nWQDhDI1dZa_6ykKfC0EWB2JtFrY8dhl5AHOjt5hJvj63xgnewvjjHSnTtMZL_VLqTjp0e4Y3d9yIwfhwf3XKuoPgP32CPUM3pRZcU_qZxWE2HNdhutk6BnkoxDI-LsdrZvFO4x7GtzEGDXY7yVPxWip73FJD_0WkNbPYtYmcZ3CP">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<span class="bg-primary px-2 py-0.5 rounded text-[10px] font-bold uppercase mb-1 inline-block">午餐</span>
+<h3 class="font-headline-sm text-headline-sm">嫩煎鸡胸肉沙拉</h3>
+<div class="flex items-center gap-2 mt-1 opacity-90">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="text-sm">450 kcal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Nutrition Macro Cards -->
+<section class="grid grid-cols-3 gap-3 mb-stack-lg">
+<div class="bg-surface-container-low p-4 rounded-2xl border border-outline-variant/30 text-center">
+<span class="block text-on-surface-variant font-label-md text-label-md">蛋白质</span>
+<span class="block font-headline-sm text-headline-sm text-primary mt-1">45g</span>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-2">
+<div class="w-[60%] h-full bg-primary rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-2xl border border-outline-variant/30 text-center">
+<span class="block text-on-surface-variant font-label-md text-label-md">碳水</span>
+<span class="block font-headline-sm text-headline-sm text-secondary mt-1">120g</span>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-2">
+<div class="w-[45%] h-full bg-secondary rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-2xl border border-outline-variant/30 text-center">
+<span class="block text-on-surface-variant font-label-md text-label-md">脂肪</span>
+<span class="block font-headline-sm text-headline-sm text-tertiary mt-1">32g</span>
+<div class="w-full h-1 bg-surface-container-high rounded-full mt-2">
+<div class="w-[30%] h-full bg-tertiary rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Diet Record Stream Section -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">饮食记录</h2>
+<button class="flex items-center gap-1 text-primary bg-primary/10 px-3 py-1.5 rounded-full hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+<span class="font-label-md text-label-md">添加记录</span>
+</button>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Record Item 1 -->
+<div class="bg-surface-container-low rounded-2xl p-4 flex gap-4 border border-outline-variant/20 shadow-sm transition-transform active:scale-[0.98]">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Food" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhs2EFTqGNOv9wKF1ud0rQ4iAb9Yr3VfHcd8bcL_dt-WcfBdIFh_xu5LcrcxmB-jICj_LwE5E3iPOe5hK1i_emPQRu4IFaGeGbrdeTN3Puvt-NEe0YTI-c2ir7cMqIm3m4_558LM1FW9Ik9QkrJFwYYp7EYqtQnnwEaSt9Lu36pyDVKd7yjTROeobCKpGsb5mW6hPpbtcHKqzrBtubNby3eqt89HSWPr3vCDS3THwoj-SB7O2zWpWq5qeDvQX-IGrHKI-tiI2efFH-">
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start">
+<p class="text-on-surface font-body-md line-clamp-2">今天的午餐很清爽，全麦面包配鲜虾，口感极佳。</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded-md text-xs font-semibold">450 kcal</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-[12px] font-label-md mt-1">2023-11-20 12:30</p>
+</div>
+</div>
+<!-- Record Item 2 -->
+<div class="bg-surface-container-low rounded-2xl p-4 flex gap-4 border border-outline-variant/20 shadow-sm transition-transform active:scale-[0.98]">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Food" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNgz-75kC-QDNIxD9vvUbH32kmVUehAXydtaUxdUisPyM6xLHrSDhLEm1Z8VPHWyVymTYGSHrbZnxlswprberEPXhk6zl7P5vuIaVWcjf3umabVtE8S1axIlK6jhxF38owK8SLehW06TfrIsbo6IL6WMA9s2BysKMUteqeLg5vO4NeNabs_eXiSDuwhmckyfUWJSccpWLjGoQ8bAIyWKxZB1fX9F4kQ1vNa_eEly3ecGO-oi3yzLgtqASk2I7gxh_mlJUZ479GNdDR">
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div>
+<p class="text-on-surface font-body-md line-clamp-2">早起的一碗燕麦粥，开启元气满满的一天。</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded-md text-xs font-semibold">320 kcal</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-[12px] font-label-md mt-1">2023-11-20 08:15</p>
+</div>
+</div>
+<!-- Record Item 3 -->
+<div class="bg-surface-container-low rounded-2xl p-4 flex gap-4 border border-outline-variant/20 shadow-sm transition-transform active:scale-[0.98]">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Food" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxKylu1X_fha0ZpGB52zrhiiFmJR7sePtSTKZhvF6kHZTAjVKqI1zbaFYByqfZBO1ITXbykBPMWXieoI1_S8iPcZQA6KDuB_De3Xe_xauYc0wcjr_em2LR4tCRDCcPoZyp3YSNrJl_NAWMiFXuns2FUVB1rGUlrqzyFi_Q1eObpLt2V0UoWv_W_ODW19mmcZlfcboPv9_9xPfItFD6AO70AOKmpjZBM_XYO39f6YLhHQQN1FcUTjhaa_sELT450sraaw2e_Ymht1FZ">
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div>
+<p class="text-on-surface font-body-md line-clamp-2">昨晚的轻食沙拉，低脂健康无负担。</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded-md text-xs font-semibold">380 kcal</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-[12px] font-label-md mt-1">2023-11-19 19:45</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Floating Action Button for Logging -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-all duration-200 z-40">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-container shadow-[0px_-4px_20px_rgba(0,110,28,0.1)] rounded-t-xl flex justify-around items-center px-2 pb-4 pt-2">
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-2xl px-4 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-[12px]">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-[12px]">发现</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-[12px]">记录</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-[12px]">社区</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-inverse-surface/10 rounded-2xl active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-[12px]">我的</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.snap-start, .bg-surface-container-low').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.97)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+
+        // Simple parallax scroll effect for the header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

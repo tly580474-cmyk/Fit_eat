@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻食刻 - 食物详情</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#006e1c',
+            'primary-container': '#4caf50',
+            secondary: '#8b5000',
+            surface: '#f9f9f9',
+          },
+          borderRadius: { 'huge': '1.5rem' }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-gray-50 pb-32 lg:pb-8">
+
+  <!-- 顶部导航栏（覆盖在图片上） -->
+  <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 md:px-6 py-4 transition-all duration-300" id="main-header">
+    <button class="w-10 h-10 flex items-center justify-center bg-white/40 backdrop-blur-xl rounded-full text-gray-800 hover:bg-white/60 transition-colors" onclick="history.back()">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+    <div class="flex gap-2">
+      <button class="w-10 h-10 flex items-center justify-center bg-white/40 backdrop-blur-xl rounded-full text-gray-800 hover:bg-white/60 transition-colors" onclick="toggleFavorite(this)">
+        <span class="material-symbols-outlined" id="fav-icon">favorite</span>
+      </button>
+      <button class="w-10 h-10 flex items-center justify-center bg-white/40 backdrop-blur-xl rounded-full text-gray-800 hover:bg-white/60 transition-colors">
+        <span class="material-symbols-outlined">share</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto pt-20 pb-12 px-4 lg:px-10">
+    <!-- 桌面端: 左右分栏 -->
+    <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+
+      <!-- 左侧: 粘性大图 (桌面端) -->
+      <div class="w-full lg:w-5/12 xl:w-1/2">
+        <div class="lg:sticky lg:top-24">
+          <div class="relative h-80 lg:h-[600px] xl:h-[700px] w-full overflow-hidden rounded-3xl lg:rounded-[2rem]">
+            <img id="food-hero-image" alt="" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWCoRWf35e_dNWXLpeZWhsKHgeY-zVv6EnjN3c0eM1AtF7MMoxOmUVW8-l1TrlyxiJ6kIgMGlnoXb9LhqJphxsIRFMS4y2mm49SGlUhx1-8ocpAS1TPq9eaZ0qG6LSDTjkSApI7sABbITnQf4PCA5W1IxMklQvdoLN--JgjkouYb2KztGNCOg3tTO-p-Rh0HdzAvCn9OaeY7zX1tDDm72_YgsTVvlOqlUeTq_U1_cxgLAMZo68BYBYbUfSM483xHtlIWveDQpdMco7">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            <!-- 桌面端: 悬浮操作卡 -->
+            <div class="hidden lg:flex absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-2xl p-4 items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-1.5 text-gray-600">
+                  <span class="material-symbols-outlined text-lg">schedule</span>
+                  <span class="text-sm font-medium">10 分钟</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-gray-600">
+                  <span class="material-symbols-outlined text-lg">skillet</span>
+                  <span class="text-sm font-medium">初级</span>
+                </div>
+              </div>
+              <button class="bg-green-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-green-700 transition-colors flex items-center gap-1.5" onclick="addToRecord()">
+                <span class="material-symbols-outlined text-lg">add_circle</span>
+                加入今日饮食
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧: 可滚动内容 -->
+      <div class="w-full lg:w-7/12 xl:w-1/2">
+        <!-- 标题和标签 -->
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span id="food-tags" class="flex gap-2 flex-wrap">
+              <span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-medium">高蛋白</span>
+              <span class="px-3 py-1 bg-orange-50 text-orange-700 rounded-full text-sm font-medium">低GI</span>
+            </span>
+          </div>
+          <h1 id="food-name" class="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">牛油果水波蛋活力碗</h1>
+          <p id="food-desc" class="text-gray-500 leading-relaxed">
+            这款活力碗完美平衡了优质脂肪、蛋白质和复合碳水，是开启元气满满一天的理想选择。
+          </p>
+        </div>
+
+        <!-- 营养数据网格 (桌面端 4 栏, 移动端 4 栏) -->
+        <div class="grid grid-cols-4 gap-3 mb-8">
+          <div class="bg-gray-50 rounded-xl p-3 lg:p-4 flex flex-col items-center">
+            <span id="food-calories" class="text-green-700 text-xl lg:text-2xl font-bold">345</span>
+            <span class="text-gray-500 text-xs">千卡</span>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3 lg:p-4 flex flex-col items-center border-b-4 border-green-500">
+            <span id="food-protein" class="text-gray-800 text-xl lg:text-2xl font-bold">18g</span>
+            <span class="text-gray-500 text-xs">蛋白质</span>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3 lg:p-4 flex flex-col items-center border-b-4 border-orange-500">
+            <span id="food-carbs" class="text-gray-800 text-xl lg:text-2xl font-bold">24g</span>
+            <span class="text-gray-500 text-xs">碳水</span>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3 lg:p-4 flex flex-col items-center border-b-4 border-yellow-700">
+            <span id="food-fat" class="text-gray-800 text-xl lg:text-2xl font-bold">12g</span>
+            <span class="text-gray-500 text-xs">脂肪</span>
+          </div>
+        </div>
+
+        <!-- AI 营养师建议 -->
+        <div class="mb-8 p-5 bg-green-50 rounded-2xl border border-green-100">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-symbols-outlined text-green-600 filled">auto_awesome</span>
+            <h3 class="text-sm font-bold text-green-700">AI 营养师建议</h3>
+          </div>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="material-symbols-outlined text-green-500 text-base mt-0.5">check_circle</span>
+              牛油果中的单不饱和脂肪酸有助于降低坏胆固醇，搭配全麦面包可稳定血糖。
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="material-symbols-outlined text-green-500 text-base mt-0.5">check_circle</span>
+              建议搭配一杯绿茶或黑咖啡，帮助消化并提升代谢。
+            </li>
+          </ul>
+        </div>
+
+        <!-- 桌面端: 食材和步骤并排 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <!-- 食材 -->
+          <div>
+            <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-green-600">grocery</span>
+              主要食材
+            </h4>
+            <div id="food-ingredients" class="space-y-2">
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <span class="material-symbols-outlined text-green-500 text-base">eco</span>
+                <span class="text-sm">熟透牛油果 (1/2个)</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <span class="material-symbols-outlined text-orange-500 text-base">egg</span>
+                <span class="text-sm">新鲜鸡蛋 (1枚)</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <span class="material-symbols-outlined text-yellow-700 text-base">bakery_dining</span>
+                <span class="text-sm">全麦欧包 (1片)</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <span class="material-symbols-outlined text-red-400 text-base">circle</span>
+                <span class="text-sm">樱桃番茄 (5-6个)</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <span class="material-symbols-outlined text-blue-400 text-base">water_drop</span>
+                <span class="text-sm">希腊酸奶 (20g)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 步骤 -->
+          <div>
+            <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-green-600">menu_book</span>
+              制作方法
+            </h4>
+            <div id="recipe-steps" class="space-y-6">
+              <div class="flex gap-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm">1</div>
+                <div>
+                  <h5 class="font-bold text-gray-800 mb-1 text-sm">准备牛油果泥</h5>
+                  <p class="text-gray-500 text-xs leading-relaxed">将牛油果切开去核，取出果肉压碎。加入少许柠檬汁、海盐和黑胡椒，搅拌至质地顺滑。</p>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm">2</div>
+                <div>
+                  <h5 class="font-bold text-gray-800 mb-1 text-sm">制作水波蛋</h5>
+                  <p class="text-gray-500 text-xs leading-relaxed">锅中烧开水，加入一勺白醋。用勺子在水中搅出一个旋涡，缓缓倒入打好的鸡蛋，微火煮3分钟。</p>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm">3</div>
+                <div>
+                  <h5 class="font-bold text-gray-800 mb-1 text-sm">组装装盘</h5>
+                  <p class="text-gray-500 text-xs leading-relaxed">在烤好的欧包上抹上厚厚一层牛油果泥，放上水波蛋，点缀切开的樱桃番茄，撒上奇亚籽即可。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 移动端: Tab 切换 (保留兼容) -->
+        <div class="lg:hidden">
+          <div class="sticky top-16 bg-white z-40 mb-6">
+            <div class="flex border-b border-gray-200">
+              <button class="flex-1 py-4 text-sm font-medium text-green-700 border-b-2 border-green-700 transition-all" id="tab-overview" onclick="switchTab('overview')">营养概览</button>
+              <button class="flex-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent transition-all" id="tab-recipe" onclick="switchTab('recipe')">制作方法</button>
+            </div>
+          </div>
+          <div class="tab-content active space-y-6" id="content-overview">
+            <div class="flex gap-4 items-start p-4 bg-green-50 rounded-2xl">
+              <span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">eco</span>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-1">健康益处</h3>
+                <p id="food-benefits" class="text-gray-500 text-sm">牛油果富含单不饱和脂肪酸，有助于心脏健康和皮肤光泽。水波蛋提供完整的氨基酸谱，促进肌肉修复。</p>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content space-y-6" id="content-recipe"></div>
+        </div>
+
+        <!-- 查看更多 -->
+        <div class="text-center py-4">
+          <button class="text-green-600 font-medium hover:underline flex items-center gap-1 mx-auto">
+            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+            查看更多食谱
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 移动端底部操作栏 -->
+  <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-xl z-50 lg:hidden">
+    <div class="flex gap-4 max-w-2xl mx-auto">
+      <button class="flex-1 bg-green-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-green-200 flex items-center justify-center gap-2 active:scale-95 transition-transform" onclick="addToRecord()">
+        <span class="material-symbols-outlined">add_circle</span>
+        添加至今日饮食
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <span class="material-symbols-outlined text-green-400 filled">check_circle</span>
+    <span id="toast-message">操作成功</span>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/components.js"></script>
+  <script>
+    const foodId = Navigation.getParam('id');
+
+    async function initPage() {
+      try {
+        const food = await API.food.getDetail(foodId);
+        if (food) {
+          document.getElementById('food-name').textContent = food.name;
+          document.getElementById('food-desc').textContent = food.description;
+          document.getElementById('food-hero-image').src = food.image;
+          document.getElementById('food-calories').textContent = food.calories;
+          document.getElementById('food-protein').textContent = food.protein + 'g';
+          document.getElementById('food-carbs').textContent = food.carbs + 'g';
+          document.getElementById('food-fat').textContent = food.fat + 'g';
+
+          if (food.tags) {
+            document.getElementById('food-tags').innerHTML = food.tags.map(tag =>
+              `<span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-medium">${tag}</span>`
+            ).join('');
+          }
+
+          if (food.ingredients) {
+            document.getElementById('food-ingredients').innerHTML = food.ingredients.map(item =>
+              `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                <span class="material-symbols-outlined text-green-500 text-base">eco</span>
+                <span class="text-sm">${item}</span>
+              </div>`
+            ).join('');
+          }
+
+          if (food.steps) {
+            document.getElementById('recipe-steps').innerHTML = food.steps.map((step, i) => `
+              <div class="flex gap-4">
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm">${i + 1}</div>
+                <div>
+                  <h5 class="font-bold text-gray-800 mb-1 text-sm">${step.title}</h5>
+                  <p class="text-gray-500 text-xs leading-relaxed">${step.desc}</p>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+      } catch (error) {
+        console.error('加载食物详情失败:', error);
+      }
+    }
+
+    function switchTab(tab) {
+      ['overview', 'recipe'].forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        const content = document.getElementById(`content-${t}`);
+        if (t === tab) {
+          btn.classList.add('text-green-700', 'border-green-700');
+          btn.classList.remove('text-gray-500', 'border-transparent');
+          content.classList.add('active');
+        } else {
+          btn.classList.remove('text-green-700', 'border-green-700');
+          btn.classList.add('text-gray-500', 'border-transparent');
+          content.classList.remove('active');
+        }
+      });
+    }
+
+    function toggleFavorite(btn) {
+      const icon = btn.querySelector('#fav-icon');
+      const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+      if (isFilled) {
+        icon.style.fontVariationSettings = "'FILL' 0";
+        icon.classList.remove('text-red-500');
+      } else {
+        icon.style.fontVariationSettings = "'FILL' 1";
+        icon.classList.add('text-red-500');
+      }
+    }
+
+    function addToRecord() { Utils.showToast('已添加至今日饮食记录'); }
+
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
+        header.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+      } else {
+        header.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+
+</body>
+</html>
