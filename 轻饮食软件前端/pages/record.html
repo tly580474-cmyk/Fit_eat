@@ -40,7 +40,7 @@
           <a href="home.html" class="desktop-nav-link">首页</a>
           <a href="discover.html" class="desktop-nav-link">发现</a>
           <a href="record.html" class="desktop-nav-link active">记录</a>
-          <a href="discover.html" class="desktop-nav-link">社区</a>
+          <a href="community.html" class="desktop-nav-link">社区</a>
           <a href="profile.html" class="desktop-nav-link">我的</a>
         </nav>
       </div>
@@ -101,11 +101,11 @@
         <div class="flex justify-between items-center mb-6">
           <div>
             <h3 class="text-lg font-bold text-gray-800">摄入量分析</h3>
-            <p class="text-sm text-gray-500">本周平均: 1,840 kcal</p>
+            <p class="text-sm text-gray-500" id="weekly-avg">本周平均: -- kcal</p>
           </div>
           <div class="flex items-center gap-1 text-green-600">
             <span class="material-symbols-outlined text-sm filled">trending_up</span>
-            <span class="text-sm font-bold">12% 目标达成</span>
+            <span class="text-sm font-bold" id="weekly-progress">-- 目标达成</span>
           </div>
         </div>
         <div id="weekly-chart" class="h-48 md:h-56"></div>
@@ -219,7 +219,13 @@
 
     <section class="mb-6 lg:hidden">
       <div class="bg-white rounded-3xl p-6 shadow-sm">
-        <h3 class="text-lg font-bold text-gray-800 mb-4">饮水量追踪</h3>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-800">饮水量追踪</h3>
+          <button onclick="addWater()" class="flex items-center gap-1 text-blue-500 bg-blue-50 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors">
+            <span class="material-symbols-outlined text-lg">add_circle</span>
+            <span class="text-sm font-medium">记录饮水</span>
+          </button>
+        </div>
         <div id="water-tracker" class="flex flex-wrap gap-4 justify-center"></div>
         <div class="mt-6 pt-6 border-t border-gray-100 text-center">
           <span class="font-bold text-gray-800">已饮用 <span id="water-current">1500</span>ml</span>
@@ -251,7 +257,7 @@
         <span class="material-symbols-outlined filled">analytics</span>
         <span class="text-[10px] font-medium mt-0.5">记录</span>
       </a>
-      <a href="discover.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+      <a href="community.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
         <span class="material-symbols-outlined">group</span>
         <span class="text-[10px] font-medium mt-0.5">社区</span>
       </a>
@@ -261,6 +267,77 @@
       </a>
     </div>
   </nav>
+
+  <!-- 饮水打卡弹窗 -->
+  <div id="water-modal-overlay" class="modal-overlay" onclick="closeWaterModal()"></div>
+  <div id="water-modal" class="bottom-sheet">
+    <div class="sheet-handle"><span></span></div>
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+            <span class="material-symbols-outlined text-blue-500 text-2xl">water_drop</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-800">饮水打卡</h3>
+            <p class="text-sm text-gray-500">记录你的饮水量</p>
+          </div>
+        </div>
+        <button onclick="closeWaterModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+          <span class="material-symbols-outlined text-gray-400">close</span>
+        </button>
+      </div>
+
+      <!-- 快捷选择 -->
+      <p class="text-sm font-medium text-gray-600 mb-3">快捷选择</p>
+      <div class="grid grid-cols-4 gap-3 mb-6">
+        <button onclick="recordWater(150)" class="flex flex-col items-center gap-1 py-3 rounded-2xl bg-blue-50 hover:bg-blue-100 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-blue-400">local_drink</span>
+          <span class="text-sm font-bold text-blue-700">150ml</span>
+          <span class="text-[10px] text-blue-400">小杯</span>
+        </button>
+        <button onclick="recordWater(250)" class="flex flex-col items-center gap-1 py-3 rounded-2xl bg-blue-50 hover:bg-blue-100 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-blue-500">local_drink</span>
+          <span class="text-sm font-bold text-blue-700">250ml</span>
+          <span class="text-[10px] text-blue-400">一杯</span>
+        </button>
+        <button onclick="recordWater(350)" class="flex flex-col items-center gap-1 py-3 rounded-2xl bg-blue-50 hover:bg-blue-100 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-blue-500">local_drink</span>
+          <span class="text-sm font-bold text-blue-700">350ml</span>
+          <span class="text-[10px] text-blue-400">大杯</span>
+        </button>
+        <button onclick="recordWater(500)" class="flex flex-col items-center gap-1 py-3 rounded-2xl bg-blue-50 hover:bg-blue-100 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-blue-600">water_full</span>
+          <span class="text-sm font-bold text-blue-700">500ml</span>
+          <span class="text-[10px] text-blue-400">大瓶</span>
+        </button>
+      </div>
+
+      <!-- 自定义输入 -->
+      <p class="text-sm font-medium text-gray-600 mb-3">自定义饮水量</p>
+      <div class="flex gap-3">
+        <div class="flex-1 relative">
+          <input id="custom-water-input" type="number" min="1" max="2000" placeholder="输入饮水量"
+            class="form-input pr-12 text-center text-lg font-bold">
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">ml</span>
+        </div>
+        <button onclick="submitCustomWater()" class="px-6 py-3 bg-blue-500 text-white rounded-2xl font-bold hover:bg-blue-600 active:scale-95 transition-all flex-shrink-0">
+          记录
+        </button>
+      </div>
+
+      <!-- 今日饮水进度 -->
+      <div class="mt-6 pt-4 border-t border-gray-100">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-gray-500">今日饮水</span>
+          <span class="text-sm font-bold text-blue-600"><span id="modal-water-current">0</span>ml / 2500ml</span>
+        </div>
+        <div class="bg-blue-50 rounded-full h-3 overflow-hidden">
+          <div id="modal-water-bar" class="bg-blue-500 rounded-full h-3 transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Toast 提示 -->
   <div id="toast" class="toast">
@@ -272,7 +349,7 @@
   <script src="../js/common.js"></script>
   <script src="../js/components.js"></script>
   <script>
-    let pageData = { selectedDay: 3, waterFilled: 6, macros: null };
+    let pageData = { selectedDay: 3, waterCurrent: 0, waterTarget: 2500, macros: null };
 
     async function initPage() {
       try {
@@ -327,22 +404,41 @@
     function renderWeeklyChart(data) {
       const container = document.getElementById('weekly-chart');
       const maxValue = Math.max(...data.map(d => d.consumed));
+      const hasData = maxValue > 0;
+      const chartHeight = container.offsetHeight || 200;
+
+      // 更新摘要文字
+      const totalConsumed = data.reduce((sum, d) => sum + d.consumed, 0);
+      const daysWith = data.filter(d => d.consumed > 0).length;
+      const avg = daysWith > 0 ? Math.round(totalConsumed / daysWith) : 0;
+      const target = data[0]?.target || 1800;
+      const avgEl = document.getElementById('weekly-avg');
+      const progressEl = document.getElementById('weekly-progress');
+      if (avgEl) avgEl.textContent = `本周平均: ${avg.toLocaleString()} kcal`;
+      if (progressEl) progressEl.textContent = `${Math.round((totalConsumed / (target * 7)) * 100)}% 目标达成`;
+
       container.innerHTML = `
-        <div class="flex items-end justify-between h-full px-2">
+        <div style="position:relative;height:${chartHeight - 30}px" class="px-2">
           ${data.map((item, index) => {
-            const height = maxValue > 0 ? (item.consumed / maxValue) * 100 : 0;
+            const barHeight = hasData ? Math.max(Math.round((item.consumed / maxValue) * (chartHeight - 50)), 8) : 8;
             const isToday = index === pageData.selectedDay;
+            const left = (index / 7) * 100;
             return `
-              <div class="flex flex-col items-center gap-2 flex-1 group">
-                <span class="text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity font-medium">${item.consumed}</span>
+              <div style="position:absolute;bottom:0;left:${left}%;width:${100/7}%;display:flex;flex-direction:column;align-items:center" class="group">
+                <span class="text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity font-medium mb-1">${item.consumed} kcal</span>
                 <div class="w-8 md:w-10 rounded-t-lg transition-all group-hover:bg-green-300 ${
                   isToday ? 'bg-green-500 shadow-md shadow-green-200' : 'bg-gray-200'
-                }" style="height: ${height}%"></div>
-                <span class="text-xs ${isToday ? 'text-green-700 font-bold' : 'text-gray-500'}">${item.day}</span>
+                }" style="height:${barHeight}px"></div>
               </div>
             `;
           }).join('')}
         </div>
+        <div class="flex justify-between px-2 mt-2">
+          ${data.map((item, index) => `
+            <span class="text-xs flex-1 text-center ${index === pageData.selectedDay ? 'text-green-700 font-bold' : 'text-gray-500'}">${item.day}</span>
+          `).join('')}
+        </div>
+        ${!hasData ? '<p class="text-center text-xs text-gray-400 mt-2">暂无饮食记录，添加记录后将显示数据</p>' : ''}
       `;
     }
 
@@ -389,7 +485,8 @@
     function renderWaterTracker(water) {
       const container = document.getElementById('water-tracker');
       if (!container) return;
-      pageData.waterFilled = water.filledCups;
+      pageData.waterCurrent = water.current;
+      pageData.waterTarget = water.target;
       let html = '';
       for (let i = 0; i < water.cups; i++) {
         const isFilled = i < water.filledCups;
@@ -401,32 +498,65 @@
       container.innerHTML = html;
       document.getElementById('water-current').textContent = water.current;
       document.getElementById('water-remaining').textContent = water.target - water.current;
+      updateDesktopWaterCard(water.current, water.target);
+    }
+
+    function updateDesktopWaterCard(current, target) {
+      const valEl = document.getElementById('water-val');
+      const barEl = document.getElementById('water-bar');
+      if (valEl) valEl.textContent = `${current}ml / ${target}ml`;
+      if (barEl) barEl.style.width = Math.min((current / target) * 100, 100) + '%';
+      const modalCurrent = document.getElementById('modal-water-current');
+      const modalBar = document.getElementById('modal-water-bar');
+      if (modalCurrent) modalCurrent.textContent = current;
+      if (modalBar) modalBar.style.width = Math.min((current / target) * 100, 100) + '%';
     }
 
     function toggleCup(index) {
       const buttons = document.querySelectorAll('#water-tracker button');
-      pageData.waterFilled = index < pageData.waterFilled ? index : index + 1;
-      buttons.forEach((btn, i) => {
-        const icon = btn.querySelector('.material-symbols-outlined');
-        if (i < pageData.waterFilled) {
-          icon.style.fontVariationSettings = "'FILL' 1";
-          icon.classList.remove('text-gray-300');
-          icon.classList.add('text-blue-500');
-        } else {
-          icon.style.fontVariationSettings = "'FILL' 0";
-          icon.classList.add('text-gray-300');
-          icon.classList.remove('text-blue-500');
-        }
-      });
-      const currentWater = pageData.waterFilled * 250;
-      document.getElementById('water-current').textContent = currentWater;
-      document.getElementById('water-remaining').textContent = 2500 - currentWater;
-      buttons[index].classList.add('scale-110');
-      setTimeout(() => buttons[index].classList.remove('scale-110'), 200);
-      Utils.showToast(`已记录 ${currentWater}ml 饮水`);
+      const newFilled = index < (pageData.waterCurrent / 250) ? index : index + 1;
+      const amount = 250;
+      const isAdding = newFilled > (pageData.waterCurrent / 250);
+      if (isAdding) {
+        recordWater(amount);
+      }
     }
 
-    function addWater() { Utils.showToast('饮水记录已更新'); }
+    function addWater() { openWaterModal(); }
+
+    function openWaterModal() {
+      document.getElementById('water-modal-overlay').classList.add('active');
+      document.getElementById('water-modal').classList.add('active');
+      document.getElementById('custom-water-input').value = '';
+      updateDesktopWaterCard(pageData.waterCurrent || 0, pageData.waterTarget || 2500);
+    }
+
+    function closeWaterModal() {
+      document.getElementById('water-modal-overlay').classList.remove('active');
+      document.getElementById('water-modal').classList.remove('active');
+    }
+
+    async function recordWater(amount) {
+      try {
+        await API.diet.updateWaterIntake(amount);
+        const water = await API.diet.getWaterIntake();
+        renderWaterTracker(water);
+        closeWaterModal();
+        Utils.showToast(`已记录 ${amount}ml 饮水`);
+      } catch (e) {
+        Utils.showToast('记录失败，请重试');
+      }
+    }
+
+    function submitCustomWater() {
+      const input = document.getElementById('custom-water-input');
+      const amount = parseInt(input.value);
+      if (!amount || amount < 1 || amount > 2000) {
+        Utils.showToast('请输入 1-2000 之间的数值');
+        return;
+      }
+      recordWater(amount);
+    }
     function showAddRecordModal() { AddRecordModal.open(); }
     function loadPageData() { initPage(); }
 

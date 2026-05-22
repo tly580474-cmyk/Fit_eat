@@ -9,7 +9,7 @@ const PAGES = {
   home: 'pages/home.html',
   discover: 'pages/discover.html',
   record: 'pages/record.html',
-  community: 'pages/discover.html', // 社区与发现合并
+  community: 'pages/community.html',
   profile: 'pages/profile.html',
   foodDetail: 'pages/food-detail.html',
   aiSetup: 'pages/ai-setup.html',
@@ -35,6 +35,7 @@ const Navigation = {
   getActiveTab() {
     const path = window.location.pathname;
     if (path.includes('home') || path === '/' || path.includes('index')) return 'home';
+    if (path.includes('community')) return 'community';
     if (path.includes('discover')) return 'discover';
     if (path.includes('record')) return 'record';
     if (path.includes('profile')) return 'profile';

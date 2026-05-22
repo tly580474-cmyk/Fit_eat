@@ -75,7 +75,7 @@ const BarChart = {
     return `
       <div class="flex items-end justify-between" style="height: ${height}px">
         ${data.map((item, index) => {
-          const barHeight = maxValue > 0 ? (item.value / maxValue) * 100 : 0;
+          const barHeight = maxValue > 0 ? Math.max((item.value / maxValue) * 100, 4) : 4;
           const isActive = index === activeIndex;
 
           return `
@@ -281,7 +281,7 @@ const MealCard = {
     };
 
     return `
-      <div class="min-w-[260px] snap-start cursor-pointer group" onclick="${onClick}">
+      <div class="min-w-[260px] lg:min-w-0 snap-start cursor-pointer group" onclick="${onClick}">
         <div class="relative h-48 rounded-2xl overflow-hidden shadow-lg transition-transform active:scale-[0.98]">
           <img src="${image}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNjAiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwMCAwIDI2MCAxOTIiPjxyZWN0IHdpZHRoPSIyNjAiIGhlaWdodD0iMTkyIiBmaWxsPSIjZTJlMmUyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2ZjdhNmIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7pmL4g6YOo5paH5Lu2PC90ZXh0Pjwvc3ZnPg=='">

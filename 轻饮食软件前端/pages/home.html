@@ -42,7 +42,7 @@
           <a href="home.html" class="desktop-nav-link active">首页</a>
           <a href="discover.html" class="desktop-nav-link">发现</a>
           <a href="record.html" class="desktop-nav-link">记录</a>
-          <a href="discover.html" class="desktop-nav-link">社区</a>
+          <a href="community.html" class="desktop-nav-link">社区</a>
           <a href="profile.html" class="desktop-nav-link">我的</a>
         </nav>
       </div>
@@ -62,10 +62,10 @@
   <main class="pt-20 px-4 md:px-6 max-w-7xl mx-auto">
 
     <!-- 桌面端: 侧边栏 + 主内容 双栏布局 -->
-    <div class="desktop-grid-12">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
 
-      <!-- 左侧边栏 (桌面端 4 栏) -->
-      <div class="desktop-sidebar">
+      <!-- 左侧边栏 (桌面端 4 栏, 仅桌面显示) -->
+      <div class="hidden lg:flex lg:flex-col lg:gap-6 lg:col-span-4 lg:sticky lg:top-24 lg:self-start">
         <!-- 卡路里总结卡片 -->
         <section class="animate-fade-in">
           <div class="bg-primary-container rounded-3xl p-6 text-white card-shadow">
@@ -137,7 +137,7 @@
       </div>
 
       <!-- 右侧主内容 (桌面端 8 栏) -->
-      <div class="desktop-main">
+      <div class="flex flex-col gap-6 lg:col-span-8">
 
         <!-- 移动端卡路里环形图 -->
         <section class="mb-6 lg:hidden animate-fade-in">
@@ -172,7 +172,7 @@
             <h2 class="text-lg font-bold text-gray-800">今日食谱推荐</h2>
             <button class="text-green-600 text-sm font-medium hover:underline">查看全部</button>
           </div>
-          <div id="meals-container" class="horizontal-scroll pb-2">
+          <div id="meals-container" class="horizontal-scroll pb-2 lg:grid lg:grid-cols-3 lg:overflow-x-visible lg:gap-4">
             <!-- 动态加载 -->
           </div>
         </section>
@@ -186,7 +186,7 @@
               <span class="text-sm font-medium">添加记录</span>
             </button>
           </div>
-          <div id="records-container" class="space-y-4">
+          <div id="records-container" class="space-y-4 lg:grid lg:grid-cols-2 lg:space-y-0 lg:gap-4">
             <!-- 动态加载 -->
           </div>
         </section>
@@ -219,7 +219,7 @@
   </button>
 
   <!-- 底部导航栏 -->
-  <nav class="bottom-nav mobile-only">
+  <nav class="bottom-nav mobile-only lg:hidden">
     <div class="flex justify-around items-center">
       <a href="home.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl bg-green-100 text-green-800">
         <span class="material-symbols-outlined filled">home</span>
@@ -233,7 +233,7 @@
         <span class="material-symbols-outlined">analytics</span>
         <span class="text-[10px] font-medium mt-0.5">记录</span>
       </a>
-      <a href="discover.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+      <a href="community.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
         <span class="material-symbols-outlined">group</span>
         <span class="text-[10px] font-medium mt-0.5">社区</span>
       </a>

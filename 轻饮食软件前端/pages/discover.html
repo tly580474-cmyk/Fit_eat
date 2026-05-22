@@ -38,17 +38,13 @@
           <a href="home.html" class="desktop-nav-link">首页</a>
           <a href="discover.html" class="desktop-nav-link active">发现</a>
           <a href="record.html" class="desktop-nav-link">记录</a>
-          <a href="discover.html" class="desktop-nav-link">社区</a>
+          <a href="community.html" class="desktop-nav-link">社区</a>
           <a href="profile.html" class="desktop-nav-link">我的</a>
         </nav>
       </div>
       <div class="flex items-center gap-2">
         <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-          <span class="material-symbols-outlined text-green-700">search</span>
-        </button>
-        <button class="hidden md:flex bg-green-600 text-white px-4 py-2 rounded-full font-bold text-sm hover:bg-green-700 transition-colors items-center gap-1" onclick="showCreatePost()">
-          <span class="material-symbols-outlined text-lg">edit</span>
-          发布动态
+          <span class="material-symbols-outlined text-green-700">notifications</span>
         </button>
       </div>
     </div>
@@ -57,43 +53,131 @@
   <!-- 主要内容 -->
   <main class="pt-20 px-4 md:px-6 max-w-7xl mx-auto">
 
-    <!-- 分类筛选 -->
-    <section class="mb-6 overflow-x-auto hide-scrollbar">
-      <div class="flex gap-2 py-2">
-        <button class="category-chip active px-5 py-2 rounded-full bg-green-600 text-white font-medium text-sm whitespace-nowrap transition-all" data-category="all">全部动态</button>
-        <button class="category-chip px-5 py-2 rounded-full bg-white text-gray-600 font-medium text-sm whitespace-nowrap hover:bg-gray-50 transition-all border border-gray-200" data-category="expert">专家专栏</button>
-        <button class="category-chip px-5 py-2 rounded-full bg-white text-gray-600 font-medium text-sm whitespace-nowrap hover:bg-gray-50 transition-all border border-gray-200" data-category="recipe">减脂食谱</button>
-        <button class="category-chip px-5 py-2 rounded-full bg-white text-gray-600 font-medium text-sm whitespace-nowrap hover:bg-gray-50 transition-all border border-gray-200" data-category="workout">运动打卡</button>
-        <button class="category-chip px-5 py-2 rounded-full bg-white text-gray-600 font-medium text-sm whitespace-nowrap hover:bg-gray-50 transition-all border border-gray-200" data-category="share">好物分享</button>
-      </div>
-    </section>
-
-    <!-- 社区动态 - 桌面端瀑布流 -->
-    <section>
-      <div id="posts-container" class="masonry-grid">
-        <!-- 动态加载 -->
-      </div>
-
-      <!-- 加载更多 -->
-      <div class="flex justify-center py-8">
-        <button id="load-more" class="px-8 py-3 bg-white text-green-600 font-bold rounded-full hover:bg-green-50 transition-all flex items-center gap-2 group card-shadow">
-          加载更多动态
-          <span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">expand_more</span>
+    <!-- 搜索栏 -->
+    <section class="mb-6">
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+        <input id="search-input" type="text" placeholder="搜索食谱、食材、健康知识..."
+          class="w-full pl-12 pr-4 py-3.5 bg-white rounded-2xl border border-gray-200 focus:border-green-500 focus:ring-0 transition-colors text-sm shadow-sm"
+          oninput="debounceSearch()">
+        <button id="search-clear" class="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 hidden" onclick="clearSearch()">
+          <span class="material-symbols-outlined text-gray-400 text-lg">close</span>
         </button>
       </div>
+      <!-- 搜索结果 -->
+      <div id="search-results" class="hidden mt-3 bg-white rounded-2xl shadow-lg border border-gray-100 max-h-80 overflow-y-auto"></div>
     </section>
 
-  </main>
+    <!-- 桌面端: 左右分栏 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-  <!-- FAB 按钮 (桌面端带 tooltip) -->
-  <div class="fixed bottom-8 right-8 z-40 group">
-    <div class="hidden md:block absolute bottom-full right-0 mb-2 px-3 py-1.5 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-      分享我的轻食生活
+      <!-- 左侧主内容 -->
+      <div class="lg:col-span-8">
+
+        <!-- 快捷分类 -->
+        <section class="mb-6">
+          <div class="grid grid-cols-4 gap-3">
+            <button onclick="filterByMeal('breakfast')" class="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl card-shadow card-shadow-hover transition-all group">
+              <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center group-hover:bg-green-100 transition-colors">
+                <span class="material-symbols-outlined text-green-600 text-2xl">wb_sunny</span>
+              </div>
+              <span class="text-xs font-medium text-gray-700">早餐</span>
+            </button>
+            <button onclick="filterByMeal('lunch')" class="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl card-shadow card-shadow-hover transition-all group">
+              <div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center group-hover:bg-orange-100 transition-colors">
+                <span class="material-symbols-outlined text-orange-600 text-2xl">lunch_dining</span>
+              </div>
+              <span class="text-xs font-medium text-gray-700">午餐</span>
+            </button>
+            <button onclick="filterByMeal('dinner')" class="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl card-shadow card-shadow-hover transition-all group">
+              <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                <span class="material-symbols-outlined text-blue-600 text-2xl">dinner_dining</span>
+              </div>
+              <span class="text-xs font-medium text-gray-700">晚餐</span>
+            </button>
+            <button onclick="filterByMeal('snack')" class="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl card-shadow card-shadow-hover transition-all group">
+              <div class="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+                <span class="material-symbols-outlined text-purple-600 text-2xl">cookie</span>
+              </div>
+              <span class="text-xs font-medium text-gray-700">加餐</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 精选食谱 -->
+        <section class="mb-8">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-gray-800 flex items-center gap-2">
+              <span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+              精选食谱
+            </h3>
+            <button class="text-green-600 text-sm font-medium hover:underline" onclick="filterByMeal('all')">查看全部</button>
+          </div>
+          <div id="featured-recipes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 动态加载 -->
+          </div>
+        </section>
+
+        <!-- 食材百科 -->
+        <section class="mb-8">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-gray-800 flex items-center gap-2">
+              <span class="material-symbols-outlined text-orange-500" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+              食材百科
+            </h3>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="ingredient-guide">
+            <!-- 动态加载 -->
+          </div>
+        </section>
+      </div>
+
+      <!-- 右侧边栏 (桌面端) -->
+      <div class="lg:col-span-4">
+
+        <!-- 健康知识 -->
+        <section class="mb-6">
+          <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-blue-500" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+            健康知识
+          </h3>
+          <div class="space-y-3" id="health-articles">
+            <!-- 动态加载 -->
+          </div>
+        </section>
+
+        <!-- 每日一贴 -->
+        <section class="mb-6">
+          <div class="bg-gradient-to-br from-green-600 to-green-700 rounded-2xl p-5 text-white">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tips_and_updates</span>
+              <h4 class="font-bold">每日一贴</h4>
+            </div>
+            <p id="daily-tip" class="text-sm text-green-100 leading-relaxed"></p>
+          </div>
+        </section>
+
+        <!-- 热门标签 -->
+        <section>
+          <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined text-red-500" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+            热门标签
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#高蛋白食谱</span>
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#低碳水饮食</span>
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#5分钟早餐</span>
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#减脂餐</span>
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#Omega-3</span>
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#增肌饮食</span>
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#轻食主义</span>
+            <span class="px-3 py-1.5 bg-white text-gray-600 text-xs rounded-full border border-gray-200 hover:border-green-500 hover:text-green-600 cursor-pointer transition-colors">#控糖生活</span>
+          </div>
+        </section>
+      </div>
     </div>
-    <button class="fab bg-green-600 text-white shadow-lg shadow-green-200 hover:bg-green-700" onclick="showCreatePost()">
-      <span class="material-symbols-outlined text-3xl">add</span>
-    </button>
-  </div>
+
+  </main>
 
   <!-- 底部导航栏 -->
   <nav class="bottom-nav mobile-only">
@@ -110,7 +194,7 @@
         <span class="material-symbols-outlined">analytics</span>
         <span class="text-[10px] font-medium mt-0.5">记录</span>
       </a>
-      <a href="discover.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
+      <a href="community.html" class="flex flex-col items-center justify-center px-3 py-1 rounded-2xl text-gray-500 hover:bg-gray-50">
         <span class="material-symbols-outlined">group</span>
         <span class="text-[10px] font-medium mt-0.5">社区</span>
       </a>
@@ -131,103 +215,214 @@
   <script src="../js/common.js"></script>
   <script src="../js/components.js"></script>
   <script>
-    let currentCategory = 'all';
-    let posts = [];
+    const allRecipes = [
+      { id: 1, name: '牛油果水波蛋活力碗', calories: 345, protein: 18, type: 'breakfast', tags: ['高蛋白', '低GI'], time: '15分钟', difficulty: '简单',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBWCoRWf35e_dNWXLpeZWhsKHgeY-zVv6EnjN3c0eM1AtF7MMoxOmUVW8-l1TrlyxiJ6kIgMGlnoXb9LhqJphxsIRFMS4y2mm49SGlUhx1-8ocpAS1TPq9eaZ0qG6LSDTjkSApI7sABbITnQf4PCA5W1IxMklQvdoLN--JgjkouYb2KztGNCOg3tTO-p-Rh0HdzAvCn9OaeY7zX1tDDm72_YgsTVvlOqlUeTq_U1_cxgLAMZo68BYBYbUfSM483xHtlIWveDQpdMco7' },
+      { id: 2, name: '蓝莓坚果酸奶碗', calories: 320, protein: 18, type: 'breakfast', tags: ['高蛋白', '免煮'], time: '5分钟', difficulty: '简单',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCBryIQ5tZE6o2ofnuhWPvxu4hm-dZ3a_HCwxoyk40yKzizC7m6z_bby013e8905S1nW8gkIb4G4iN800sM1L2FtY1QqPwdaGd9u5a1y8MBp0gFFawuRyxjK6gFQ8NuaFBixNSDxpkH81e2NUOd5DFiCpEyDGpMh5EcK663YjBr0kw9vOey4MofsioB9TVKIKUV0B4WqWVwwoLGOBZMB7r_ttlGoq6jaCQIM2ma5GXC5GE4ShomIn8uKCk9tGYbOsqtOMSx_9Y5-zmd' },
+      { id: 3, name: '嫩煎鸡胸肉沙拉', calories: 450, protein: 35, type: 'lunch', tags: ['低GI', '优质脂'], time: '20分钟', difficulty: '简单',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBL22umvGsNCB29_UWSHOsvz3kAZT1Er0GAiWiKDgMOnPloyGMkPtgtdE6KjW_dOyCsGRTj4keyazSBCis4YOmau38boWMntEEUjBQkd_4B9g49WUTQPbbkPdQELD2EGEsW-aalvMmLoffgQThhIDjWxOdvhSQNwNSf2A0abZD-y3YT8ccaLtsx7JxgcOksZes8xJxTTSM4Q9UWIxn_MTLEykY4hF0X34MWPFmdjr76BYHhl78mG1WtgflGY7_dP35J2THL8BUE8gs7' },
+      { id: 4, name: '香煎鸡胸肉暖沙拉', calories: 450, protein: 35, type: 'lunch', tags: ['低GI', '优质脂'], time: '25分钟', difficulty: '中等',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjGXnKNraI9Y9odxH3H01c68BCw52UaGtQd__F72qBuinX5EAa1VyfojRVx3cMRigCirJ8S2z-7RxKFbqPvtrLrxUqsr2OMRwMyEMcM-N248HY4yoMbAH3uVXQLqv-9j332Vfb3woCcnvil8bSiV4-HO9E2Q6d3kb6loNfw4op2dFJ-FEvjXg7Qu-B9yQp8UHiMBpmPqrwg3n_qHfW2qWi37MY1vSV_7TibDcPP1evXqZwZRp-YGdS0FKFzHP7Z5aJAB5SIxQmFnWc' },
+      { id: 5, name: '柠檬香煎三文鱼配芦笋', calories: 380, protein: 28, type: 'dinner', tags: ['Omega-3', '低碳水'], time: '15分钟', difficulty: '中等',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD6UlzqXdAvKEfShYuVrgLEmA6aSxCuuWjQzOYdQQri6Hcg90TMy189kWAeLts5cUqPN286U__KXEpJTBr-l0ttIOpnncwIAr9npIxcMEyyzViGuHu_H3uo-a5HGUVE7sPRhgUqmdTSxZm0NkT3lCvKgm8gc02QsAhkc1pOjrg2TASErtHl4Az-m7r0KJuCipjLcXX2iAZT0YPMIJMX64NCep390-lkWjfFpcDjuqTBK4TtMfMSs95O4ejoFkPKLVpNKs5RqKoa5qvG' },
+      { id: 6, name: '混合坚果与苹果片', calories: 180, protein: 5, type: 'snack', tags: ['高纤维'], time: '3分钟', difficulty: '简单',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjGXnKNraI9Y9odxH3H01c68BCw52UaGtQd__F72qBuinX5EAa1VyfojRVx3cMRigCirJ8S2z-7RxKFbqPvtrLrxUqsr2OMRwMyEMcM-N248HY4yoMbAH3uVXQLqv-9j332Vfb3woCcnvil8bSiV4-HO9E2Q6d3kb6loNfw4op2dFJ-FEvjXg7Qu-B9yQp8UHiMBpmPqrwg3n_qHfW2qWi37MY1vSV_7TibDcPP1evXqZwZRp-YGdS0FKFzHP7Z5aJAB5SIxQmFnWc' },
+    ];
 
-    async function initPage() {
-      try {
-        await API.user.getProfile();
-        await loadPosts();
-        bindCategoryEvents();
-        document.getElementById('load-more').addEventListener('click', loadMorePosts);
-      } catch (error) {
-        console.error('加载数据失败:', error);
+    const ingredients = [
+      { name: '鸡胸肉', benefit: '高蛋白低脂', icon: 'set_meal', color: 'orange' },
+      { name: '牛油果', benefit: '优质脂肪', icon: 'eco', color: 'green' },
+      { name: '三文鱼', benefit: 'Omega-3', icon: 'set_meal', color: 'blue' },
+      { name: '西兰花', benefit: '高纤维维C', icon: 'grass', color: 'green' },
+      { name: '藜麦', benefit: '完全蛋白', icon: 'grain', color: 'yellow' },
+      { name: '希腊酸奶', benefit: '益生菌高钙', icon: 'local_cafe', color: 'purple' },
+    ];
+
+    const healthArticles = [
+      { title: '减脂期间如何正确摄入碳水？', desc: '优质碳水 vs 精制碳水，选对才能瘦得快。', icon: 'grain', color: 'orange' },
+      { title: '蛋白质摄入量计算指南', desc: '体重 × 1.5-2g，运动人群需要更多。', icon: 'fitness_center', color: 'blue' },
+      { title: '8 种高饱腹感低热量食物', desc: '吃饱也能瘦，关键是选对食材。', icon: 'local_fire_department', color: 'red' },
+      { title: '水波蛋的完美做法', desc: '3 分钟学会，零失败的早餐必备技能。', icon: 'egg', color: 'yellow' },
+      { title: 'Omega-3 脂肪酸的重要性', desc: '为什么营养师都推荐每周吃两次鱼？', icon: 'spa', color: 'green' },
+    ];
+
+    const dailyTips = [
+      '早餐摄入全天 30% 的热量，能有效提升上午的代谢率。建议搭配蛋白质 + 复合碳水 + 少量健康脂肪。',
+      '每天饮水 2000ml 以上，餐前喝一杯水可以增加饱腹感，减少正餐摄入量约 15%。',
+      '减脂期间不必完全戒糖，适量天然果糖（水果）是安全的。但要避免添加糖和含糖饮料。',
+      '蔬菜占每餐的一半以上，既增加饱腹感又提供丰富的维生素和矿物质，热量却极低。',
+      '晚上 8 点后进食不会直接导致发胖，关键是全天总热量。但如果容易暴食，建议设定进食时间窗口。',
+    ];
+
+    const typeColors = {
+      breakfast: 'bg-green-100 text-green-700',
+      lunch: 'bg-orange-100 text-orange-700',
+      dinner: 'bg-blue-100 text-blue-700',
+      snack: 'bg-purple-100 text-purple-700'
+    };
+
+    const typeNames = {
+      breakfast: '早餐',
+      lunch: '午餐',
+      dinner: '晚餐',
+      snack: '加餐'
+    };
+
+    let currentFilter = 'all';
+    let searchTimer = null;
+
+    function initPage() {
+      renderRecipes(allRecipes);
+      renderIngredients();
+      renderHealthArticles();
+      renderDailyTip();
+    }
+
+    function renderRecipes(recipes) {
+      const container = document.getElementById('featured-recipes');
+      if (recipes.length === 0) {
+        container.innerHTML = '<p class="col-span-2 text-center text-gray-400 py-8">暂无相关食谱</p>';
+        return;
       }
-    }
-
-    async function loadPosts() {
-      posts = await API.community.getPosts(1, currentCategory);
-      renderPosts(posts);
-    }
-
-    function renderPosts(postsData) {
-      const container = document.getElementById('posts-container');
-      container.innerHTML = postsData.map(post => `
-        <article class="masonry-item bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover transition-all">
-          ${post.image ? `
-            <div class="aspect-[4/5] w-full bg-gray-100">
-              <img src="${post.image}" alt="" class="w-full h-full object-cover">
+      container.innerHTML = recipes.map(recipe => `
+        <div class="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover transition-all cursor-pointer flex"
+             onclick="goToFoodDetail(${recipe.id})">
+          <div class="w-2/5 h-40 overflow-hidden flex-shrink-0">
+            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="${recipe.image}" alt="${recipe.name}"
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij48cmVjdCB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIGZpbGw9IiNlMmUyZTIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzZmN2E2YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuivrTwvdGV4dD48L3N2Zz4='">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <span class="${typeColors[recipe.type]} px-2 py-0.5 rounded-full text-[10px] font-bold">${typeNames[recipe.type]}</span>
+              <h4 class="font-bold text-gray-800 mt-2 text-sm">${recipe.name}</h4>
             </div>
-          ` : ''}
-          <div class="p-4">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-100">
-                <img src="${post.user.avatar}" alt="${post.user.name}" class="w-full h-full object-cover">
+            <div>
+              <p class="text-xs text-gray-500 mb-2">${recipe.calories} kcal · 蛋白质 ${recipe.protein}g</p>
+              <div class="flex gap-2">
+                ${recipe.tags.map(tag => `<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${tag}</span>`).join('')}
               </div>
-              <div class="flex-1 min-w-0">
-                <p class="font-bold text-sm truncate">${post.user.name}</p>
-                <p class="text-xs text-gray-400">${post.time}</p>
-              </div>
-              <button class="text-green-600 text-xs font-bold hover:text-green-700 flex-shrink-0" onclick="followUser(${post.id})">+ 关注</button>
-            </div>
-            <p class="text-sm leading-relaxed text-gray-700 mb-3 line-clamp-4">${post.content}</p>
-            <div class="flex items-center gap-4 pt-2 border-t border-gray-50">
-              <button class="flex items-center gap-1 text-gray-400 hover:text-red-500 transition-colors" onclick="toggleLike(${post.id}, this)">
-                <span class="material-symbols-outlined text-lg">favorite</span>
-                <span class="text-xs">${Utils.formatNumber(post.likes)}</span>
-              </button>
-              <button class="flex items-center gap-1 text-gray-400 hover:text-green-600 transition-colors" onclick="showComments(${post.id})">
-                <span class="material-symbols-outlined text-lg">chat_bubble</span>
-                <span class="text-xs">${post.comments}</span>
-              </button>
-              <button class="flex items-center gap-1 text-gray-400 hover:text-green-600 transition-colors ml-auto" onclick="sharePost(${post.id})">
-                <span class="material-symbols-outlined text-lg">share</span>
-              </button>
             </div>
           </div>
-        </article>
+        </div>
       `).join('');
     }
 
-    function bindCategoryEvents() {
-      document.querySelectorAll('.category-chip').forEach(chip => {
-        chip.addEventListener('click', function() {
-          document.querySelectorAll('.category-chip').forEach(c => {
-            c.classList.remove('active', 'bg-green-600', 'text-white');
-            c.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
-          });
-          this.classList.add('active', 'bg-green-600', 'text-white');
-          this.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
-          currentCategory = this.dataset.category;
-          loadPosts();
-        });
-      });
+    function renderIngredients() {
+      const container = document.getElementById('ingredient-guide');
+      const colorMap = { green: 'bg-green-50 text-green-600', orange: 'bg-orange-50 text-orange-600', blue: 'bg-blue-50 text-blue-600', yellow: 'bg-yellow-50 text-yellow-700', purple: 'bg-purple-50 text-purple-600' };
+      container.innerHTML = ingredients.map(item => `
+        <div class="bg-white rounded-2xl p-4 card-shadow card-shadow-hover transition-all cursor-pointer text-center">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full ${colorMap[item.color]} flex items-center justify-center">
+            <span class="material-symbols-outlined text-xl">${item.icon}</span>
+          </div>
+          <h5 class="font-bold text-gray-800 text-sm">${item.name}</h5>
+          <p class="text-xs text-gray-500 mt-1">${item.benefit}</p>
+        </div>
+      `).join('');
     }
 
-    async function toggleLike(postId, btn) {
-      const icon = btn.querySelector('.material-symbols-outlined');
-      const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
-      if (isFilled) {
-        icon.style.fontVariationSettings = "'FILL' 0";
-        icon.classList.remove('text-red-500');
+    function renderHealthArticles() {
+      const container = document.getElementById('health-articles');
+      const colorMap = { orange: 'text-orange-500', blue: 'text-blue-500', red: 'text-red-500', yellow: 'text-yellow-600', green: 'text-green-600' };
+      container.innerHTML = healthArticles.map(article => `
+        <div class="bg-white rounded-2xl p-4 card-shadow card-shadow-hover transition-all cursor-pointer flex gap-3 items-start">
+          <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined ${colorMap[article.color]}">${article.icon}</span>
+          </div>
+          <div class="min-w-0">
+            <h5 class="font-bold text-gray-800 text-sm mb-1">${article.title}</h5>
+            <p class="text-xs text-gray-500 line-clamp-2">${article.desc}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderDailyTip() {
+      const tip = dailyTips[Math.floor(Math.random() * dailyTips.length)];
+      document.getElementById('daily-tip').textContent = tip;
+    }
+
+    function filterByMeal(type) {
+      currentFilter = type;
+      if (type === 'all') {
+        renderRecipes(allRecipes);
       } else {
-        icon.style.fontVariationSettings = "'FILL' 1";
-        icon.classList.add('text-red-500');
-        btn.classList.add('scale-125');
-        setTimeout(() => btn.classList.remove('scale-125'), 200);
+        renderRecipes(allRecipes.filter(r => r.type === type));
       }
-      await API.community.toggleLike(postId);
     }
 
-    async function followUser(postId) {
-      await API.community.toggleFollow(postId);
-      Utils.showToast('关注成功');
+    function debounceSearch() {
+      clearTimeout(searchTimer);
+      const query = document.getElementById('search-input').value.trim();
+      const clearBtn = document.getElementById('search-clear');
+      clearBtn.classList.toggle('hidden', !query);
+
+      if (!query) {
+        document.getElementById('search-results').classList.add('hidden');
+        return;
+      }
+
+      searchTimer = setTimeout(() => performSearch(query), 300);
     }
 
-    function showComments(postId) { Utils.showToast('评论功能开发中...'); }
-    function sharePost(postId) { Utils.showToast('分享功能开发中...'); }
-    async function loadMorePosts() { Utils.showToast('加载中...'); }
-    function showCreatePost() { Utils.showToast('发布功能开发中...'); }
+    async function performSearch(query) {
+      const resultsContainer = document.getElementById('search-results');
+      try {
+        const results = await API.food.search(query);
+        if (results && results.length > 0) {
+          resultsContainer.innerHTML = results.map(food => `
+            <div class="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0"
+                 onclick="goToFoodDetail(${food.id})">
+              <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-green-600">restaurant</span>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="font-medium text-sm text-gray-800 truncate">${food.name}</p>
+                <p class="text-xs text-gray-500">${food.calories} kcal · 蛋白质 ${food.protein}g</p>
+              </div>
+              <span class="material-symbols-outlined text-gray-300 text-lg">chevron_right</span>
+            </div>
+          `).join('');
+          resultsContainer.classList.remove('hidden');
+        } else {
+          resultsContainer.innerHTML = '<p class="p-4 text-center text-gray-400 text-sm">未找到相关结果</p>';
+          resultsContainer.classList.remove('hidden');
+        }
+      } catch (error) {
+        // 本地搜索 fallback
+        const localResults = allRecipes.filter(r => r.name.includes(query) || r.tags.some(t => t.includes(query)));
+        if (localResults.length > 0) {
+          resultsContainer.innerHTML = localResults.map(food => `
+            <div class="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0"
+                 onclick="goToFoodDetail(${food.id})">
+              <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-green-600">restaurant</span>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="font-medium text-sm text-gray-800 truncate">${food.name}</p>
+                <p class="text-xs text-gray-500">${food.calories} kcal</p>
+              </div>
+              <span class="material-symbols-outlined text-gray-300 text-lg">chevron_right</span>
+            </div>
+          `).join('');
+          resultsContainer.classList.remove('hidden');
+        } else {
+          resultsContainer.innerHTML = '<p class="p-4 text-center text-gray-400 text-sm">未找到相关结果</p>';
+          resultsContainer.classList.remove('hidden');
+        }
+      }
+    }
+
+    function clearSearch() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('search-results').classList.add('hidden');
+      document.getElementById('search-clear').classList.add('hidden');
+    }
+
+    function goToFoodDetail(id) {
+      window.location.href = `food-detail.html?id=${id}`;
+    }
 
     if (!localStorage.getItem('token')) window.location.href = 'login.html';
     document.addEventListener('DOMContentLoaded', initPage);

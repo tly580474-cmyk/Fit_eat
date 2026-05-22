@@ -1,9 +1,12 @@
 import json
+from datetime import datetime, timedelta
 from app import create_app
 from models import db
 from models.user import User
 from models.food import Food
 from models.achievement import Achievement
+from models.community import CommunityPost
+from models.diet import DietRecord, WaterRecord
 
 app = create_app()
 
@@ -45,6 +48,7 @@ def init_database():
         )
         user1.set_password('123456')
         db.session.add(user1)
+        db.session.flush()  # 确保用户 ID 可用
 
         # 创建食物数据
         foods = [
@@ -172,6 +176,108 @@ def init_database():
             Achievement(name='榜上有名', description='进入排行榜前 10', icon='social_leaderboard', color='blue', condition_type='community', condition_value=10),
         ]
         db.session.add_all(achievements)
+
+        # 创建社区帖子
+        posts = [
+            CommunityPost(
+                user_id=admin.id,
+                content='坚持轻食第 42 天，体重已经下降了 3 公斤！分享一下今天的午餐：藜麦鸡胸肉沙拉，蛋白质满满，饱腹感超强。关键是要选对酱汁，我用的是橄榄油+柠檬汁+少许蜂蜜的自制酱，热量低又好吃。',
+                image='https://lh3.googleusercontent.com/aida-public/AB6AXuBL22umvGsNCB29_UWSHOsvz3kAZT1Er0GAiWiKDgMOnPloyGMkPtgtdE6KjW_dOyCsGRTj4keyazSBCis4YOmau38boWMntEEUjBQkd_4B9g49WUTQPbbkPdQELD2EGEsW-aalvMmLoffgQThhIDjWxOdvhSQNwNSf2A0abZD-y3YT8ccaLtsx7JxgcOksZes8xJxTTSM4Q9UWIxn_MTLEykY4hF0X34MWPFmdjr76BYHhl78mG1WtgflGY7_dP35J2THL8BUE8gs7',
+                category='recipe'
+            ),
+            CommunityPost(
+                user_id=user1.id,
+                content='今天尝试了牛油果水波蛋吐司，第一次做水波蛋居然成功了！秘诀是水里加白醋，用勺子搅出漩涡再下蛋。早餐这样吃，一整天都元气满满。',
+                image='https://lh3.googleusercontent.com/aida-public/AB6AXuBWCoRWf35e_dNWXLpeZWhsKHgeY-zVv6EnjN3c0eM1AtF7MMoxOmUVW8-l1TrlyxiJ6kIgMGlnoXb9LhqJphxsIRFMS4y2mm49SGlUhx1-8ocpAS1TPq9eaZ0qG6LSDTjkSApI7sABbITnQf4PCA5W1IxMklQvdoLN--JgjkouYb2KztGNCOg3tTO-p-Rh0HdzAvCn9OaeY7zX1tDDm72_YgsTVvlOqlUeTq_U1_cxgLAMZo68BYBYbUfSM483xHtlIWveDQpdMco7',
+                category='recipe'
+            ),
+            CommunityPost(
+                user_id=admin.id,
+                content='晨跑 5 公里打卡！配速 6 分 30 秒，虽然不快但坚持下来了。跑完来一杯黑咖啡，帮助加速代谢。运动+轻食，效果翻倍。',
+                image='',
+                category='workout'
+            ),
+            CommunityPost(
+                user_id=user1.id,
+                content='发现一个超好用的控卡小技巧：用小一号的餐具吃饭，心理上觉得吃了很多，实际热量控制得很好。另外推荐希腊酸奶代替普通酸奶，蛋白质含量高一倍！',
+                image='',
+                category='share'
+            ),
+            CommunityPost(
+                user_id=admin.id,
+                content='专家提醒：减脂期间不要完全戒掉碳水化合物。优质碳水（糙米、燕麦、红薯）是身体的重要能量来源，完全断碳会导致代谢下降、肌肉流失。建议每日碳水占总热量的 30-40%。',
+                image='',
+                category='expert'
+            ),
+            CommunityPost(
+                user_id=user1.id,
+                content='周末 meal prep 打包完毕！提前准备好一周的午餐便当，再也不用纠结每天吃什么了。这次做了 5 种不同的沙拉搭配，每天换着吃不会腻。',
+                image='https://lh3.googleusercontent.com/aida-public/AB6AXuCBryIQ5tZE6o2ofnuhWPvxu4hm-dZ3a_HCwxoyk40yKzizC7m6z_bby013e8905S1nW8gkIb4G4iN800sM1L2FtY1QqPwdaGd9u5a1y8MBp0gFFawuRyxjK6gFQ8NuaFBixNSDxpkH81e2NUOd5DFiCpEyDGpMh5EcK663YjBr0kw9vOey4MofsioB9TVKIKUV0B4WqWVwwoLGOBZMB7r_ttlGoq6jaCQIM2ma5GXC5GE4ShomIn8uKCk9tGYbOsqtOMSx_9Y5-zmd',
+                category='share'
+            ),
+            CommunityPost(
+                user_id=admin.id,
+                content='三文鱼真的是减脂神器！富含 Omega-3 脂肪酸，既能抗炎又能促进脂肪代谢。今天晚餐是柠檬香煎三文鱼配芦笋，380 大卡，蛋白质 28g，吃完超满足。',
+                image='https://lh3.googleusercontent.com/aida-public/AB6AXuD6UlzqXdAvKEfShYuVrgLEmA6aSxCuuWjQzOYdQQri6Hcg90TMy189kWAeLts5cUqPN286U__KXEpJTBr-l0ttIOpnncwIAr9npIxcMEyyzViGuHu_H3uo-a5HGUVE7sPRhgUqmdTSxZm0NkT3lCvKgm8gc02QsAhkc1pOjrg2TASErtHl4Az-m7r0KJuCipjLcXX2iAZT0YPMIJMX64NCep390-lkWjfFpcDjuqTBK4TtMfMSs95O4ejoFkPKLVpNKs5RqKoa5qvG',
+                category='recipe'
+            ),
+            CommunityPost(
+                user_id=user1.id,
+                content='分享一下我的减脂心路历程：从 60kg 到 55kg，用了 3 个月。没有节食，就是合理控制热量+每周 3 次运动。最大的感悟是：减脂是一场马拉松，不是冲刺跑。慢慢来，比较快。',
+                image='',
+                category='share'
+            ),
+        ]
+        db.session.add_all(posts)
+
+        # 创建饮食记录（测试用户近 7 天）
+        now = datetime.utcnow()
+        today = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        foods_list = Food.query.all()
+        food_map = {f.name: f for f in foods_list}
+
+        diet_records = []
+        daily_data = [
+            # (天数偏移, 早餐, 午餐, 晚餐, 加餐)
+            (-6, '蓝莓坚果酸奶碗', '嫩煎鸡胸肉沙拉', '柠檬香煎三文鱼配芦笋', None),
+            (-5, '牛油果水波蛋活力碗', '香煎鸡胸肉暖沙拉', None, '混合坚果与苹果片'),
+            (-4, '蓝莓坚果酸奶碗', None, '柠檬香煎三文鱼配芦笋', '混合坚果与苹果片'),
+            (-3, '牛油果水波蛋活力碗', '嫩煎鸡胸肉沙拉', '柠檬香煎三文鱼配芦笋', None),
+            (-2, None, '香煎鸡胸肉暖沙拉', '柠檬香煎三文鱼配芦笋', '混合坚果与苹果片'),
+            (-1, '蓝莓坚果酸奶碗', '嫩煎鸡胸肉沙拉', None, None),
+            (0, '牛油果水波蛋活力碗', None, None, None),
+        ]
+
+        for day_offset, breakfast, lunch, dinner, snack in daily_data:
+            day = today + timedelta(days=day_offset)
+            meal_map = {'breakfast': breakfast, 'lunch': lunch, 'dinner': dinner, 'snack': snack}
+            for meal_type, food_name in meal_map.items():
+                if food_name and food_name in food_map:
+                    food = food_map[food_name]
+                    record = DietRecord(
+                        user_id=user1.id,
+                        food_id=food.id,
+                        meal_type=meal_type,
+                        calories=food.calories,
+                        protein=food.protein,
+                        amount=1,
+                        recorded_at=day + timedelta(hours={'breakfast': 8, 'lunch': 12, 'dinner': 18, 'snack': 15}[meal_type])
+                    )
+                    diet_records.append(record)
+
+        db.session.add_all(diet_records)
+
+        # 创建饮水记录
+        water_records = []
+        for i in range(7):
+            day = today + timedelta(days=i - 6)
+            for cup in range(6):
+                water_records.append(WaterRecord(
+                    user_id=user1.id,
+                    amount=250,
+                    recorded_at=day + timedelta(hours=8 + cup * 2)
+                ))
+        db.session.add_all(water_records)
 
         db.session.commit()
         print('示例数据已填充')
