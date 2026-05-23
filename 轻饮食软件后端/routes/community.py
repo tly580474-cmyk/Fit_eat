@@ -2,15 +2,9 @@ from flask import Blueprint, request, jsonify, session
 from models import db
 from models.user import User
 from models.community import CommunityPost, Comment, Like, Follow
+from routes.auth_helper import get_current_user
 
 community_bp = Blueprint('community', __name__)
-
-
-def get_current_user():
-    user_id = session.get('user_id')
-    if not user_id:
-        return None
-    return User.query.get(user_id)
 
 
 @community_bp.route('/posts', methods=['GET'])

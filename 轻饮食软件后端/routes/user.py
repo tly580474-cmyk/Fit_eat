@@ -1,15 +1,9 @@
 from flask import Blueprint, request, jsonify, session
 from models import db
 from models.user import User
+from routes.auth_helper import get_current_user
 
 user_bp = Blueprint('user', __name__)
-
-
-def get_current_user():
-    user_id = session.get('user_id')
-    if not user_id:
-        return None
-    return User.query.get(user_id)
 
 
 @user_bp.route('/profile', methods=['GET'])

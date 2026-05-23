@@ -2,15 +2,9 @@ from flask import Blueprint, jsonify, request, session
 from models import db
 from models.user import User
 from models.achievement import Achievement, UserAchievement, AIBodyData
+from routes.auth_helper import get_current_user
 
 achievement_bp = Blueprint('achievement', __name__)
-
-
-def get_current_user():
-    user_id = session.get('user_id')
-    if not user_id:
-        return None
-    return User.query.get(user_id)
 
 
 @achievement_bp.route('/all', methods=['GET'])

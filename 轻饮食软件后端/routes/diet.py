@@ -4,15 +4,9 @@ from sqlalchemy import func
 from models import db
 from models.user import User
 from models.diet import DietRecord, WaterRecord
+from routes.auth_helper import get_current_user
 
 diet_bp = Blueprint('diet', __name__)
-
-
-def get_current_user():
-    user_id = session.get('user_id')
-    if not user_id:
-        return None
-    return User.query.get(user_id)
 
 
 def today_range():

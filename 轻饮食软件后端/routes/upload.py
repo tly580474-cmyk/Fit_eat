@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 from flask import Blueprint, request, jsonify, session, current_app
 from models.user import User
+from routes.auth_helper import get_current_user
 
 upload_bp = Blueprint('upload', __name__)
 
@@ -11,13 +12,6 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-def get_current_user():
-    user_id = session.get('user_id')
-    if not user_id:
-        return None
-    return User.query.get(user_id)
 
 
 @upload_bp.route('/image', methods=['POST'])
