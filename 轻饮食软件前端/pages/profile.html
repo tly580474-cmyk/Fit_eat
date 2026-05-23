@@ -59,8 +59,8 @@
         <div class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-lg transition-transform group-hover:scale-105">
           <img id="profile-avatar" src="" alt="头像" class="w-full h-full object-cover">
         </div>
-        <div class="absolute bottom-1 right-1 bg-green-600 text-white p-1.5 rounded-full border-2 border-white">
-          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">edit</span>
+        <div class="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center border border-gray-100 transition-all group-hover:bg-green-50 group-hover:shadow-lg">
+          <span class="material-symbols-outlined text-green-600 text-base">photo_camera</span>
         </div>
       </div>
       <h1 id="profile-name" class="mt-4 text-2xl font-bold text-gray-800"></h1>
@@ -125,6 +125,20 @@
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-gray-500 group-hover:text-green-600 transition-colors">person_outline</span>
               <span class="text-gray-800 font-medium">账号资料</span>
+            </div>
+            <span class="material-symbols-outlined text-gray-300">chevron_right</span>
+          </button>
+          <button onclick="AccountIdModal.open()" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition-colors group">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-gray-500 group-hover:text-green-600 transition-colors">badge</span>
+              <span class="text-gray-800 font-medium">修改账户ID</span>
+            </div>
+            <span class="material-symbols-outlined text-gray-300">chevron_right</span>
+          </button>
+          <button onclick="PasswordModal.open()" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition-colors group">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-gray-500 group-hover:text-green-600 transition-colors">lock</span>
+              <span class="text-gray-800 font-medium">修改密码</span>
             </div>
             <span class="material-symbols-outlined text-gray-300">chevron_right</span>
           </button>
@@ -217,6 +231,32 @@
   <script src="../js/common.js"></script>
   <script src="../js/components.js"></script>
   <script>
+    // 更新页面显示的用户数据
+    function updateProfileDisplay(user) {
+      if (user.avatar) {
+        document.getElementById('profile-avatar').src = user.avatar;
+      }
+      if (user.name) {
+        document.getElementById('profile-name').textContent = user.name;
+      }
+      if (user.accountId) {
+        // 更新 localStorage 中的账户ID
+        localStorage.setItem('accountId', user.accountId);
+      }
+      if (user.bio !== undefined) {
+        document.getElementById('profile-bio').textContent = user.bio || '';
+      }
+      if (user.planDays !== undefined) {
+        document.getElementById('stat-days').textContent = user.planDays;
+      }
+      if (user.recordCount !== undefined) {
+        document.getElementById('stat-records').textContent = user.recordCount;
+      }
+      if (user.achievementCount !== undefined) {
+        document.getElementById('stat-achievements').textContent = user.achievementCount;
+      }
+    }
+
     async function initPage() {
       try {
         const [user, achievements] = await Promise.all([
@@ -224,13 +264,7 @@
           API.achievement.getAll()
         ]);
 
-        document.getElementById('profile-avatar').src = user.avatar;
-        document.getElementById('profile-name').textContent = user.name;
-        document.getElementById('profile-bio').textContent = user.bio;
-        document.getElementById('stat-days').textContent = user.planDays;
-        document.getElementById('stat-records').textContent = user.recordCount;
-        document.getElementById('stat-achievements').textContent = user.achievementCount;
-
+        updateProfileDisplay(user);
         renderAchievements(achievements);
       } catch (error) {
         console.error('加载数据失败:', error);
@@ -258,7 +292,7 @@
 
     function handleLogout() {
       localStorage.removeItem('token');
-      localStorage.removeItem('username');
+      localStorage.removeItem('accountId');
       window.location.href = 'login.html';
     }
 

@@ -29,6 +29,14 @@ const API = {
       return request('/user/profile', { method: 'PUT', body: JSON.stringify(data) });
     },
 
+    updateAccountId: async (accountId) => {
+      return request('/user/account-id', { method: 'PUT', body: JSON.stringify({ accountId }) });
+    },
+
+    updatePassword: async (oldPassword, newPassword) => {
+      return request('/user/password', { method: 'PUT', body: JSON.stringify({ oldPassword, newPassword }) });
+    },
+
     login: async (credentials) => {
       const res = await request('/auth/login', { method: 'POST', body: JSON.stringify(credentials) });
       if (res.success && res.token) {
@@ -148,6 +156,27 @@ const API = {
 
     createPost: async (data) => {
       return request('/community/posts', { method: 'POST', body: JSON.stringify(data) });
+    }
+  },
+
+  /**
+   * 文件上传接口
+   */
+  upload: {
+    image: async (file) => {
+      const token = localStorage.getItem('token');
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch(`${API_BASE_URL}/upload/image`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        credentials: 'include',
+        body: formData
+      });
+      return res.json();
     }
   },
 

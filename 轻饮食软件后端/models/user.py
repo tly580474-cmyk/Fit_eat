@@ -8,7 +8,8 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, nullable=False, index=True)
+    account_id = db.Column(db.String(64), unique=True, nullable=False, index=True)
+    username = db.Column(db.String(64), nullable=False, default='')
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(256), nullable=False)
     avatar = db.Column(db.String(500), default='')
@@ -42,6 +43,7 @@ class User(UserMixin, db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'accountId': self.account_id,
             'name': self.username,
             'avatar': self.avatar,
             'bio': self.bio,

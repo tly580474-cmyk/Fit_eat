@@ -50,3 +50,54 @@ def update_profile():
 
     db.session.commit()
     return jsonify({'success': True, 'data': user.to_dict()})
+
+
+@user_bp.route('/account-id', methods=['PUT'])
+def update_account_id():
+    user = get_current_user()
+    if not user:
+        return jsonify({'success': False, 'message': '未登录'}), 401
+
+    data = request.get_json()
+    new_account_id = data.get('accountId', '').strip()
+
+    if not new_account_id:
+        return jsonify({'success': False, 'message': '账户ID不能为空'}), 400
+
+    if len(new_account_id) < 3:
+        return jsonify({'success': False, 'message': '账户ID至少需要3个字符'}), 400
+
+    if new_account_id == user.account_id:
+        return jsonify({'success': False, 'message': '新账户ID与当前相同'}), 400
+
+    existing = User.query.filter_by(account_id=new_account_id).first()
+    if existing and existing.id != user.id:
+        return jsonify({'success': False, 'message': '该账户ID已被使用'}), 400
+
+    user.account_id = new_account_id
+    db.session.commit()
+    return jsonify({'success': True, 'data': user.to_dict()})
+
+
+@user_bp.route('/password', methods=['PUT'])
+def update_password():
+    user = get_current_user()
+    if not user:
+        return jsonify({'success': False, 'message': '未登录'}), 401
+
+    data = request.get_json()
+    old_password = data.get('oldPassword', '')
+    new_password = data.get('newPassword', '')
+
+    if not old_password or not new_password:
+        return jsonify({'success': False, 'message': '请填写完整信息'}), 400
+
+    if not user.check_password(old_password):
+        return jsonify({'success': False, 'message': '旧密码错误'}), 400
+
+    if len(new_password) < 6:
+        return jsonify({'success': False, 'message': '新密码至少需要6个字符'}), 400
+
+    user.set_password(new_password)
+    db.session.commit()
+    return jsonify({'success': True, 'message': '密码修改成功'})

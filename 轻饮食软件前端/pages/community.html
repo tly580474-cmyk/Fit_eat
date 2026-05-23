@@ -127,6 +127,75 @@
     <span id="toast-message">操作成功</span>
   </div>
 
+  <!-- 发布动态弹窗 -->
+  <div id="create-post-modal" class="fixed inset-0 z-50 hidden">
+    <!-- 遮罩层 -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeCreatePost()"></div>
+
+    <!-- 弹窗内容 -->
+    <div class="absolute inset-x-0 bottom-0 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-lg md:w-full bg-white rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[90vh] flex flex-col">
+      <!-- 头部 -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <button class="text-gray-500 hover:text-gray-700 px-2 py-1" onclick="closeCreatePost()">取消</button>
+        <h3 class="font-bold text-lg">发布动态</h3>
+        <button id="submit-post-btn" class="bg-green-600 text-white px-5 py-1.5 rounded-full font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" onclick="submitPost()" disabled>发布</button>
+      </div>
+
+      <!-- 内容区域 -->
+      <div class="flex-1 overflow-y-auto p-5">
+        <!-- 文字输入 -->
+        <textarea id="post-content" class="w-full min-h-[120px] resize-none text-gray-700 placeholder-gray-400 focus:outline-none text-base leading-relaxed" placeholder="分享你的轻食生活..." maxlength="1000" oninput="updateCharCount()"></textarea>
+
+        <!-- 字数统计 -->
+        <div class="text-right text-xs text-gray-400 mt-1">
+          <span id="char-count">0</span>/1000
+        </div>
+
+        <!-- 图片预览区域 -->
+        <div id="image-preview-container" class="mt-4 hidden">
+          <div class="relative inline-block">
+            <img id="image-preview" class="w-32 h-32 object-cover rounded-xl border border-gray-200" src="" alt="">
+            <button class="absolute -top-2 -right-2 w-6 h-6 bg-gray-800/70 text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors" onclick="removeImage()">
+              <span class="material-symbols-outlined text-sm">close</span>
+            </button>
+          </div>
+          <div id="upload-progress" class="hidden mt-2">
+            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-green-500 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分类选择 -->
+        <div class="mt-5 pt-4 border-t border-gray-100">
+          <p class="text-sm text-gray-500 mb-3">选择分类</p>
+          <div class="flex flex-wrap gap-2">
+            <button class="post-category-chip px-4 py-2 rounded-full bg-green-50 text-green-700 text-sm font-medium border border-green-200 active" data-category="all">日常分享</button>
+            <button class="post-category-chip px-4 py-2 rounded-full bg-white text-gray-600 text-sm font-medium border border-gray-200 hover:bg-gray-50" data-category="recipe">减脂食谱</button>
+            <button class="post-category-chip px-4 py-2 rounded-full bg-white text-gray-600 text-sm font-medium border border-gray-200 hover:bg-gray-50" data-category="workout">运动打卡</button>
+            <button class="post-category-chip px-4 py-2 rounded-full bg-white text-gray-600 text-sm font-medium border border-gray-200 hover:bg-gray-50" data-category="expert">专家专栏</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部工具栏 -->
+      <div class="px-5 py-3 border-t border-gray-100 flex items-center gap-1">
+        <button class="p-2.5 rounded-full hover:bg-gray-100 text-gray-500 transition-colors" onclick="triggerImageUpload()" title="上传图片">
+          <span class="material-symbols-outlined">image</span>
+        </button>
+        <button class="p-2.5 rounded-full hover:bg-gray-100 text-gray-500 transition-colors" title="添加位置">
+          <span class="material-symbols-outlined">location_on</span>
+        </button>
+        <button class="p-2.5 rounded-full hover:bg-gray-100 text-gray-500 transition-colors" title="@提及">
+          <span class="material-symbols-outlined">alternate_email</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 隐藏的文件输入 -->
+  <input type="file" id="image-input" accept="image/png,image/jpeg,image/gif,image/webp" class="hidden" onchange="handleImageSelect(event)">
+
   <script src="../js/api.js"></script>
   <script src="../js/common.js"></script>
   <script src="../js/components.js"></script>
@@ -227,7 +296,174 @@
     function showComments(postId) { Utils.showToast('评论功能开发中...'); }
     function sharePost(postId) { Utils.showToast('分享功能开发中...'); }
     async function loadMorePosts() { Utils.showToast('加载中...'); }
-    function showCreatePost() { Utils.showToast('发布功能开发中...'); }
+
+    // 发布动态相关变量
+    let selectedImage = null;
+    let selectedCategory = 'all';
+
+    // 显示发布动态弹窗
+    function showCreatePost() {
+      document.getElementById('create-post-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭发布动态弹窗
+    function closeCreatePost() {
+      document.getElementById('create-post-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+      resetPostForm();
+    }
+
+    // 重置表单
+    function resetPostForm() {
+      document.getElementById('post-content').value = '';
+      document.getElementById('image-preview-container').classList.add('hidden');
+      document.getElementById('image-preview').src = '';
+      document.getElementById('image-input').value = '';
+      selectedImage = null;
+      selectedCategory = 'all';
+      updateCharCount();
+      updateSubmitButton();
+
+      // 重置分类选择
+      document.querySelectorAll('.post-category-chip').forEach(chip => {
+        chip.classList.remove('active', 'bg-green-50', 'text-green-700', 'border-green-200');
+        chip.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+      });
+      const defaultChip = document.querySelector('.post-category-chip[data-category="all"]');
+      if (defaultChip) {
+        defaultChip.classList.add('active', 'bg-green-50', 'text-green-700', 'border-green-200');
+        defaultChip.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+      }
+    }
+
+    // 更新字数统计
+    function updateCharCount() {
+      const content = document.getElementById('post-content').value;
+      document.getElementById('char-count').textContent = content.length;
+      updateSubmitButton();
+    }
+
+    // 更新发布按钮状态
+    function updateSubmitButton() {
+      const content = document.getElementById('post-content').value.trim();
+      const btn = document.getElementById('submit-post-btn');
+      btn.disabled = content.length === 0 && !selectedImage;
+    }
+
+    // 触发图片选择
+    function triggerImageUpload() {
+      document.getElementById('image-input').click();
+    }
+
+    // 处理图片选择
+    async function handleImageSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // 检查文件大小 (16MB)
+      if (file.size > 16 * 1024 * 1024) {
+        Utils.showToast('图片大小不能超过16MB');
+        return;
+      }
+
+      // 显示预览
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('image-preview').src = e.target.result;
+        document.getElementById('image-preview-container').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+
+      // 上传图片
+      const progressContainer = document.getElementById('upload-progress');
+      progressContainer.classList.remove('hidden');
+
+      try {
+        const result = await API.upload.image(file);
+        if (result.success) {
+          selectedImage = result.url;
+          updateSubmitButton();
+          Utils.showToast('图片上传成功');
+        } else {
+          Utils.showToast(result.message || '图片上传失败');
+          removeImage();
+        }
+      } catch (error) {
+        console.error('上传失败:', error);
+        Utils.showToast('图片上传失败');
+        removeImage();
+      } finally {
+        progressContainer.classList.add('hidden');
+      }
+    }
+
+    // 移除已选图片
+    function removeImage() {
+      document.getElementById('image-preview-container').classList.add('hidden');
+      document.getElementById('image-preview').src = '';
+      document.getElementById('image-input').value = '';
+      selectedImage = null;
+      updateSubmitButton();
+    }
+
+    // 分类选择事件
+    document.querySelectorAll('.post-category-chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.post-category-chip').forEach(c => {
+          c.classList.remove('active', 'bg-green-50', 'text-green-700', 'border-green-200');
+          c.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+        });
+        this.classList.add('active', 'bg-green-50', 'text-green-700', 'border-green-200');
+        this.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+        selectedCategory = this.dataset.category;
+      });
+    });
+
+    // 提交发布
+    async function submitPost() {
+      const content = document.getElementById('post-content').value.trim();
+
+      if (!content && !selectedImage) {
+        Utils.showToast('请输入内容或上传图片');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-post-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '发布中...';
+
+      try {
+        const result = await API.community.createPost({
+          content: content,
+          image: selectedImage || '',
+          category: selectedCategory
+        });
+
+        if (result.success) {
+          Utils.showToast('发布成功');
+          closeCreatePost();
+          // 刷新帖子列表
+          await loadPosts();
+        } else {
+          Utils.showToast(result.message || '发布失败');
+        }
+      } catch (error) {
+        console.error('发布失败:', error);
+        Utils.showToast('发布失败，请重试');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '发布';
+        updateSubmitButton();
+      }
+    }
+
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !document.getElementById('create-post-modal').classList.contains('hidden')) {
+        closeCreatePost();
+      }
+    });
 
     if (!localStorage.getItem('token')) window.location.href = 'login.html';
     document.addEventListener('DOMContentLoaded', initPage);

@@ -11,6 +11,9 @@ def create_app():
     app = Flask(__name__, static_folder=None)
     app.config.from_object(Config)
 
+    # 确保上传目录存在
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
     db.init_app(app)
     CORS(app, supports_credentials=True)
 
@@ -48,6 +51,12 @@ def create_app():
     @app.route('/js/<path:filename>')
     def serve_js(filename):
         return send_from_directory(os.path.join(frontend_dir, 'js'), filename)
+
+    # 上传文件服务
+    @app.route('/api/uploads/<path:filename>')
+    def serve_upload(filename):
+        upload_dir = app.config['UPLOAD_FOLDER']
+        return send_from_directory(upload_dir, filename)
 
     return app
 

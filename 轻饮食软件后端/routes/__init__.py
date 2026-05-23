@@ -4,6 +4,7 @@ from routes.diet import diet_bp
 from routes.food import food_bp
 from routes.community import community_bp
 from routes.achievement import achievement_bp
+from routes.upload import upload_bp
 
 
 def register_routes(app):
@@ -13,3 +14,4 @@ def register_routes(app):
     app.register_blueprint(food_bp, url_prefix='/api/food')
     app.register_blueprint(community_bp, url_prefix='/api/community')
     app.register_blueprint(achievement_bp, url_prefix='/api/achievement')
+    app.register_blueprint(upload_bp, url_prefix='/api/upload')
