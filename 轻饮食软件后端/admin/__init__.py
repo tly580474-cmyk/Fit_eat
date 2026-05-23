@@ -19,7 +19,6 @@ def init_admin(app, db):
     admin = Admin(
         app,
         name='轻饮食管理后台',
-        template_mode='bootstrap4',
         url='/admin'
     )
 

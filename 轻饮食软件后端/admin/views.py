@@ -5,20 +5,28 @@ from flask import redirect, url_for
 
 class BaseAdminView(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated
-
-    def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('admin.index'))
+        return True
 
 
 class UserModelView(BaseAdminView):
-    column_list = ['id', 'username', 'email', 'gender', 'age', 'height', 'weight', 'target_calories', 'plan_days', 'created_at']
-    column_searchable_list = ['username', 'email']
+    column_list = ['id', 'account_id', 'username', 'email', 'gender', 'age', 'height', 'weight', 'target_calories', 'plan_days', 'created_at']
+    column_searchable_list = ['account_id', 'username', 'email']
     column_filters = ['gender', 'created_at']
+    column_exclude_list = ['password_hash', 'avatar', 'bio']
     column_labels = {
-        'username': '用户名', 'email': '邮箱', 'gender': '性别',
-        'age': '年龄', 'height': '身高', 'weight': '体重',
-        'target_calories': '目标热量', 'plan_days': '计划天数', 'created_at': '注册时间'
+        'id': 'ID',
+        'account_id': '账户ID',
+        'username': '姓名',
+        'email': '邮箱',
+        'gender': '性别',
+        'age': '年龄',
+        'height': '身高(cm)',
+        'weight': '体重(kg)',
+        'body_fat': '体脂率(%)',
+        'target_calories': '目标热量(kcal)',
+        'target_weight': '目标体重(kg)',
+        'plan_days': '计划天数',
+        'created_at': '注册时间',
     }
     can_export = True
 

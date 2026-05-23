@@ -19,7 +19,8 @@ def init_database():
 
         # 创建管理员用户
         admin = User(
-            username='admin',
+            account_id='admin',
+            username='管理员',
             email='admin@lightdiet.com',
             gender='女',
             age=25,
@@ -36,6 +37,7 @@ def init_database():
 
         # 创建示例用户
         user1 = User(
+            account_id='linyouxue',
             username='林小悦',
             email='lin@example.com',
             gender='女',
@@ -282,7 +284,7 @@ def init_database():
         db.session.commit()
         print('示例数据已填充')
         print('管理员账号: admin / admin123')
-        print('测试账号: 林小悦 / 123456')
+        print('测试账号: linyouxue / 123456')
 
 
 if __name__ == '__main__':
