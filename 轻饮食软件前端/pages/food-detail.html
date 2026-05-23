@@ -55,7 +55,8 @@
         <div class="lg:sticky lg:top-24">
           <div class="relative h-80 lg:h-[600px] xl:h-[700px] w-full overflow-hidden rounded-3xl lg:rounded-[2rem]">
             <img id="food-hero-image" alt="" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWCoRWf35e_dNWXLpeZWhsKHgeY-zVv6EnjN3c0eM1AtF7MMoxOmUVW8-l1TrlyxiJ6kIgMGlnoXb9LhqJphxsIRFMS4y2mm49SGlUhx1-8ocpAS1TPq9eaZ0qG6LSDTjkSApI7sABbITnQf4PCA5W1IxMklQvdoLN--JgjkouYb2KztGNCOg3tTO-p-Rh0HdzAvCn9OaeY7zX1tDDm72_YgsTVvlOqlUeTq_U1_cxgLAMZo68BYBYbUfSM483xHtlIWveDQpdMco7">
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWCoRWf35e_dNWXLpeZWhsKHgeY-zVv6EnjN3c0eM1AtF7MMoxOmUVW8-l1TrlyxiJ6kIgMGlnoXb9LhqJphxsIRFMS4y2mm49SGlUhx1-8ocpAS1TPq9eaZ0qG6LSDTjkSApI7sABbITnQf4PCA5W1IxMklQvdoLN--JgjkouYb2KztGNCOg3tTO-p-Rh0HdzAvCn9OaeY7zX1tDDm72_YgsTVvlOqlUeTq_U1_cxgLAMZo68BYBYbUfSM483xHtlIWveDQpdMco7"
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSI2NCIgZmlsbD0iI2NjYyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuWKoeS7tjwvdGV4dD48L3N2Zz4='">
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
             <!-- 桌面端: 悬浮操作卡 -->
             <div class="hidden lg:flex absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-2xl p-4 items-center justify-between">
@@ -252,10 +253,13 @@
     async function initPage() {
       try {
         const food = await API.food.getDetail(foodId);
+        console.log('Food data:', food);
         if (food) {
           document.getElementById('food-name').textContent = food.name;
           document.getElementById('food-desc').textContent = food.description;
-          document.getElementById('food-hero-image').src = food.image;
+          if (food.image) {
+            document.getElementById('food-hero-image').src = food.image;
+          }
           document.getElementById('food-calories').textContent = food.calories;
           document.getElementById('food-protein').textContent = food.protein + 'g';
           document.getElementById('food-carbs').textContent = food.carbs + 'g';
@@ -267,17 +271,26 @@
             ).join('');
           }
 
-          if (food.ingredients) {
-            document.getElementById('food-ingredients').innerHTML = food.ingredients.map(item =>
-              `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+          // 更新食材列表
+          const ingredientsContainer = document.getElementById('food-ingredients');
+          if (food.ingredients && food.ingredients.length > 0) {
+            console.log('Ingredients:', food.ingredients);
+            ingredientsContainer.innerHTML = food.ingredients.map(item => {
+              const name = typeof item === 'object' ? item.name : item;
+              const amount = typeof item === 'object' && item.amount ? item.amount : '';
+              return `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                 <span class="material-symbols-outlined text-green-500 text-base">eco</span>
-                <span class="text-sm">${item}</span>
-              </div>`
-            ).join('');
+                <span class="text-sm">${name}${amount ? ' (' + amount + ')' : ''}</span>
+              </div>`;
+            }).join('');
+          } else {
+            ingredientsContainer.innerHTML = '<p class="text-gray-400 text-sm">暂无食材信息</p>';
           }
 
-          if (food.steps) {
-            document.getElementById('recipe-steps').innerHTML = food.steps.map((step, i) => `
+          // 更新步骤列表
+          const stepsContainer = document.getElementById('recipe-steps');
+          if (food.steps && food.steps.length > 0) {
+            stepsContainer.innerHTML = food.steps.map((step, i) => `
               <div class="flex gap-4">
                 <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm">${i + 1}</div>
                 <div>
