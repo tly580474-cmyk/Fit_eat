@@ -85,6 +85,37 @@ def add_comment(post_id):
     return jsonify({'success': True, 'commentId': comment.id})
 
 
+@community_bp.route('/my-posts', methods=['GET'])
+def get_my_posts():
+    user = get_current_user()
+    if not user:
+        return jsonify({'success': False, 'message': '未登录'}), 401
+
+    page = request.args.get('page', 1, type=int)
+    posts = CommunityPost.query.filter_by(user_id=user.id) \
+        .order_by(CommunityPost.created_at.desc()) \
+        .paginate(page=page, per_page=10, error_out=False)
+
+    return jsonify([p.to_dict(current_user_id=user.id) for p in posts.items])
+
+
+@community_bp.route('/posts/<int:post_id>', methods=['DELETE'])
+def delete_post(post_id):
+    user = get_current_user()
+    if not user:
+        return jsonify({'success': False, 'message': '未登录'}), 401
+
+    post = CommunityPost.query.get(post_id)
+    if not post:
+        return jsonify({'success': False, 'message': '动态不存在'}), 404
+    if post.user_id != user.id:
+        return jsonify({'success': False, 'message': '无权删除'}), 403
+
+    db.session.delete(post)
+    db.session.commit()
+    return jsonify({'success': True})
+
+
 @community_bp.route('/follow/<int:user_id>', methods=['POST'])
 def toggle_follow(user_id):
     user = get_current_user()

@@ -11,8 +11,15 @@ from models.diet import DietRecord, WaterRecord
 app = create_app()
 
 
-def init_database():
+def init_database(force=False):
     with app.app_context():
+        import os
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance', 'light_diet.db')
+
+        if os.path.exists(db_path) and not force:
+            print('数据库已存在，跳过初始化。如需重置数据库，请运行: python init_db.py --force')
+            return
+
         db.drop_all()
         db.create_all()
         print('数据库表已创建')
@@ -286,6 +293,23 @@ def init_database():
         print('管理员账号: admin / admin123')
         print('测试账号: linyouxue / 123456')
 
+        # 自动导入 HowToCook 食谱和图片
+        print('\n正在导入 HowToCook 食谱...')
+        try:
+            from import_howtocook import import_recipes
+            import_recipes()
+        except Exception as e:
+            print(f'导入 HowToCook 食谱失败: {e}')
+
+        print('正在导入食谱图片...')
+        try:
+            from import_images import import_images
+            import_images()
+        except Exception as e:
+            print(f'导入食谱图片失败: {e}')
+
 
 if __name__ == '__main__':
-    init_database()
+    import sys
+    force = '--force' in sys.argv
+    init_database(force=force)

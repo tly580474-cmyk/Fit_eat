@@ -13,6 +13,18 @@ async function request(url, options = {}) {
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
   const res = await fetch(`${API_BASE_URL}${url}`, { ...options, headers, credentials: 'include' });
+
+  // 全局处理 401 未授权响应，清除无效 token 并跳转登录页
+  if (res.status === 401) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('accountId');
+    const currentPage = window.location.pathname.split('/').pop();
+    if (currentPage !== 'login.html' && currentPage !== 'register.html') {
+      window.location.href = 'login.html';
+    }
+    return { success: false, message: '未登录或登录已过期' };
+  }
+
   return res.json();
 }
 
@@ -104,6 +116,12 @@ const API = {
    * 食物相关接口
    */
   food: {
+    getList: async (page = 1, mealType = '') => {
+      const params = new URLSearchParams({ page });
+      if (mealType && mealType !== 'all') params.append('meal_type', mealType);
+      return request(`/food/list?${params}`);
+    },
+
     getDetail: async (id) => {
       return request(`/food/${id}`);
     },
@@ -156,6 +174,14 @@ const API = {
 
     createPost: async (data) => {
       return request('/community/posts', { method: 'POST', body: JSON.stringify(data) });
+    },
+
+    getMyPosts: async (page = 1) => {
+      return request(`/community/my-posts?page=${page}`);
+    },
+
+    deletePost: async (postId) => {
+      return request(`/community/posts/${postId}`, { method: 'DELETE' });
     }
   },
 

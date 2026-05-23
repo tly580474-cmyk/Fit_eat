@@ -13,7 +13,8 @@ const PAGES = {
   profile: 'pages/profile.html',
   foodDetail: 'pages/food-detail.html',
   aiSetup: 'pages/ai-setup.html',
-  aiPlan: 'pages/ai-plan.html'
+  aiPlan: 'pages/ai-plan.html',
+  myPosts: 'pages/my-posts.html'
 };
 
 // 页面标题配置
@@ -984,29 +985,35 @@ const AvatarModal = {
 /**
  * 修改账户ID弹窗
  */
-const AccountIdModal = {
+const AccountSettingsModal = {
   injectHTML() {
-    if (document.getElementById('account-id-modal')) return;
+    if (document.getElementById('account-settings-modal')) return;
     const html = `
-      <div id="account-id-overlay" class="modal-overlay" onclick="AccountIdModal.close()"></div>
-      <div id="account-id-modal" class="bottom-sheet">
+      <div id="account-settings-overlay" class="modal-overlay" onclick="AccountSettingsModal.close()"></div>
+      <div id="account-settings-modal" class="bottom-sheet">
         <div class="sheet-handle"><span></span></div>
         <div class="px-5 pb-5">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-bold text-gray-800">修改账户ID</h3>
-            <button onclick="AccountIdModal.close()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+            <h3 class="text-lg font-bold text-gray-800">修改ID或密码</h3>
+            <button onclick="AccountSettingsModal.close()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
               <span class="material-symbols-outlined text-gray-500">close</span>
             </button>
           </div>
 
-          <div class="mb-4 p-3 bg-yellow-50 rounded-xl">
-            <p class="text-sm text-yellow-700">
-              <span class="material-symbols-outlined text-sm align-middle">info</span>
-              修改账户ID后，下次登录需要使用新的账户ID
-            </p>
+          <!-- Tab 切换 -->
+          <div class="flex bg-gray-100 rounded-xl p-1 mb-5">
+            <button id="tab-account-id" onclick="AccountSettingsModal.switchTab('accountId')" class="flex-1 py-2.5 rounded-lg text-sm font-bold text-green-700 bg-white shadow-sm transition-all">修改账户ID</button>
+            <button id="tab-password" onclick="AccountSettingsModal.switchTab('password')" class="flex-1 py-2.5 rounded-lg text-sm font-medium text-gray-500 transition-all">修改密码</button>
           </div>
 
-          <div class="space-y-3 mb-5">
+          <!-- 修改账户ID -->
+          <div id="panel-account-id" class="space-y-3">
+            <div class="p-3 bg-yellow-50 rounded-xl">
+              <p class="text-sm text-yellow-700">
+                <span class="material-symbols-outlined text-sm align-middle">info</span>
+                修改后需使用新账户ID登录
+              </p>
+            </div>
             <div>
               <label class="text-sm font-medium text-gray-600 mb-1 block">当前账户ID</label>
               <input id="current-account-id" type="text" class="form-input bg-gray-50" readonly>
@@ -1015,15 +1022,67 @@ const AccountIdModal = {
               <label class="text-sm font-medium text-gray-600 mb-1 block">新账户ID</label>
               <input id="new-account-id" type="text" placeholder="至少3个字符" minlength="3" class="form-input">
             </div>
+            <button onclick="AccountSettingsModal.submitAccountId()" class="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-base transition-colors active:scale-[0.98] shadow-lg shadow-green-200">
+              确认修改
+            </button>
           </div>
 
-          <button onclick="AccountIdModal.submit()" class="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-base transition-colors active:scale-[0.98] shadow-lg shadow-green-200">
-            确认修改
-          </button>
+          <!-- 修改密码 -->
+          <div id="panel-password" class="space-y-3 hidden">
+            <div>
+              <label class="text-sm font-medium text-gray-600 mb-1 block">旧密码</label>
+              <div class="relative">
+                <input id="old-password" type="password" placeholder="请输入旧密码" class="form-input pr-10">
+                <button type="button" onclick="AccountSettingsModal.togglePassword('old-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2">
+                  <span class="material-symbols-outlined text-gray-400 text-xl">visibility_off</span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600 mb-1 block">新密码</label>
+              <div class="relative">
+                <input id="new-password" type="password" placeholder="至少6位" minlength="6" class="form-input pr-10">
+                <button type="button" onclick="AccountSettingsModal.togglePassword('new-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2">
+                  <span class="material-symbols-outlined text-gray-400 text-xl">visibility_off</span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-gray-600 mb-1 block">确认新密码</label>
+              <div class="relative">
+                <input id="confirm-password" type="password" placeholder="再次输入新密码" minlength="6" class="form-input pr-10">
+                <button type="button" onclick="AccountSettingsModal.togglePassword('confirm-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2">
+                  <span class="material-symbols-outlined text-gray-400 text-xl">visibility_off</span>
+                </button>
+              </div>
+            </div>
+            <button onclick="AccountSettingsModal.submitPassword()" class="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-base transition-colors active:scale-[0.98] shadow-lg shadow-green-200">
+              确认修改
+            </button>
+          </div>
         </div>
       </div>
     `;
     document.body.insertAdjacentHTML('beforeend', html);
+  },
+
+  switchTab(tab) {
+    const tabId = document.getElementById('tab-account-id');
+    const tabPwd = document.getElementById('tab-password');
+    const panelId = document.getElementById('panel-account-id');
+    const panelPwd = document.getElementById('panel-password');
+
+    if (tab === 'accountId') {
+      tabId.className = 'flex-1 py-2.5 rounded-lg text-sm font-bold text-green-700 bg-white shadow-sm transition-all';
+      tabPwd.className = 'flex-1 py-2.5 rounded-lg text-sm font-medium text-gray-500 transition-all';
+      panelId.classList.remove('hidden');
+      panelPwd.classList.add('hidden');
+    } else {
+      tabId.className = 'flex-1 py-2.5 rounded-lg text-sm font-medium text-gray-500 transition-all';
+      tabPwd.className = 'flex-1 py-2.5 rounded-lg text-sm font-bold text-green-700 bg-white shadow-sm transition-all';
+      panelId.classList.add('hidden');
+      panelPwd.classList.remove('hidden');
+    }
   },
 
   async open() {
@@ -1032,21 +1091,38 @@ const AccountIdModal = {
     try {
       const user = await API.user.getProfile();
       document.getElementById('current-account-id').value = user.accountId || '';
-      document.getElementById('new-account-id').value = '';
     } catch (e) {
       console.error('获取用户信息失败:', e);
     }
 
-    document.getElementById('account-id-overlay').classList.add('active');
-    document.getElementById('account-id-modal').classList.add('active');
+    document.getElementById('new-account-id').value = '';
+    document.getElementById('old-password').value = '';
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-password').value = '';
+    this.switchTab('accountId');
+
+    document.getElementById('account-settings-overlay').classList.add('active');
+    document.getElementById('account-settings-modal').classList.add('active');
   },
 
   close() {
-    document.getElementById('account-id-overlay').classList.remove('active');
-    document.getElementById('account-id-modal').classList.remove('active');
+    document.getElementById('account-settings-overlay').classList.remove('active');
+    document.getElementById('account-settings-modal').classList.remove('active');
   },
 
-  async submit() {
+  togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon = btn.querySelector('.material-symbols-outlined');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.textContent = 'visibility';
+    } else {
+      input.type = 'password';
+      icon.textContent = 'visibility_off';
+    }
+  },
+
+  async submitAccountId() {
     const newAccountId = document.getElementById('new-account-id').value.trim();
 
     if (!newAccountId) {
@@ -1064,9 +1140,7 @@ const AccountIdModal = {
       if (res.success) {
         this.close();
         Utils.showToast('账户ID修改成功！');
-        // 更新 localStorage
         localStorage.setItem('accountId', newAccountId);
-        // 使用返回的数据更新页面
         if (res.data && typeof updateProfileDisplay === 'function') {
           updateProfileDisplay(res.data);
         }
@@ -1076,93 +1150,9 @@ const AccountIdModal = {
     } catch (e) {
       Utils.showToast('网络错误，请重试');
     }
-  }
-};
-
-/**
- * 修改密码弹窗
- */
-const PasswordModal = {
-  injectHTML() {
-    if (document.getElementById('password-modal')) return;
-    const html = `
-      <div id="password-overlay" class="modal-overlay" onclick="PasswordModal.close()"></div>
-      <div id="password-modal" class="bottom-sheet">
-        <div class="sheet-handle"><span></span></div>
-        <div class="px-5 pb-5">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-bold text-gray-800">修改密码</h3>
-            <button onclick="PasswordModal.close()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-              <span class="material-symbols-outlined text-gray-500">close</span>
-            </button>
-          </div>
-
-          <div class="space-y-3 mb-5">
-            <div>
-              <label class="text-sm font-medium text-gray-600 mb-1 block">旧密码</label>
-              <div class="relative">
-                <input id="old-password" type="password" placeholder="请输入旧密码" class="form-input pr-10">
-                <button type="button" onclick="PasswordModal.togglePassword('old-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2">
-                  <span class="material-symbols-outlined text-gray-400 text-xl">visibility_off</span>
-                </button>
-              </div>
-            </div>
-            <div>
-              <label class="text-sm font-medium text-gray-600 mb-1 block">新密码</label>
-              <div class="relative">
-                <input id="new-password" type="password" placeholder="至少6位" minlength="6" class="form-input pr-10">
-                <button type="button" onclick="PasswordModal.togglePassword('new-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2">
-                  <span class="material-symbols-outlined text-gray-400 text-xl">visibility_off</span>
-                </button>
-              </div>
-            </div>
-            <div>
-              <label class="text-sm font-medium text-gray-600 mb-1 block">确认新密码</label>
-              <div class="relative">
-                <input id="confirm-password" type="password" placeholder="再次输入新密码" minlength="6" class="form-input pr-10">
-                <button type="button" onclick="PasswordModal.togglePassword('confirm-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2">
-                  <span class="material-symbols-outlined text-gray-400 text-xl">visibility_off</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <button onclick="PasswordModal.submit()" class="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-base transition-colors active:scale-[0.98] shadow-lg shadow-green-200">
-            确认修改
-          </button>
-        </div>
-      </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', html);
   },
 
-  open() {
-    this.injectHTML();
-    document.getElementById('old-password').value = '';
-    document.getElementById('new-password').value = '';
-    document.getElementById('confirm-password').value = '';
-    document.getElementById('password-overlay').classList.add('active');
-    document.getElementById('password-modal').classList.add('active');
-  },
-
-  close() {
-    document.getElementById('password-overlay').classList.remove('active');
-    document.getElementById('password-modal').classList.remove('active');
-  },
-
-  togglePassword(inputId, btn) {
-    const input = document.getElementById(inputId);
-    const icon = btn.querySelector('.material-symbols-outlined');
-    if (input.type === 'password') {
-      input.type = 'text';
-      icon.textContent = 'visibility';
-    } else {
-      input.type = 'password';
-      icon.textContent = 'visibility_off';
-    }
-  },
-
-  async submit() {
+  async submitPassword() {
     const oldPassword = document.getElementById('old-password').value;
     const newPassword = document.getElementById('new-password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
@@ -1203,8 +1193,7 @@ window.Utils = Utils;
 window.AddRecordModal = AddRecordModal;
 window.EditProfileModal = EditProfileModal;
 window.AvatarModal = AvatarModal;
-window.AccountIdModal = AccountIdModal;
-window.PasswordModal = PasswordModal;
+window.AccountSettingsModal = AccountSettingsModal;
 window.PAGES = PAGES;
 
 // 页面加载完成后初始化

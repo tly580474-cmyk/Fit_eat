@@ -215,20 +215,9 @@
   <script src="../js/common.js"></script>
   <script src="../js/components.js"></script>
   <script>
-    const allRecipes = [
-      { id: 1, name: '牛油果水波蛋活力碗', calories: 345, protein: 18, type: 'breakfast', tags: ['高蛋白', '低GI'], time: '15分钟', difficulty: '简单',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBWCoRWf35e_dNWXLpeZWhsKHgeY-zVv6EnjN3c0eM1AtF7MMoxOmUVW8-l1TrlyxiJ6kIgMGlnoXb9LhqJphxsIRFMS4y2mm49SGlUhx1-8ocpAS1TPq9eaZ0qG6LSDTjkSApI7sABbITnQf4PCA5W1IxMklQvdoLN--JgjkouYb2KztGNCOg3tTO-p-Rh0HdzAvCn9OaeY7zX1tDDm72_YgsTVvlOqlUeTq_U1_cxgLAMZo68BYBYbUfSM483xHtlIWveDQpdMco7' },
-      { id: 2, name: '蓝莓坚果酸奶碗', calories: 320, protein: 18, type: 'breakfast', tags: ['高蛋白', '免煮'], time: '5分钟', difficulty: '简单',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCBryIQ5tZE6o2ofnuhWPvxu4hm-dZ3a_HCwxoyk40yKzizC7m6z_bby013e8905S1nW8gkIb4G4iN800sM1L2FtY1QqPwdaGd9u5a1y8MBp0gFFawuRyxjK6gFQ8NuaFBixNSDxpkH81e2NUOd5DFiCpEyDGpMh5EcK663YjBr0kw9vOey4MofsioB9TVKIKUV0B4WqWVwwoLGOBZMB7r_ttlGoq6jaCQIM2ma5GXC5GE4ShomIn8uKCk9tGYbOsqtOMSx_9Y5-zmd' },
-      { id: 3, name: '嫩煎鸡胸肉沙拉', calories: 450, protein: 35, type: 'lunch', tags: ['低GI', '优质脂'], time: '20分钟', difficulty: '简单',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBL22umvGsNCB29_UWSHOsvz3kAZT1Er0GAiWiKDgMOnPloyGMkPtgtdE6KjW_dOyCsGRTj4keyazSBCis4YOmau38boWMntEEUjBQkd_4B9g49WUTQPbbkPdQELD2EGEsW-aalvMmLoffgQThhIDjWxOdvhSQNwNSf2A0abZD-y3YT8ccaLtsx7JxgcOksZes8xJxTTSM4Q9UWIxn_MTLEykY4hF0X34MWPFmdjr76BYHhl78mG1WtgflGY7_dP35J2THL8BUE8gs7' },
-      { id: 4, name: '香煎鸡胸肉暖沙拉', calories: 450, protein: 35, type: 'lunch', tags: ['低GI', '优质脂'], time: '25分钟', difficulty: '中等',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjGXnKNraI9Y9odxH3H01c68BCw52UaGtQd__F72qBuinX5EAa1VyfojRVx3cMRigCirJ8S2z-7RxKFbqPvtrLrxUqsr2OMRwMyEMcM-N248HY4yoMbAH3uVXQLqv-9j332Vfb3woCcnvil8bSiV4-HO9E2Q6d3kb6loNfw4op2dFJ-FEvjXg7Qu-B9yQp8UHiMBpmPqrwg3n_qHfW2qWi37MY1vSV_7TibDcPP1evXqZwZRp-YGdS0FKFzHP7Z5aJAB5SIxQmFnWc' },
-      { id: 5, name: '柠檬香煎三文鱼配芦笋', calories: 380, protein: 28, type: 'dinner', tags: ['Omega-3', '低碳水'], time: '15分钟', difficulty: '中等',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD6UlzqXdAvKEfShYuVrgLEmA6aSxCuuWjQzOYdQQri6Hcg90TMy189kWAeLts5cUqPN286U__KXEpJTBr-l0ttIOpnncwIAr9npIxcMEyyzViGuHu_H3uo-a5HGUVE7sPRhgUqmdTSxZm0NkT3lCvKgm8gc02QsAhkc1pOjrg2TASErtHl4Az-m7r0KJuCipjLcXX2iAZT0YPMIJMX64NCep390-lkWjfFpcDjuqTBK4TtMfMSs95O4ejoFkPKLVpNKs5RqKoa5qvG' },
-      { id: 6, name: '混合坚果与苹果片', calories: 180, protein: 5, type: 'snack', tags: ['高纤维'], time: '3分钟', difficulty: '简单',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjGXnKNraI9Y9odxH3H01c68BCw52UaGtQd__F72qBuinX5EAa1VyfojRVx3cMRigCirJ8S2z-7RxKFbqPvtrLrxUqsr2OMRwMyEMcM-N248HY4yoMbAH3uVXQLqv-9j332Vfb3woCcnvil8bSiV4-HO9E2Q6d3kb6loNfw4op2dFJ-FEvjXg7Qu-B9yQp8UHiMBpmPqrwg3n_qHfW2qWi37MY1vSV_7TibDcPP1evXqZwZRp-YGdS0FKFzHP7Z5aJAB5SIxQmFnWc' },
-    ];
+    let allRecipes = [];
+    let currentPage = 1;
+    let totalPages = 1;
 
     const ingredients = [
       { name: '鸡胸肉', benefit: '高蛋白低脂', icon: 'set_meal', color: 'orange' },
@@ -262,6 +251,20 @@
       snack: 'bg-purple-100 text-purple-700'
     };
 
+    const typeBgColors = {
+      breakfast: 'bg-green-50',
+      lunch: 'bg-orange-50',
+      dinner: 'bg-blue-50',
+      snack: 'bg-purple-50'
+    };
+
+    const typeTextColors = {
+      breakfast: 'text-green-400',
+      lunch: 'text-orange-400',
+      dinner: 'text-blue-400',
+      snack: 'text-purple-400'
+    };
+
     const typeNames = {
       breakfast: '早餐',
       lunch: '午餐',
@@ -272,11 +275,30 @@
     let currentFilter = 'all';
     let searchTimer = null;
 
-    function initPage() {
-      renderRecipes(allRecipes);
+    async function initPage() {
+      await loadRecipes('all');
       renderIngredients();
       renderHealthArticles();
       renderDailyTip();
+    }
+
+    async function loadRecipes(mealType, page = 1) {
+      const container = document.getElementById('featured-recipes');
+      container.innerHTML = '<div class="col-span-2 flex justify-center py-8"><div class="w-8 h-8 border-2 border-green-200 border-t-green-600 rounded-full animate-spin"></div></div>';
+
+      try {
+        const data = await API.food.getList(page, mealType);
+        allRecipes = data.items.map(f => ({
+          id: f.id, name: f.name, calories: f.calories, protein: f.protein,
+          type: f.mealType, tags: f.tags || [], time: f.prepTime || '', difficulty: f.difficulty || '简单',
+          image: f.image || ''
+        }));
+        currentPage = data.page;
+        totalPages = data.pages;
+        renderRecipes(allRecipes);
+      } catch (err) {
+        container.innerHTML = '<p class="col-span-2 text-center text-gray-400 py-8">加载失败，请重试</p>';
+      }
     }
 
     function renderRecipes(recipes) {
@@ -288,24 +310,47 @@
       container.innerHTML = recipes.map(recipe => `
         <div class="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover transition-all cursor-pointer flex"
              onclick="goToFoodDetail(${recipe.id})">
-          <div class="w-2/5 h-40 overflow-hidden flex-shrink-0">
-            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="${recipe.image}" alt="${recipe.name}"
-                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij48cmVjdCB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIGZpbGw9IiNlMmUyZTIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzZmN2E2YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuivrTwvdGV4dD48L3N2Zz4='">
+          <div class="w-2/5 h-40 overflow-hidden flex-shrink-0 relative">
+            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 absolute inset-0 z-10"
+                 src="${recipe.image || ''}" alt="${recipe.name}"
+                 style="${recipe.image ? '' : 'display:none'}"
+                 onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="w-full h-full flex items-center justify-center ${typeBgColors[recipe.type] || 'bg-gray-100'}"
+                 style="${recipe.image ? 'display:none' : ''}">
+              <span class="text-3xl font-bold ${typeTextColors[recipe.type] || 'text-gray-400'}">${recipe.name.charAt(0)}</span>
+            </div>
           </div>
-          <div class="p-4 flex-1 flex flex-col justify-between">
+          <div class="p-4 flex-1 flex flex-col justify-between min-w-0">
             <div>
-              <span class="${typeColors[recipe.type]} px-2 py-0.5 rounded-full text-[10px] font-bold">${typeNames[recipe.type]}</span>
-              <h4 class="font-bold text-gray-800 mt-2 text-sm">${recipe.name}</h4>
+              <span class="${typeColors[recipe.type] || 'bg-gray-100 text-gray-600'} px-2 py-0.5 rounded-full text-[10px] font-bold">${typeNames[recipe.type] || recipe.type}</span>
+              <h4 class="font-bold text-gray-800 mt-2 text-sm truncate">${recipe.name}</h4>
             </div>
             <div>
               <p class="text-xs text-gray-500 mb-2">${recipe.calories} kcal · 蛋白质 ${recipe.protein}g</p>
-              <div class="flex gap-2">
-                ${recipe.tags.map(tag => `<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${tag}</span>`).join('')}
+              <div class="flex gap-1 flex-wrap">
+                ${recipe.tags.slice(0, 3).map(tag => `<span class="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">${tag}</span>`).join('')}
               </div>
             </div>
           </div>
         </div>
       `).join('');
+
+      // 分页按钮
+      if (totalPages > 1) {
+        container.innerHTML += `
+          <div class="col-span-2 flex justify-center gap-2 py-4">
+            ${currentPage > 1 ? `<button onclick="changePage(${currentPage - 1})" class="px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm hover:bg-gray-50">上一页</button>` : ''}
+            <span class="px-4 py-2 text-sm text-gray-500">${currentPage} / ${totalPages}</span>
+            ${currentPage < totalPages ? `<button onclick="changePage(${currentPage + 1})" class="px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm hover:bg-gray-50">下一页</button>` : ''}
+          </div>
+        `;
+      }
+    }
+
+    async function changePage(page) {
+      await loadRecipes(currentFilter, page);
+      document.getElementById('featured-recipes').scrollIntoView({ behavior: 'smooth' });
     }
 
     function renderIngredients() {
@@ -343,13 +388,9 @@
       document.getElementById('daily-tip').textContent = tip;
     }
 
-    function filterByMeal(type) {
+    async function filterByMeal(type) {
       currentFilter = type;
-      if (type === 'all') {
-        renderRecipes(allRecipes);
-      } else {
-        renderRecipes(allRecipes.filter(r => r.type === type));
-      }
+      await loadRecipes(type);
     }
 
     function debounceSearch() {

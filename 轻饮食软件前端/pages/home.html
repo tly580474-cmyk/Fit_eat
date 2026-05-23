@@ -266,15 +266,25 @@
           API.user.getProfile()
         ]);
 
+        // 检查是否有未登录错误
+        if (user && user.success === false) {
+          window.location.href = 'login.html';
+          return;
+        }
+
         pageData = { calories, meals, macros, records };
 
-        renderCalorieRing(calories);
-        renderSidebarCalories(calories, macros);
-        renderMeals(meals);
-        renderMacros(macros);
-        renderRecords(records);
+        if (calories && calories.target !== undefined) renderCalorieRing(calories);
+        if (calories && calories.target !== undefined) renderSidebarCalories(calories, macros);
+        if (Array.isArray(meals)) renderMeals(meals);
+        if (macros && macros.protein) renderMacros(macros);
+        if (Array.isArray(records)) renderRecords(records);
       } catch (error) {
         console.error('加载数据失败:', error);
+        // 网络错误或认证失败时，清除无效 token 并跳转登录页
+        localStorage.removeItem('token');
+        localStorage.removeItem('accountId');
+        window.location.href = 'login.html';
       }
     }
 

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻食刻 - 我的动态</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#006e1c',
+            'primary-container': '#4caf50',
+            secondary: '#8b5000',
+            surface: '#f9f9f9',
+          },
+          borderRadius: { 'huge': '1.5rem' }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .post-card { transition: all 0.2s ease; }
+    .post-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+    .delete-confirm-overlay { backdrop-filter: blur(4px); }
+  </style>
+</head>
+<body class="bg-gray-50 pb-24 lg:pb-8">
+
+  <!-- 顶部导航栏 -->
+  <header class="top-app-bar">
+    <div class="flex justify-between items-center px-4 md:px-6 h-16 w-full max-w-7xl mx-auto">
+      <div class="flex items-center gap-3">
+        <button onclick="history.back()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+          <span class="material-symbols-outlined text-gray-700">arrow_back</span>
+        </button>
+        <h1 class="font-bold text-xl text-gray-800">我的动态</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容 -->
+  <main class="pt-20 px-4 md:px-6 max-w-3xl mx-auto">
+
+    <!-- 动态统计 -->
+    <div id="post-stats" class="mb-6 hidden">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-green-600 text-2xl">article</span>
+          <div>
+            <p class="text-sm text-gray-500">共发布</p>
+            <p class="text-2xl font-bold text-gray-800"><span id="total-posts">0</span> <span class="text-sm font-normal text-gray-500">条动态</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 动态列表 -->
+    <div id="posts-container" class="space-y-4">
+      <!-- 动态加载 -->
+    </div>
+
+    <!-- 加载更多 -->
+    <div id="load-more" class="text-center py-6 hidden">
+      <button onclick="loadMorePosts()" class="px-6 py-2.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
+        加载更多
+      </button>
+    </div>
+
+    <!-- 空状态 -->
+    <div id="empty-state" class="hidden">
+      <div class="flex flex-col items-center justify-center py-20">
+        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-gray-400 text-4xl">edit_note</span>
+        </div>
+        <p class="text-gray-500 text-lg font-medium mb-2">还没有发布过动态</p>
+        <p class="text-gray-400 text-sm mb-6">去社区分享你的健康生活吧</p>
+        <a href="community.html" class="px-6 py-2.5 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 transition-colors shadow-lg shadow-green-200">
+          去发布动态
+        </a>
+      </div>
+    </div>
+
+    <!-- 加载状态 -->
+    <div id="loading" class="flex justify-center py-10">
+      <div class="w-8 h-8 border-2 border-green-200 border-t-green-600 rounded-full animate-spin"></div>
+    </div>
+
+  </main>
+
+  <!-- 删除确认弹窗 -->
+  <div id="delete-overlay" class="fixed inset-0 bg-black/40 delete-confirm-overlay z-50 hidden" onclick="closeDeleteConfirm()"></div>
+  <div id="delete-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl p-6 z-50 w-[90%] max-w-sm shadow-2xl hidden">
+    <div class="text-center">
+      <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-red-500 text-2xl">delete</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800 mb-2">删除动态</h3>
+      <p class="text-gray-500 text-sm mb-6">确定要删除这条动态吗？删除后无法恢复。</p>
+      <div class="flex gap-3">
+        <button onclick="closeDeleteConfirm()" class="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+          取消
+        </button>
+        <button id="confirm-delete-btn" onclick="confirmDelete()" class="flex-1 py-2.5 bg-red-500 text-white rounded-xl text-sm font-medium hover:bg-red-600 transition-colors">
+          删除
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <span class="material-symbols-outlined text-green-400 filled">check_circle</span>
+    <span id="toast-message">操作成功</span>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/common.js"></script>
+  <script>
+    let currentPage = 1;
+    let deletingPostId = null;
+
+    async function initPage() {
+      if (!localStorage.getItem('token')) {
+        window.location.href = 'login.html';
+        return;
+      }
+      await loadPosts();
+    }
+
+    async function loadPosts() {
+      const container = document.getElementById('posts-container');
+      const loading = document.getElementById('loading');
+      const emptyState = document.getElementById('empty-state');
+      const stats = document.getElementById('post-stats');
+
+      loading.classList.remove('hidden');
+      container.innerHTML = '';
+      emptyState.classList.add('hidden');
+      stats.classList.add('hidden');
+
+      try {
+        const posts = await API.community.getMyPosts(1);
+        currentPage = 1;
+        loading.classList.add('hidden');
+
+        if (posts.length === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          stats.classList.remove('hidden');
+          document.getElementById('total-posts').textContent = posts.length;
+          renderPosts(posts);
+        }
+      } catch (err) {
+        loading.classList.add('hidden');
+        console.error('加载失败:', err);
+      }
+    }
+
+    async function loadMorePosts() {
+      currentPage++;
+      try {
+        const posts = await API.community.getMyPosts(currentPage);
+        if (posts.length > 0) {
+          renderPosts(posts, true);
+        } else {
+          document.getElementById('load-more').classList.add('hidden');
+          Utils.showToast('没有更多了');
+        }
+      } catch (err) {
+        console.error('加载失败:', err);
+      }
+    }
+
+    function renderPosts(posts, append = false) {
+      const container = document.getElementById('posts-container');
+      const html = posts.map(post => `
+        <div class="post-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden" id="post-${post.id}">
+          ${post.image ? `
+            <div class="aspect-[4/3] overflow-hidden">
+              <img src="${post.image}" alt="" class="w-full h-full object-cover">
+            </div>
+          ` : ''}
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2 text-xs text-gray-400">
+                <span class="material-symbols-outlined text-base">schedule</span>
+                <span>${post.time}</span>
+                ${post.category && post.category !== 'all' ? `
+                  <span class="px-2 py-0.5 bg-green-50 text-green-600 rounded-full text-xs">${getCategoryName(post.category)}</span>
+                ` : ''}
+              </div>
+              <button onclick="showDeleteConfirm(${post.id})" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-50 transition-colors group">
+                <span class="material-symbols-outlined text-gray-400 group-hover:text-red-500 text-lg">delete_outline</span>
+              </button>
+            </div>
+            <p class="text-gray-800 text-sm leading-relaxed mb-3 ${post.image ? 'line-clamp-3' : ''}">${post.content || ''}</p>
+            <div class="flex items-center gap-4 text-xs text-gray-400">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-base ${post.isLiked ? 'text-red-500' : ''}" style="${post.isLiked ? 'font-variation-settings: \'FILL\' 1;' : ''}">favorite</span>
+                ${post.likes || 0}
+              </span>
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-base">chat_bubble_outline</span>
+                ${post.comments || 0}
+              </span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      if (append) {
+        container.insertAdjacentHTML('beforeend', html);
+      } else {
+        container.innerHTML = html;
+      }
+    }
+
+    function getCategoryName(category) {
+      const names = {
+        'recipe': '减脂食谱',
+        'workout': '运动打卡',
+        'expert': '专家专栏',
+        'all': '日常分享'
+      };
+      return names[category] || category;
+    }
+
+    function showDeleteConfirm(postId) {
+      deletingPostId = postId;
+      document.getElementById('delete-overlay').classList.remove('hidden');
+      document.getElementById('delete-modal').classList.remove('hidden');
+    }
+
+    function closeDeleteConfirm() {
+      deletingPostId = null;
+      document.getElementById('delete-overlay').classList.add('hidden');
+      document.getElementById('delete-modal').classList.add('hidden');
+    }
+
+    async function confirmDelete() {
+      if (!deletingPostId) return;
+
+      const btn = document.getElementById('confirm-delete-btn');
+      btn.textContent = '删除中...';
+      btn.disabled = true;
+
+      try {
+        const res = await API.community.deletePost(deletingPostId);
+        if (res.success) {
+          Utils.showToast('已删除');
+          closeDeleteConfirm();
+          // 从页面移除该帖子卡片
+          const card = document.getElementById(`post-${deletingPostId}`);
+          if (card) {
+            card.style.transition = 'all 0.3s ease';
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => card.remove(), 300);
+          }
+          // 更新统计
+          const totalEl = document.getElementById('total-posts');
+          const newTotal = parseInt(totalEl.textContent) - 1;
+          totalEl.textContent = newTotal;
+          if (newTotal === 0) {
+            document.getElementById('empty-state').classList.remove('hidden');
+            document.getElementById('post-stats').classList.add('hidden');
+          }
+        } else {
+          Utils.showToast(res.message || '删除失败');
+        }
+      } catch (err) {
+        Utils.showToast('网络错误');
+      } finally {
+        btn.textContent = '删除';
+        btn.disabled = false;
+        deletingPostId = null;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+</body>
+</html>

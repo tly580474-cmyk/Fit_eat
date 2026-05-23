@@ -285,9 +285,19 @@
       }
     }
 
-    // 已登录则跳转首页
+    // 已登录则跳转首页（先验证 token 是否有效）
     if (localStorage.getItem('token')) {
-      window.location.href = 'home.html';
+      API.user.getProfile().then(res => {
+        if (res && res.success !== false && res.id) {
+          window.location.href = 'home.html';
+        } else {
+          localStorage.removeItem('token');
+          localStorage.removeItem('accountId');
+        }
+      }).catch(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('accountId');
+      });
     }
   </script>
 </body>
